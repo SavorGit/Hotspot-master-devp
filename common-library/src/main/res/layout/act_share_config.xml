@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:orientation="vertical"
+     >
+
+         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:text="@string/share_settings"
+                android:textSize="17sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/shareeeee_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:layout_margin="8dip"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/sina_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:clickable="true"
+                android:padding="15dp" >
+
+                <TextView
+                    android:id="@+id/sina_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:drawableLeft="@drawable/ico_sina"
+                    android:drawablePadding="5dp"
+                    android:text="@string/share_settings_sina"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/sina_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/arrow_right" />
+
+                <TextView
+                    android:id="@+id/sina_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/sina_arrow"
+                    android:layout_toRightOf="@id/sina_text"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="@string/share_settings_unbind"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <!--
+                        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="@drawable/black_line" />
+            -->
+            <RelativeLayout
+                android:id="@+id/qq_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:clickable="true"
+                android:padding="15dp" >
+
+                <TextView
+                    android:id="@+id/qq_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:drawableLeft="@drawable/ico_qq"
+                    android:drawablePadding="5dp"
+                    android:text="@string/share_settings_tenxun"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/qq_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/arrow_right" />
+
+                <TextView
+                    android:id="@+id/qq_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/qq_arrow"
+                    android:layout_toRightOf="@id/qq_text"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="@string/share_settings_unbind"
+			        android:textSize="16sp" />
+            </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

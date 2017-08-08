@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_dots"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_dot_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+
+            android:background="@drawable/view_dot_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/view_dot_gray"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_la"
+        android:layout_width="85dp"
+        android:layout_height="35dp"
+        android:background="#00f6f2ed"
+        android:layout_above="@id/ll_dots"
+        android:layout_marginBottom="2dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/btn_start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/corner_remote_view_g"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="立即开启"
+                android:textColor="@color/color_main"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent"
+    android:background="@color/white">
+
+    <!--<ImageView-->
+        <!--android:visibility="visible"-->
+        <!--android:id="@+id/iv_splash"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@drawable/splash" />-->
+
+    <ImageView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/text_splash"
+        android:visibility="gone" />
+    <SurfaceView
+        android:visibility="gone"
+        android:id="@+id/surfaceView"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <ImageView
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_start_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

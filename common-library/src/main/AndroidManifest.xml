@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.common.api"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="15" />
+    
+         <activity android:name="com.common.api.widget.shareWidget.ShareToSina"/>
+         <activity android:name="com.common.api.widget.shareWidget.ShareToTenXunWeibo"/>
+         <activity android:name="com.common.api.widget.shareWidget.ShareToWeiXin"/>
+         <activity android:name="com.common.api.widget.shareWidget.ShareEditActivity"/>
+         <activity android:name="com.common.api.widget.shareWidget.ShareConfigActivity"/>
+         
+         <activity android:name="com.tencent.weibo.sdk.android.component.Authorize" 
+             	   android:theme="@android:style/Theme.NoTitleBar"/>
+
+</manifest>
+ 

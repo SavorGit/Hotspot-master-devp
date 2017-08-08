@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/subtitle_layout"
+        layout="@layout/layout_head_title"/>
+    <com.savor.savorphone.widget.DefaultWebView
+        android:id="@+id/webview_custom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subtitle_layout" />
+
+    <com.savor.savorphone.widget.ProgressBarView
+        android:id="@+id/pbv_loading"
+        android:layout_below="@id/subtitle_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

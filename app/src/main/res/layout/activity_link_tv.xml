@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="235dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ljds_bg"/>
+
+    <TextView
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
+        android:id="@+id/wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_main_bg"
+        android:text="wifi : V009"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/finish"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/back3x"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layout_num"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_below="@id/wifi"
+        android:background="@color/color_main"
+        android:layout_marginTop="173dp">
+
+        <RelativeLayout
+
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="47dp"
+            android:layout_alignParentLeft="true">
+
+            <ImageView
+                android:id="@+id/iv_1"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="#ca8c3b"/>
+            <TextView
+                android:id="@+id/t1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_centerInParent="true"
+                android:lines="1"
+                android:maxLines="1"
+
+                android:textColor="@color/color_main"
+                android:background="@color/color_main_bg"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:id="@+id/iv_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:background="#ca8c3b"/>
+            <TextView
+                android:id="@+id/t2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:textColor="@color/color_main"
+                android:layout_centerInParent="true"
+                android:background="@color/color_main_bg"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLines="1" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="47dp">
+            <ImageView
+                android:id="@+id/iv_3"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="#ca8c3b"/>
+            <TextView
+                android:id="@+id/t3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="40sp"
+                android:textColor="@color/color_main"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_centerInParent="true"
+                android:lines="1"
+                android:background="@color/color_main_bg"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/link_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_num"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:padding="1dp"
+        android:textColor="@color/white"
+        android:text="请输入电视中的三位数连接电视"
+        android:layout_marginBottom="15dp"/>
+
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/relink_la"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_num"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/la_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:padding="1dp"
+            android:textColor="@color/white"
+            android:layout_alignParentLeft="true"
+            android:text="连接失败，"
+            />
+        <TextView
+            android:id="@+id/relink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:padding="1dp"
+            android:layout_toRightOf="@id/la_tv"
+            android:textColor="@color/white"
+            android:text="重新连接？"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/keyboard_la"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:background="@color/color_main"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="54dp">
+            <TextView
+                android:id="@+id/num_one"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="1"
+                android:background="@drawable/num_selector"
+                />
+            <TextView
+                android:id="@+id/num_two"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+               android:layout_centerInParent="true"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="2"
+                android:background="@drawable/num_selector"
+                />
+
+            <TextView
+                android:id="@+id/num_three"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentRight="true"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_marginRight="40dp"
+                android:text="3"
+                android:background="@drawable/num_selector"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/line2"
+            android:layout_below="@id/line1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="54dp">
+            <TextView
+                android:id="@+id/num_four"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:gravity="center"
+                android:text="4"
+                android:background="@drawable/num_selector"
+                />
+            <TextView
+                android:id="@+id/num_five"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="5"
+                android:background="@drawable/num_selector"
+                />
+
+            <TextView
+                android:id="@+id/num_six"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+               android:layout_marginRight="40dp"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="6"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/num_selector"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/line3"
+            android:layout_below="@id/line2"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="54dp">
+            <TextView
+                android:id="@+id/num_seven"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="7"
+                android:background="@drawable/num_selector"
+                />
+            <TextView
+                android:id="@+id/num_eight"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="8"
+                android:background="@drawable/num_selector"
+                />
+
+            <TextView
+                android:id="@+id/num_nine"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:textSize="29sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="9"
+                android:background="@drawable/num_selector"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/line4"
+            android:layout_below="@id/line3"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="54dp">
+            <TextView
+                android:id="@+id/num_standby"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="    "
+                android:background="@drawable/num_selector"
+                />
+            <TextView
+                android:id="@+id/num_zero"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="0"
+                android:background="@drawable/num_selector"
+                />
+
+            <ImageButton
+                android:id="@+id/num_del"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:textSize="29sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:src="@drawable/qingchuanxia"
+                android:background="@drawable/num_selector"
+                />
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

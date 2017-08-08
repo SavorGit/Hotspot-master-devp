@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Hotspot-master-devp.iml" filepath="$PROJECT_DIR$/Hotspot-master-devp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Pushlib/Pushlib.iml" filepath="$PROJECT_DIR$/Pushlib/Pushlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-library/common-library.iml" filepath="$PROJECT_DIR$/common-library/common-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pager-indicator-lib/pager-indicator-lib.iml" filepath="$PROJECT_DIR$/pager-indicator-lib/pager-indicator-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sector-menu-lib/sector-menu-lib.iml" filepath="$PROJECT_DIR$/sector-menu-lib/sector-menu-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/umeng-share-lib/umeng-share-lib.iml" filepath="$PROJECT_DIR$/umeng-share-lib/umeng-share-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/video-compress-library/video-compress-library.iml" filepath="$PROJECT_DIR$/video-compress-library/video-compress-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wkvideoplayer/wkvideoplayer.iml" filepath="$PROJECT_DIR$/wkvideoplayer/wkvideoplayer.iml" />
+    </modules>
+  </component>
+</project>

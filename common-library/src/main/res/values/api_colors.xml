@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="black">#000000</color>
+    <color name="black_alpha">#F2000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="api_blue">#BFEFFF</color>
+    <color name="gray_2">#DCDCDC</color>
+    <color name="green_2">#9fcb06</color>
+   
+    <color name="orange">#FFB400</color>
+    <color name="orange_light">#FF611D</color>
+    <color name="yello">#FFF68F</color>
+    <color name="list_view_bg_color">#00000000</color>
+    <color name="splash_notification_bg">#7FFF</color>
+    
+    <color name="progress_fg_top">#FFC800</color>
+    <color name="progress_fg_bottom">#F0A000</color>
+ 
+    <color name="hot3">#FF9600</color>
+   
+    <!-- 评论时间字体颜色 -->
+    <color name="short_description_color">#333333</color>
+
+    <!-- aMarket0.9 -->
+    <color name="background_color">#F0F0F0</color>
+    <color name="color_a">#E8E8E8</color>
+    <color name="color_b">#646464</color>
+    <color name="color_c">#969696</color>
+    <color name="color_d">#C8C8C8</color>
+    <color name="color_e">#FFFFFF</color>
+    <color name="color_f">#F08C00</color>
+    <color name="color_g">#FF6C00</color>
+    
+	<!-- 用于颜色选择器使用 -->
+    <drawable name="black">#6C7783</drawable>
+    <drawable name="white">#FFFFFF</drawable>
+    <drawable name="black_1">#7E8B98</drawable>
+    <drawable name="orange_1">#F05400</drawable>
+    <drawable name="black_90">#171a1f</drawable>
+    <drawable name="orange_light">#FF611D</drawable>
+    
+    <color name="black_1">#7E8B98</color>
+	<color name="orange_1">#F05400</color>
+    <!-- 城市选择列表 -->
+    <color name="base_main_bg_color">#e7e6e6</color>
+    <color name="biz_plugin_weather_text1">#ff2f2f2f</color>
+    <color name="title_bg">#D7D7D7</color>
+    <color name="location_city_hint">#FF3C00</color>
+    <color name="item_bg">#E7E6E6</color>
+    <color name="pop_text_color">#757575</color>
+    <color name="tab_text_color">#A24B2F</color>
+    <color name="tab_text_default">#bbbbbb</color>
+     <color name="vpi__background_holo_dark">#ff000000</color>
+    <color name="vpi__background_holo_light">#fff3f3f3</color>
+    <color name="vpi__bright_foreground_holo_dark">@color/vpi__background_holo_light</color>
+    <color name="vpi__bright_foreground_holo_light">@color/vpi__background_holo_dark</color>
+    <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="vpi__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <color name="vpi__bright_foreground_inverse_holo_dark">@color/vpi__bright_foreground_holo_light</color>
+    <color name="vpi__bright_foreground_inverse_holo_light">@color/vpi__bright_foreground_holo_dark</color>
+    <color name="date_color">#F0AA80</color>
+    <color name="bg_common">#E2E2E2</color>
+    <!-- 我的 -->
+    <color name="white_1">#F4F4F4</color>
+    <color name="city_title">#F3F3F3</color>
+    <color name="city_divider_color">#CECECE</color>
+    <color name="city_hot_color">#CECECE</color>
+    <color name="text_content_black">#3C3C3C</color> 
+    
+    <!-- 选择地址滚轮 -->
+    <color name="province_line_border">#C7C7C7</color>
+    <color name="transparent">#00000000</color>
+    <color name="toast_color">#D48A2C</color>
+
+    <color name="common_background">#f5f3f0</color>
+    <color name="gray">#EFEFF5</color>
+    <color name="network_hint">#BCBCBC</color>
+    <color name="color_app_bg">#f5f5f5</color>
+    <color name="color_refresh_text">#888888</color>
+</resources>

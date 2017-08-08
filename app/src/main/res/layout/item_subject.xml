@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_text_list_item"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/content_small_img"
+            android:scaleType="fitXY"
+            android:layout_width="115dp"
+            android:layout_height="80dp"
+            android:src="@drawable/kong_mrjz"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="15dp"/>
+        <RelativeLayout
+            android:layout_toLeftOf="@id/content_small_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/content_small_title"
+                android:text="美元对多数主要货币汇率20日上涨"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:gravity="center|left"
+                android:textColor="@color/color_text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_marginTop="58dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|left"
+                    android:id="@+id/content_small_time"
+                    android:text="2017-5-28"
+                    android:textSize="12dp"
+                    android:textColor="@color/color_text_info_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_main_bg"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

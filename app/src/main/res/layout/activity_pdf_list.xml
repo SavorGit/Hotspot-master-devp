@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.savor.savorphone.activity.PdfListActivity">
+
+    <include layout="@layout/layout_head_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_files"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/subtitle_layout"
+            android:divider="#e8e8e8"
+            android:dividerHeight="0.5dp" />
+
+        <com.savor.savorphone.widget.DefaultWebView
+            android:visibility="gone"
+            android:id="@+id/webview_custom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

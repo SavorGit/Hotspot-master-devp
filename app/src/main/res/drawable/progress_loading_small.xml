@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:apk="http://schemas.android.com/apk/res/android" apk:oneshot="false">
+    <item apk:drawable="@drawable/jiazai12x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai22x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai32x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai42x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai52x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai62x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai72x" apk:duration="200" />
+    <item apk:drawable="@drawable/jiazai82x" apk:duration="200" />
+</animation-list>

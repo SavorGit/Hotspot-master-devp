@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Dimension for loading drawable-->
+    <dimen name="api_space_small">6dp</dimen>
+    <dimen name="api_space_small_h">8dp</dimen>
+    <dimen name="api_space_medium">10dp</dimen>
+    <dimen name="api_space_medium_h">14dp</dimen>
+    <dimen name="api_space_large">20dp</dimen>
+    <dimen name="api_space_large_h">28dp</dimen> 
+    <dimen name="api_width_small">54dp</dimen>
+    <dimen name="api_height_small">12dp</dimen>
+    <dimen name="api_width_medium">90dp</dimen>
+    <dimen name="api_height_medium">20dp</dimen>
+    <dimen name="api_width_large">180dp</dimen>
+    <dimen name="api_height_large">40dp</dimen>
+    <dimen name="api_indicator_size">10dp</dimen>
+    <dimen name="api_indicator_step_width">16dp</dimen>
+ 	<dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">14dp</dimen>
+    <!-- 字体大小 -->
+    <dimen name="api_font_size_l">18sp</dimen>
+    <dimen name="api_font_size_m">15sp</dimen>
+    <dimen name="api_font_size_s">12sp</dimen>
+    <dimen name="api_font_size_s14">14sp</dimen>
+    <dimen name="api_font_size_dialog">16sp</dimen>
+    <dimen name="api_font_size_dialog_title">18sp</dimen>
+	
+    <!-- 城市选择列表 -->
+    <dimen name="biz_plugin_weather_selectcity_group_item_padding">14.0dip</dimen>
+    <dimen name="biz_plugin_weather_selectcity_item_textsize">13.0sp</dimen>
+    <dimen name="blade_view_text_size">11dip</dimen>
+</resources>

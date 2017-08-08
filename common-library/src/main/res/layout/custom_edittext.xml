@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageButton
+        android:id="@+id/minus_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="2.5dip"
+        android:background="@drawable/btn_minus_a"
+        android:gravity="center_vertical" />
+
+    <EditText
+        android:id="@+id/num_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="2.5dip"
+        android:digits="1234567890"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="5"
+        android:maxWidth="75dp"
+        android:minWidth="55dp"
+        android:background="@drawable/goods_edit_num"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="1" >
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/plus_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/btn_plus"
+        android:gravity="center_vertical" />
+
+</LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll_parent"
+    android:layout_height="110dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_marginRight="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="110dip"
+            android:layout_height="wrap_content">
+
+            <com.savor.savorphone.widget.CustomCoverView
+                android:id="@+id/cover_img"
+                android:layout_width="110dip"
+                android:layout_height="110dip"
+                android:background="@drawable/albums_bg"
+                android:paddingBottom="30dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:paddingTop="18dip"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kong_mrjz" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试(30)"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_update_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:gravity="center"
+                android:text="更新时间：2016/11/1"
+                android:visibility="gone"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/arraw_right"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@color/app_divider"
+            android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

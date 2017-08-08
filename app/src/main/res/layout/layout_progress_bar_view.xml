@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/backgroundRL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main_bg"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/loadingRL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true">
+
+                <ProgressBar
+                    android:id="@+id/pb_loading"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="71.5dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:indeterminate="true"
+                    android:indeterminateDrawable="@drawable/progress_loading"
+                    android:visibility="visible" />
+
+                <!--<ImageView
+                    android:id="@+id/loadingIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_launcher"/>-->
+                <!--android:background="@anim/progress_loading" -->
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/errorIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tipTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/progressbar_repeatload"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/tipImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/jiazai_slogan"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/nextActivityButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>

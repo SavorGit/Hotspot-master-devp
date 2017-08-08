@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/layout_head_title"/>
+
+    <ScrollView
+        android:id="@+id/my_scroll"
+        android:layout_below="@id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/up_layout"
+                android:layout_width="match_parent"
+                android:layout_height="370dp"
+                android:background="@drawable/zajindan_bg1">
+                <ImageView
+                    android:layout_width="384dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/zdwenan"
+                    />
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/iv_egg_second"
+                    android:layout_marginBottom="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/jindan"/>
+                <ImageView
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="18dp"
+                    android:id="@+id/iv_egg_first"
+                    android:layout_marginBottom="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/jindan"/>
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/iv_egg_third"
+                    android:layout_marginBottom="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/jindan"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_hint"
+                android:layout_below="@id/up_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zajindan_bg2">
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fbeed9"
+                    android:gravity="center"
+                    android:text="您还有1次机会"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                   android:layout_alignParentRight="true"
+                    android:layout_below="@id/num"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/share"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/zd_yqhy"/>
+                <ImageView
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/num"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/record"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/zd_zjjl"/>
+
+
+
+                <RelativeLayout
+                    android:id="@+id/state_la"
+                    android:layout_below="@id/share"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="270dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentTop="true"
+                        android:background="#f3ebdb"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#f3ebdb"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="270dp"
+                        android:layout_alignParentRight="true"
+                        android:background="#f3ebdb"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="270dp"
+                        android:layout_alignParentLeft="true"
+                        android:background="#f3ebdb"/>
+
+
+                    <TextView
+                        android:id="@+id/state_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/youxigz_bg"
+                        android:textSize="17sp"
+                        android:textColor="#222222"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="游戏规则"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/state_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:gravity="center|left"
+                        android:textSize="15sp"
+                        android:layout_marginTop="20dp"
+                        android:padding="8dp"
+                        android:text="1.此游戏为手机电视同步互动游戏，参与此活动者须先连接电视；"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/state_pic"
+                        />
+
+                    <TextView
+                        android:id="@+id/state_2"
+                        android:layout_below="@id/state_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:gravity="center|left"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        android:padding="8dp"
+                        android:text="2.每个用户可连接电视后，可选择上面任意一个蛋砸开；"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/state_3"
+                        android:layout_below="@id/state_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:gravity="left"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        android:padding="8dp"
+                        android:text="3.每个手机每天可以参与五次砸蛋；"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                </RelativeLayout>
+                <TextView
+                    android:layout_below="@id/state_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:layout_marginTop="100dp"
+                    android:padding="8dp"
+                    android:text="本活动最终解释权归“小热点”所有"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/time_la"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5000000"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="65sp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/shake_la"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5000000"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/shake_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/yaoyiyao"
+            android:layout_centerHorizontal="true"
+            />
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/hammer"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hammer"
+                />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_waterlogging"
+                android:layout_below="@id/hammer"
+                android:layout_marginTop="-50dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/waterlogging"
+                />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/close_shake_la"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
+            android:src="@drawable/yao_guanbi"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/result_la"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5000000"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/result_info_la"
+            android:background="@drawable/zjjg_bg"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/result_title"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:text="中奖状态"
+                android:textColor="#fffaeb"/>
+            <TextView
+                android:layout_below="@id/result_title"
+                android:layout_marginTop="16dp"
+                android:id="@+id/user_name"
+                android:text="user_name"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#e14d43"
+                android:layout_marginLeft="15dp"/>
+
+
+            <ImageView
+                android:id="@+id/result_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/user_name"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/yidj"
+                />
+            <TextView
+                android:layout_below="@id/result_info"
+                android:layout_marginTop="3dp"
+                android:visibility="gone"
+                android:textSize="12sp"
+                android:id="@+id/result_time"
+                android:text="result_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#e14d43"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                android:id="@+id/result_log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="58dp"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="您可邀请朋友参加此活动哦～"
+                android:layout_below="@id/result_info"
+                android:textColor="#676767"/>
+            <RelativeLayout
+                android:id="@+id/result_log_la"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/result_info"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/result_log_a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="快去找服务员领取奖品吧"
+                    android:textColor="#676767"/>
+                <TextView
+                    android:id="@+id/result_log_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.5dp"
+                    android:layout_below="@id/result_log_a"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:text="有效领奖时间1小时,"
+                    android:textColor="#676767"/>
+                <TextView
+                    android:id="@+id/result_log_c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.5dp"
+                    android:layout_below="@id/result_log_a"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:layout_toRightOf="@id/result_log_b"
+                    android:text="关闭后将无法领取"
+                    android:textColor="#e14d43"/>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="45dp"
+            android:layout_above="@id/result_info_la"
+            android:src="@drawable/zjjg_guanbi"
+
+            />
+
+        <ImageView
+            android:id="@+id/close_result"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"
+            android:layout_above="@id/result_info_la"
+
+            />
+
+
+
+    </RelativeLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_reset"
+        android:textColor="@color/white"
+        android:padding="15dp"
+        android:text="恢复机会"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

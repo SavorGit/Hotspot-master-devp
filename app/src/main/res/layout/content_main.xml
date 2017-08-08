@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.savor.savorphone.activity.HotspotMainActivity"
+    tools:showIn="@layout/app_bar_hotspot_main">
+
+    <com.gxz.PagerSlidingTabStrip
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="#777777"
+        android:textSize="16sp"
+        app:pstsDividerColor="@android:color/transparent"
+        app:pstsIndicatorColor="#202020"
+        app:pstsIndicatorHeight="2dp"
+        app:pstsShouldExpand="true"
+        app:pstsScaleZoomMax="0.1"
+        app:pstsTextSelectedColor="#444444"
+        app:pstsUnderlineColor="@android:color/transparent"
+        app:pstsSmoothScrollWhenClickTab = "false"
+         />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tablayout" />
+
+
+    <RelativeLayout
+        android:id="@+id/guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#7F000000"
+        >
+    </RelativeLayout>
+
+    <com.common.api.widget.ProgressBarView
+        android:id="@+id/pbv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

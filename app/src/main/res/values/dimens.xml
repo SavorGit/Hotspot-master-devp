@@ -1,0 +1,14 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="top_height">44.0dp</dimen>
+    <!-- xxhdpi -->
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="xlarge_text_size">16sp</dimen>
+    <dimen name="large_text_size">16sp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
+    <!--  -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="refresh_hint_height">35dp</dimen>
+</resources>

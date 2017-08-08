@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2010 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name_en">App 1.0</string>
+    <string name="api_app_name">Market Licensing Example</string>
+	<string name="more">正在载入</string>
+	<string name="drop_down">向下拉刷新</string>
+	<string name="update_time">最新刷新</string>
+	<string name="refreshing">刷新中…</string>
+	<string name="release_refresh">松开后刷新</string>
+	
+	<string name="viewpager_indicator">%1$d/%2$d</string>
+
+	<string name="weibosdk_demo_toast_auth_success">授权成功</string>
+    <string name="weibosdk_demo_toast_auth_failed">授权失败</string>
+    <string name="weibosdk_demo_toast_auth_canceled">取消授权</string>
+
+    <string name="errcode_success">发送成功</string>
+	<string name="errcode_cancel">发送取消</string>
+	<string name="errcode_deny">发送被拒绝</string>
+	<string name="errcode_unknown">发送返回</string>
+	
+	<string name="share_settings">分享设置</string>
+	<string name="share_settings_sina">微博</string>
+	<string name="share_settings_tenxun">腾讯微博</string>
+	<string name="share_settings_dounbind">解除绑定</string>
+	<string name="share_settings_unbind">未绑定</string>
+	
+	<string name="button_ok">确定</string>
+	<string name="button_cancel">取消</string>
+
+	<string name="pull_to_refresh_pull_label">下拉刷新…</string>
+    <string name="pull_to_refresh_release_label">松开立即刷新…</string>
+    <string name="pull_to_refresh_refreshing_label">加载中…</string>
+    <string name="pull_to_refresh_loadmore">加载中…</string>
+    <string name="pull_to_refresh_all">已显示全部</string>
+    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+
+
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    <RelativeLayout
+        android:id="@+id/fl_inner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ece6de"
+        >
+        <ImageView
+            android:visibility="gone"
+            android:src="@drawable/ic_header"
+            android:id="@+id/iv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:id="@+id/rl_content"
+            android:layout_below="@id/iv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/header_footer_left_right_padding"
+            android:paddingRight="@dimen/header_footer_left_right_padding"
+            android:paddingTop="@dimen/header_footer_top_bottom_padding"
+            >
+
+            <FrameLayout
+                android:layout_centerHorizontal="true"
+                android:id="@+id/fl_refresh_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/pull_to_refresh_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="0dp"
+                    android:src="@drawable/ic_header_arraw"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/pull_to_refresh_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:indeterminateDrawable="@drawable/rotate_drawable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="6dp"
+                android:layout_below="@id/fl_refresh_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/pull_to_refresh_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/savor_loading_hint"
+                    android:textColor="#999999"
+                    android:textAppearance="?android:attr/textAppearance" />
+
+                <TextView
+                    android:id="@+id/pull_to_refresh_sub_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="14sp"
+                    android:textColor="#909090"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/iv_text_hint"
+                    android:src="@drawable/jiazai_slogan"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</merge>

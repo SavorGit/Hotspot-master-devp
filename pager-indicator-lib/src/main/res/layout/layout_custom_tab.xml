@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gxz.TitleView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginRight="25dp"
+        android:id="@+id/tab"
+        tools:text="创富"
+        android:gravity="center"
+        android:singleLine="true"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_marginRight="25dp"
+        android:id="@+id/tab2"
+        android:gravity="center"
+        android:singleLine="true"
+        android:includeFontPadding="false"
+        tools:text="创富"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:text="专题"
+        android:layout_gravity="top|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</com.gxz.TitleView>

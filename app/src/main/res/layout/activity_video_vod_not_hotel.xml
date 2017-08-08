@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layer_color">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black">
+
+            <com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer
+                android:id="@+id/video_player_item"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/black" />
+
+            <ImageView
+                android:id="@+id/gesture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:src="@drawable/bg_video_gesture"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:background="@color/deep_trans"
+                android:id="@+id/finish_layer"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_marginRight="30dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="重播"
+                    android:id="@+id/replay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_video_replay" />
+
+                <TextView
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="分享"
+                    android:id="@+id/share_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:drawableTop="@drawable/ic_video_share" />
+            </LinearLayout>
+            <include
+                android:id="@+id/head_layout"
+                layout="@layout/layout_head_title" />
+
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:textColor="@color/color_ffffff"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/layout_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:id="@+id/scrollview_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="#F5F5F5"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/gray" />
+
+                <com.savor.savorphone.widget.CustomWebView
+                    android:id="@+id/webview_custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <include layout="@layout/layout_share_to" />
+            </LinearLayout>
+        </ScrollView>
+        <com.savor.savorphone.widget.ProgressBarView
+            android:id="@+id/pbv_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <com.savor.savorphone.widget.ProgressBarView
+        android:id="@+id/all_pbv_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:visibility="gone" />
+</RelativeLayout>
+
+

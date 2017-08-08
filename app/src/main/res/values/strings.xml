@@ -1,0 +1,217 @@
+<resources>
+    <string name="app_name">小热点</string>
+    <string name="projection">投屏</string>
+
+    <string name="slides">幻灯片</string>
+    <string name="my_photo">我的照片</string>
+    <string name="my_store">我的收藏</string>
+    <string name="help">帮助中心</string>
+    <string name="file_pro_step">文件投屏步骤</string>
+    <string name="clean">清除缓存</string>
+    <string name="version">当前版本</string>
+    <string name="app_info">热点儿 版权所有\nCopyright @2015-2016 Redianer Reserved</string>
+    <string name="bad_wifi">请检查网络设置</string>
+    <string name="advice">意见反馈</string>
+    <string name="hint_advice">请简要描述您的建议</string>
+    <string name="hint_contact">选填，便于我们与您联系</string>
+    <string name="my">我的</string>
+    <string name="tv_bind_wifi">请将wifi连接至</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="update_time">更新时间：%s</string>
+    <string name="loading_hint">正在更新内容...</string>
+    <string name="network_error">无法连接到网络,请检查网络设置</string>
+
+    <!--二维码-->
+    <string name="button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
+
+    <!--  -->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="click_input_text">点击输入文字</string>
+    <string name="input_text_here">在这里添加文字</string>
+    <string name="click_link_tv">请点击"连接电视",即可投屏</string>
+    <string name="link_tv">连接电视</string>
+    <string name="photo_playing"> %1$d/%2$d</string>
+    <string name="exit_projection">退出投屏</string>
+    <string name="slide_play_over">幻灯片播放已经结束</string>
+
+    <string name="progressbar_repeatload">网络异常,点击重试</string>
+    <string name="progressbar_notnet">网络开小差</string>
+    <!-- 友盟埋点 key-->
+    <string name="guide">guide</string>
+    <string name="home_sliding_category">home_sliding_category</string>
+    <string name="home_connect_tv">home_connect_tv</string>
+    <string name="video_to_screen_link_tv">video_to_screen_link_tv</string>
+    <string name="file_to_screen_list">file_to_screen_list</string>
+    <string name="file_to_screen_rotating">file_to_screen_rotating</string>
+    <string name="file_to_screen_drag">file_to_screen_drag</string>
+    <string name="file_to_screen_lock">file_to_screen_lock</string>
+    <string name="file_to_screen_back">file_to_screen_back</string>
+    <string name="file_to_screen_help">file_to_screen_help</string>
+    <string name="file_to_screen_play">file_to_screen_play</string>
+    <string name="file_to_screen_exit">file_to_screen_exit</string>
+    <string name="file_to_screen_link_tv">file_to_screen_link_tv</string>
+    <string name="file_to_screen_details_play">file_to_screen_details_play</string>
+    <string name="details_page_pause_button">details_page_pause_button</string>
+    <string name="picture_to_screen_click_item">picture_to_screen_click_item</string>
+    <string name="picture_to_screen_switch">picture_to_screen_switch</string>
+    <string name="picture_to_screen_link_tv">picture_to_screen_link_tv</string>
+    <string name="home_click_category">home_click_category</string>
+    <string name="home_click_bunch_video">home_click_bunch_video</string>
+    <string name="home_update">home_update</string>
+    <string name="home_break_connect">home_break_connect</string>
+    <string name="home_quick_entry">home_quick_entry</string>
+
+    <string name="menu_collection">menu_collection</string>
+    <string name="menu_collection_back">menu_collection_back</string>
+    <string name="menu_expand">menu_expand</string>
+    <string name="menu_collapse">menu_collapse</string>
+    <string name="menu_feedback">menu_feedback</string>
+    <string name="menu_feedback_input">menu_feedback_input</string>
+    <string name="menu_feedback_information">menu_feedback_information</string>
+    <string name="menu_feedback_back">menu_feedback_back</string>
+    <string name="menu_feedback_back_submit">menu_feedback_back_submit</string>
+    <string name="menu_help">menu_help</string>
+    <string name="menu_help_back">menu_help_back</string>
+    <string name="menu_clear_cache">menu_clear_cache</string>
+
+    <string name="details_page_share">details_page_share</string>
+    <string name="details_page_share_weixin">details_page_share_weixin</string>
+    <string name="details_page_share_weixin_friends">details_page_share_weixin_friends</string>
+    <string name="details_page_share_weixin_collection">details_page_share_weixin_collection</string>
+    <string name="details_page_share_qq">details_page_share_qq</string>
+    <string name="details_page_share_qq_zone">details_page_share_qq_zone</string>
+    <string name="details_page_share_sina">details_page_share_sina</string>
+    <string name="details_page_back">details_page_back</string>
+    <string name="details_page_play_video">details_page_play_video</string>
+    <string name="details_page_drag_progress">details_page_drag_progress</string>
+    <string name="details_page_full_screen">details_page_full_screen</string>
+    <string name="details_page_mediation_volume">details_page_mediation_volume</string>
+    <string name="details_page_sliding_progress">details_page_sliding_progress</string>
+    <string name="details_page_pause_touch">details_page_pause_touch</string>
+    <string name="details_page_mediation_clarity">details_page_mediation_clarity</string>
+    <string name="details_page_rotating_screen">details_page_rotating_screen</string>
+    <string name="details_page_article">details_page_article</string>
+
+    <string name="bunch_planting_page_share">bunch_planting_page_share </string>
+    <string name="bunch_planting_page_drag_progress">bunch_planting_page_drag_progress</string>
+    <string name="bunch_planting_page_pause_button">bunch_planting_page_pause_button</string>
+    <string name="bunch_planting_page_vol_down">bunch_planting_page_vol_down</string>
+    <string name="bunch_planting_page_vol_up">bunch_planting_page_vol_up</string>
+    <string name="bunch_planting_page_vol_mute">bunch_planting_page_vol_mute</string>
+    <string name="bunch_planting_page_exit_screen">bunch_planting_page_exit_screen</string>
+    <string name="bunch_planting_page_article">bunch_planting_page_article</string>
+    <string name="bunch_planting_page_back">bunch_planting_page_back</string>
+
+    <string name="picture_to_screen_play">picture_to_screen_play</string>
+    <string name="picture_to_screen_exit_screen">picture_to_screen_exit_screen</string>
+    <string name="picture_to_screen_add_text">picture_to_screen_add_text</string>
+    <string name="picture_to_screen_rotating">picture_to_screen_rotating</string>
+    <string name="picture_to_screen_back_list">picture_to_screen_back_list</string>
+
+    <string name="video_to_screen_back_list">video_to_screen_back_list</string>
+    <string name="video_to_screen_drag_progress">video_to_screen_drag_progress</string>
+    <string name="video_to_screen_play">video_to_screen_play</string>
+    <string name="video_to_screen_exit_screen">video_to_screen_exit_screen</string>
+    <string name="video_to_screen_pause">video_to_screen_pause</string>
+    <string name="video_to_screen_vol_down">video_to_screen_vol_down</string>
+    <string name="video_to_screen_vol_up">video_to_screen_vol_up</string>
+
+    <string name="slide_to_screen_creat">slide_to_screen_creat</string>
+    <string name="slide_to_screen_link_tv">slide_to_screen_link_tv</string>
+    <string name="slide_to_screen_play">slide_to_screen_play</string>
+    <string name="slide_to_screen_pause">slide_to_screen_pause</string>
+    <string name="slide_to_screen_switch_item">slide_to_screen_switch_item</string>
+    <string name="slide_to_screen_start">slide_to_screen_start</string>
+    <string name="slide_to_screen_exit">slide_to_screen_exit</string>
+    <string name="slide_to_screen_back">slide_to_screen_back</string>
+
+    <string name="link_tv_enter">link_tv_enter</string>
+    <string name="link_tv_input_num">link_tv_input_num</string>
+    <string name="link_tv_back">link_tv_back</string>
+
+    <string name="home_quick_back">home_quick_back</string>
+    <string name="menu_recommend">menu_recommend</string>
+    <string name="menu_recommend_page">menu_recommend_page</string>
+    <string name="menu_recommend_share_weixin">menu_recommend_share_weixin</string>
+    <string name="menu_recommend_share_weixin_friends">menu_recommend_share_weixin_friends</string>
+    <string name="menu_recommend_share_qq">menu_recommend_share_qq</string>
+    <string name="menu_recommend_sina">menu_recommend_sina</string>
+    <string name="menu_recommend_copy_link">menu_recommend_copy_link</string>
+
+
+    <string name="home_game_time_hint">home_game_time_hint</string>
+    <string name="home_game_click">home_game_click</string>
+    <string name="game_page_back">game_page_back</string>
+    <string name="game_page_choose">game_page_choose</string>
+    <string name="game_page_start_game">game_page_start_game</string>
+    <string name="game_page_hammer_back">game_page_hammer_back</string>
+    <string name="game_page_hit">game_page_hit</string>
+    <string name="game_page_result">game_page_result</string>
+    <string name="game_page_result_finish">game_page_result_finish</string>
+    <string name="game_page_recommend">game_page_recommend</string>
+
+
+    <string name="home_start">home_start</string>
+    <string name="home_find_tv">home_find_tv</string>
+    <string name="home_toscreen_state">home_toscreen_state</string>
+    <string name="receive_notification">receive_notification</string>
+    <string name="click_notification">click_notification</string>
+    <string name="menu_hotel_map_list">menu_hotel_map_list</string>
+    <string name="details_page">details_page</string>
+    <string name="details_begin_reading">details_begin_reading</string>
+    <string name="details_end_reading">details_end_reading</string>
+    <string name="to_screen_competition_hint">to_screen_competition_hint</string>
+    <string name="competitioned_hint">competitioned_hint</string>
+    <string name="hotel_map_list">hotel_map_list</string>
+    <string name="hotel_map_list_refresh">hotel_map_list_refresh</string>
+    <string name="hotel_map_list_last">hotel_map_list_last</string>
+    <string name="call_qrcode">正在呼码</string>
+    <string name="pic_delete">照片已删除</string>
+
+
+    <string name="home_local_tv">home_local_tv</string>
+    <string name="home_demand_slide_up">home_demand_slide_up</string>
+    <string name="home_demand_slide_down">home_demand_slide_down</string>
+    <string name="home_disconnect">home_disconnect</string>
+    <string name="home_quick_video">home_quick_video</string>
+    <string name="home_album_toscreen">home_album_toscreen</string>
+    <string name="home_file_toscreen">home_file_toscreen</string>
+    <string name="home_menu">home_menu</string>
+    <string name="home_slide_menu">home_slide_menu</string>
+    <string name="home_click_pic">home_click_pic</string>
+    <string name="home_click_subject">home_click_subject</string>
+
+    <string name="home_click_headlines">home_click_headlines</string>
+    <string name="menu_game">menu_game</string>
+    <string name="page_pic_vertical_rotate">page_pic_vertical_rotate</string>
+    <string name="shortcut_share_weixin">shortcut_share_weixin</string>
+    <string name="shortcut_share_weixin_friends">shortcut_share_weixin_friends</string>
+    <string name="shortcut_share_qq">shortcut_share_qq</string>
+    <string name="shortcut_share_sina">shortcut_share_sina</string>
+    <string name="details_recommended">details_recommended</string>
+    <string name="page_pic_vertical_hide">page_pic_vertical_hide</string>
+    <string name="page_pic_vertical_show">page_pic_vertical_show</string>
+
+    <string name="page_pic_landscape_hide">page_pic_landscape_hide</string>
+    <string name="page_pic_landscape_show">page_pic_landscape_show</string>
+    <string name="page_pic_landscape_rotate">page_pic_landscape_rotate</string>
+    <string name="album_toscreen_enter">album_toscreen_enter</string>
+    <string name="album_toscreen_open">album_toscreen_open</string>
+    <string name="album_toscreen_choose">album_toscreen_choose</string>
+    <string name="album_toscreen_back">album_toscreen_back</string>
+    <string name="album_toscreen_chooseall">album_toscreen_chooseall</string>
+    <string name="album_toscreen_cancel">album_toscreen_cancel</string>
+    <string name="album_toscreen_screen">album_toscreen_screen</string>
+    <string name="album_toscreen_video">album_toscreen_video</string>
+    <string name="album_toscreen_video_back">album_toscreen_video_back</string>
+    <string name="album_toscreen_video_link">album_toscreen_video_link</string>
+    <string name="the_pic_deleted">该图片不存在</string>
+
+
+</resources>

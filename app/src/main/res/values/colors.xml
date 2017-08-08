@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#202020</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="title_bg">#F2F2F2</color>
+    <color name="title_text_color">#333333</color>
+    <color name="common_background">#f5f3f0</color>
+
+    <color name="translucence_bg">#20000000</color>
+
+    <!-- 灰色 -->
+    <color name="gray">#888888</color>
+    <!--浅灰  -->
+    <color name="red">#F43531</color>
+    <color name="transparent">#00000000</color>
+    <color name="pdf_dialog_bg">#19000000</color>
+    <color name="deep_trans">#b2000000</color>
+
+    <color name="orange">#ff905b</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <!--应用灰色偏蓝背景颜色-->
+
+    <color name="app_divider">#EAEAEA</color>
+    <color name="app_text_type">#666666</color>
+
+    <!--dialog-->
+    <color name="alertdialog_line">#C6C6C6</color>
+    <color name="actionsheet_blue">#037bff</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
+    <color name="shadow">#CC222222</color>
+    <color name="color_B3000000">#B3000000</color>
+    <string name="confirm_exit_app">再按一次退出热点儿</string>
+    <color name="color_text_refresh_list_hint">#E5ffebc3</color>
+    <color name="color_app_bg">#f5f5f5</color>
+    <color name="color_refresh_text">#888888</color>
+    <color name="app_red_color">#922c3e</color>
+    <color name="color_main">#922c3e</color>
+    <color name="color_main_bg">#ece6de</color>
+    <color name="color_border">#cdc4b9</color>
+    <color name="color_text_black">#434343</color>
+    <color name="color_text_info">#575759</color>
+    <color name="color_text_info_date">#b2afab</color>
+    <color name="color_text_list_item">#f6f2ed</color>
+    <color name="color_text_gray">#666666</color>
+    <color name="color_f0922c3e">#f0922c3e</color>
+    <color name="color_ede6de">#ede6de</color>
+    <color name="color_link_text">#999590</color>
+    <color name="color_3e000000">#66000000</color>
+    <color name="color_3e5d5a55">#3e5d5a55</color>
+    <color name="color_888686">#888686</color>
+    <color name="color_share_bg">#f6f3f0</color>
+    <color name="color_share_cl_bg">#fefbf8</color>
+    <color name="color_share_text">#444444</color>
+
+</resources>

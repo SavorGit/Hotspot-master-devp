@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/top_height"
+            android:layout_height="@dimen/top_height"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back3x"
+                android:clickable="false"
+                android:visibility="gone"
+                android:focusable="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/advice"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+
+        <LinearLayout
+            android:id="@+id/send"
+            android:layout_width="@dimen/top_height"
+            android:layout_height="@dimen/top_height"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/send"
+                android:clickable="false"
+                android:visibility="gone"
+                android:focusable="false" />
+        </LinearLayout>
+    </RelativeLayout>
+    <include layout="@layout/fb_content_main" />
+
+</LinearLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_city_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/base_main_bg_color" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <include
+            android:id="@+id/search_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/search_box" />
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/search_container"
+            android:background="@android:color/white" >
+
+            <RelativeLayout
+                android:id="@+id/city_content_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+
+                <com.common.api.widget.searchView.SliderView                    android:visibility="gone"
+                    android:id="@+id/citys_bladeview"
+                    android:layout_width="30.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginRight="2dip"
+                    android:layout_marginTop="5dip" />
+				<ListView
+				    android:layout_toLeftOf="@id/citys_bladeview"
+                    android:id="@+id/content_list"
+                    style="@style/base_listview_style"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:overScrollMode="never"
+                    android:cacheColorHint="#00000000"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="@drawable/ic_detail_divider"
+                    android:scrollbars="none" />
+                <include
+                    android:id="@+id/content_list_empty"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerInParent="true"
+                    layout="@layout/base_load_empty_layout" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/search_content_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/item_bg" >
+
+                <ListView
+                    android:id="@+id/search_list"
+                    style="@style/base_listview_style"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/white"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="@drawable/ic_detail_divider"
+                    android:scrollbars="none"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/search_empty"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingTop="50dp"
+                    android:gravity="top|center_horizontal"
+                    android:background="@color/white"
+                    android:text="无结果"
+                    android:textColor="@color/gray_2"
+                    android:textSize="25sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </FrameLayout>
+    </RelativeLayout>
+
+</merge>

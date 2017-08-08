@@ -1,0 +1,2 @@
+include ':app', ':wkvideoplayer', ':video-compress-library', ':sector-menu-lib',':umeng-share-lib', ':pager-indicator-lib', ':Pushlib'
+include ':common-library'

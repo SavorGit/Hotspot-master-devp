@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#f5f5f5"/>
+
+    <RelativeLayout
+        android:id="@+id/left"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/app_icon"
+            android:scaleType="centerCrop" />
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="visible"
+            android:background="#40000000"/>
+
+        <ImageView
+            android:id="@+id/can_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="15dp"
+            android:src="@drawable/spot"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/video_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="3dp"
+            android:text=" 05'29"
+            android:background="@drawable/list_text_bg"
+            android:shadowColor="@color/title_text_color"
+            android:shadowDx ="0.5"
+            android:shadowDy ="1"
+            android:shadowRadius ="3"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:id="@+id/info_layout"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/video_type"
+            android:textColor="@color/app_text_type"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="#生活"
+            android:layout_marginLeft="12dp"/>
+
+        <TextView
+            android:id="@+id/video_name"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@id/video_type"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="视频标题"
+            android:textColor="@color/black"
+            android:textSize="@dimen/xlarge_text_size" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

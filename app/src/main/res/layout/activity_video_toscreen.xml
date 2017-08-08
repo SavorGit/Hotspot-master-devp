@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ede6de" >
+
+    <RelativeLayout
+        android:id="@+id/subtitle_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/top_height"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top|center"
+        android:visibility="gone"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/top_height"
+            android:layout_height="@dimen/top_height"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onClick" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back3x"
+                android:clickable="false"
+                android:focusable="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/video_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/top_height"
+            android:layout_toRightOf="@id/back"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="aaaaaaaaa"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/play_show"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@id/subtitle_layout">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/sptpdb_bg"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/to_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back3x"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"/>
+        <LinearLayout
+            android:id="@+id/ll_seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#99170f0e"
+            android:orientation="vertical"
+            android:paddingTop="5dp" >
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="00:00"
+                    android:textColor="#C6C3BD" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#C6C3BD" />
+
+                <SeekBar
+                    android:id="@+id/sb_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/total"
+                    android:layout_toRightOf="@id/current"
+                    android:maxHeight="4px"
+                    android:minHeight="4px"
+                    android:progressDrawable="@drawable/bg_seek_bar"
+                    android:thumb="@drawable/seek"
+                    android:thumbOffset="0dip" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/bind_type_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/play_show"
+        android:background="@color/color_text_list_item">
+        <ImageView
+            android:id="@+id/bind_ic"
+            android:layout_width="32dp"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/zanweilianjiedianshi"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_main"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/bind_ic"
+            android:layout_marginLeft="10dp"
+            android:text="尚未连接电视，请点击连接"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_link_bg">
+
+            <TextView
+                android:layout_margin="1dp"
+                android:id="@+id/tv_link"
+                android:background="@drawable/button_bg_new"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="14sp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="连接电视"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="277dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/bind_type_layout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/corner_remote_view">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/corner_remote_w_view">
+
+            <RelativeLayout
+                android:id="@+id/sptpyuan_bg"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/sptpyuanbg"
+                android:layout_marginTop="30dp">
+
+                <RelativeLayout
+                    android:id="@+id/play_type_la"
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="24dp"
+                    android:background="@drawable/sptpbfzt_selector">
+                    <TextView
+                        android:id="@+id/play"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/sptpbofang"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/finish"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/sptpanniu_selector"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="58dp"
+                android:layout_toLeftOf="@id/sptpyuan_bg"
+                android:layout_marginRight="13dp"
+                android:text="退出"
+                android:gravity="center"
+                android:textColor="@color/color_ede6de"
+
+                />
+
+            <ImageButton
+                android:id="@+id/mute"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/sptpanniu_selector"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/sptpyuan_bg"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="58dp"
+                android:src="@drawable/sptplaba_dianbo"
+                />
+
+
+            <RelativeLayout
+                android:id="@+id/vol_la"
+                android:layout_width="190dp"
+                android:layout_height="96dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sptpyuan_bg">
+                <ImageButton
+                    android:id="@+id/vol_down"
+                    android:layout_width="96dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/left_selector"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                <ImageButton
+                    android:id="@+id/vol_up"
+                    android:layout_width="96dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/right_selector"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

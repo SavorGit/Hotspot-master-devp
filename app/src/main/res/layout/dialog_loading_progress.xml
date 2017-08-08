@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:textSize="24sp"
+        android:id="@+id/tv_percent"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0%"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textColor="#27e7e3"
+        />
+
+    <TextView
+        android:id="@+id/tv_loading_hint"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/tv_percent"
+        android:text="正在压缩视频..."
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        />
+
+
+
+</RelativeLayout>

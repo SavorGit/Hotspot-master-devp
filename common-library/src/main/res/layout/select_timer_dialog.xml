@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/selector_dialog_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dip" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dip" >
+
+        <TextView
+            android:id="@+id/buttoncancle"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:textColor="@drawable/dialog_btn_text_selector"
+            android:textSize="16sp" 
+            android:text="取消" />
+        
+        <TextView
+            android:id="@+id/buttonsure"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/orange_light"
+            android:textSize="16sp" 
+            android:text="确定" />
+        
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:id="@+id/timePicker1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+             <com.tuanche.api.widget.timer.WheelView
+                android:id="@+id/year"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <com.tuanche.api.widget.timer.WheelView
+                android:id="@+id/month"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <com.tuanche.api.widget.timer.WheelView
+                android:id="@+id/day"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    
+
+</LinearLayout>

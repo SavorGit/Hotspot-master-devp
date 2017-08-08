@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_city_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/base_main_bg_color" >
+
+    <RelativeLayout
+        android:id="@+id/city_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
+
+        <com.common.api.widget.searchView.SliderView
+            android:id="@+id/citys_bladeview"
+            android:layout_width="30.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginTop="5dip"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/content_list"
+            style="@style/base_listview_style"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@id/citys_bladeview"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@drawable/ic_detail_divider"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+        <include
+            android:id="@+id/content_list_empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            layout="@layout/base_load_empty_layout" />
+
+    </RelativeLayout>
+
+</merge>

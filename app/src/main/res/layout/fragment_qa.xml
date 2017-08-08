@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/rl_q1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="15dp"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:text="1、无法所搜到投屏设备" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_q2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:text="2、在餐厅点播视频失败" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_q3"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:paddingLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:text="3、投屏的步骤" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

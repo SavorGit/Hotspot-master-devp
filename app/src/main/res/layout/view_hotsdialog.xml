@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_bg"
+    android:layout_width="480dp"
+    android:layout_height="516dp"
+    android:background="@drawable/banbengengxin_bg"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="18dp"
+        android:textColor="#222222"
+        android:visibility="gone"
+        android:textSize="18sp" />
+    <RelativeLayout
+        android:id="@+id/msg_ral"
+        android:layout_below="@id/txt_title"
+        android:layout_width="match_parent"
+
+        android:layout_height="175dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/msg_la"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_point"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/msg_ral"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:layout_marginTop="12dp"
+        android:textSize="17sp" />
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/msg_ral"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible"
+        android:background="#d7d7d7" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/line"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_weight="1"
+            android:background="@drawable/alertdialog_left_selector"
+            android:gravity="center"
+            android:textColor="#444444"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/line1"
+            android:layout_width="0.5dp"
+            android:layout_height="40dp"
+            android:background="#d7d7d7" />
+
+        <Button
+            android:id="@+id/btn_neg"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_weight="1"
+            android:background="@drawable/alertdialog_right_selector"
+            android:gravity="center"
+            android:textColor="#444444"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

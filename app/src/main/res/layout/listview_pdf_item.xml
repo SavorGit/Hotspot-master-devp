@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:gravity="center_vertical"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/wj_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/iv_arraw"
+        android:layout_centerVertical="true"
+        android:src="@drawable/arraw_right"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_toRightOf="@id/iv_icon"
+        android:textColor="@color/black"
+        android:layout_marginLeft="3dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/tv_name"
+        android:text="测试文件.pdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dip" >
+
+    <LinearLayout
+        android:layout_width="380dp"
+        android:layout_height="250dp"
+        android:gravity="center"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:id="@+id/timePicker1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <com.tuanche.api.widget.timer.WheelView
+                android:id="@+id/year"
+                android:layout_width="150dip"
+               
+                android:layout_height="wrap_content" />
+
+            <com.tuanche.api.widget.timer.WheelView
+                android:id="@+id/month"
+                android:layout_width="90dip"
+                
+                android:layout_height="wrap_content" />
+
+            <com.tuanche.api.widget.timer.WheelView
+                android:id="@+id/day"
+                android:layout_width="90dip"
+                
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dip" >
+
+        <Button
+            android:id="@+id/buttoncancle"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:background="@drawable/dialog_grey_selector"
+            android:textColor="@drawable/dialog_btn_text_selector"
+            android:textSize="16sp" 
+            android:text="取消" />
+        
+        <Button
+            android:id="@+id/buttonsure"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:background="@drawable/dialog_btn_selector"
+            android:textColor="@drawable/dialog_btn_text_selector"
+            android:textSize="16sp" 
+            android:text="确定" />
+        
+    </LinearLayout>
+
+</LinearLayout>

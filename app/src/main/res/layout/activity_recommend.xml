@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    >
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/layout_head_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/tj_bg_r"
+        android:layout_below="@id/topbar">
+
+        <RelativeLayout
+            android:id="@+id/code_la"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            >
+            <ImageView
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/tj_slogan_r"
+                android:id="@+id/app_info"/>
+            <ImageView
+                android:layout_width="233dp"
+                android:layout_height="233dp"
+                android:id="@+id/code_sh"
+                android:layout_below="@id/app_info"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3.5dp"
+                android:background="#B2000000"/>
+
+
+            <ImageView
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:id="@+id/code"
+                android:layout_below="@id/app_info"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/tjxzm_r"/>
+
+
+
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/share_btn_la"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/we_chat_la"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/we_chat_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fx_wx"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:layout_below="@id/we_chat_ic"
+                    android:text="微信"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/friends_la"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/friends_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fx_pyq"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:layout_below="@id/friends_ic"
+                    android:text="朋友圈"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/qq_la"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/qq_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fx_qq"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:layout_below="@id/qq_ic"
+                    android:text="QQ"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/weibo_la"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/weibo_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fx_weibo"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:layout_below="@id/weibo_ic"
+                    android:text="新浪微博"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/copy_link_la"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/link_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fx_fuzhilianjie"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:layout_below="@id/link_ic"
+                    android:text="复制链接"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_marginBottom="10dp"
+            android:id="@+id/share_la"
+            android:layout_above="@id/share_btn_la"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:background="#dfdfdf"
+                android:layout_height="0.1dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="#666666"
+                android:text="  分享到   "/>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/group_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/city_title"
+        android:gravity="left|center"
+        android:paddingBottom="5.0dip"
+        android:paddingLeft="@dimen/biz_plugin_weather_selectcity_group_item_padding"
+        android:paddingRight="@dimen/biz_plugin_weather_selectcity_group_item_padding"
+        android:paddingTop="5.0dip"
+        android:text="S"
+        android:textColor="@color/biz_plugin_weather_text1"
+        android:textStyle="bold" />
+
+    <!--
+         <ImageView
+        android:id="@+id/friends_item_alpha_line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_list_divider_drawable" />
+    -->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/column_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="40.0dip"
+            android:paddingLeft="20dip"
+            android:text="深圳"
+            android:textColor="@drawable/contact_list_item_buddy_name_text_color"
+            android:textSize="@dimen/biz_plugin_weather_selectcity_item_textsize" />
+        <TextView
+            tools:text="10023"
+            android:id="@+id/tv_region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="30dip"
+            android:layout_alignParentRight="true"
+            />
+        <ImageView
+            android:id="@+id/iv_select_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:layout_marginRight="30dip"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/city_selected"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

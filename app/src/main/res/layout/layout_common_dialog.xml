@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="285dp"
+    android:layout_height="180dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ts"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_main"
+        android:textSize="18sp"
+        android:text="提示" />
+
+
+    <TextView
+        android:layout_below="@+id/ts"
+        android:text="展示内容"
+        android:gravity="center"
+        android:id="@+id/tv_content"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+       android:layout_centerHorizontal="true"
+        android:textColor="@color/color_text_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"/>
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_2" />
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:padding="8dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="16sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/color_main"
+            android:visibility="visible"
+            android:layout_width="121dp"
+            android:layout_height="40dp"
+            android:background="@drawable/left_bg_button"/>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:padding="8dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="我知道了"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/color_text_list_item"
+            android:background="@drawable/right_bg_button"
+            android:layout_width="121dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

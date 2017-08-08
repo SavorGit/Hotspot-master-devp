@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f2ed">
+
+    <TextView
+        android:id="@+id/content_big_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="14dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="特朗普将会见科技行业大佬 讨论无人机和5G"
+        android:textColor="@color/color_text_black"
+        android:textSize="16dp" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp">
+
+        <ImageView
+            android:id="@+id/content_big_img"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            android:src="@drawable/beidishipinbg" />
+
+        <ImageView
+            android:id="@+id/content_big_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/sp_zanting" />
+
+        <TextView
+            android:id="@+id/content_big_corner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="7dp"
+            android:background="@drawable/round_corner_translucent2"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="创业板"
+            android:textColor="@color/color_text_list_item"
+            android:textSize="11sp" />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            app:cardBackgroundColor="#f6f2ed"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false"
+            app:cardCornerRadius="10sp">
+            <ImageView
+                android:id="@+id/content_big_source_icon"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/bangzhu" />
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/content_big_source_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="6sp"
+            android:text="创业板"
+            android:textColor="#898886"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/content_big_source_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10.5dp"
+            android:text="2017-5-28"
+            android:textColor="#b2afab"
+            android:textSize="10dp" />
+    </LinearLayout>
+    <View
+        android:background="#e0dad2"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"/>
+</LinearLayout>

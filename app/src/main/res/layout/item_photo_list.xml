@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/ic"
+        android:layout_width="120dip"
+        android:layout_height="wrap_content">
+
+        <com.savor.savorphone.widget.CustomCoverView
+            android:id="@+id/cover_img"
+            android:layout_width="110dip"
+            android:layout_height="110dip"
+            android:background="@drawable/albums_bg"
+            android:paddingBottom="30dip"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="18dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/kong_mrjz" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/ic"
+        android:layout_gravity="center"
+        android:layout_marginLeft="1dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:gravity="top"
+            android:text="Camera"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="5"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/arraw_right"/>
+
+</RelativeLayout>
