@@ -12,11 +12,16 @@ import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.ShowMessage;
@@ -29,12 +34,14 @@ import com.savor.savorphone.core.ApiRequestListener;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.interfaces.CopyCallBack;
+import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.ScreenOrientationUtil;
 import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.widget.AlignTextView;
 import com.savor.savorphone.widget.ProgressBarView;
 import com.savor.savorphone.widget.ProgressBarView.ProgressBarViewClickListener;
+import com.savor.savorphone.widget.SolveViewPager;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
@@ -52,9 +59,10 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     private ImageView iv_left;
     private ImageView iv_right;
     private ImageView toleft_iv_right;
-    private ViewPager photoViewpager;
+    private SolveViewPager photoViewpager;
     private LinearLayout bottomTextLayout;
     private RelativeLayout pageNumLayout;
+    private RelativeLayout main_al;
     private TextView bottomPageNumberTV;
     private TextView bottomPageTotalTV;
     private TextView describeTV;
@@ -69,6 +77,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     Handler handler = new Handler();
     private ShareManager shareManager;
     private ProgressBarView mProgressLayout;
+    private GestureDetector mGestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +88,51 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         setViews();
         setListeners();
         getDataFromServer();
+        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
+                // // System.out.println("水平方向移动距离过大");
+                // return true;
+                // }
+                if (Math.abs(velocityY) < 100) {
+                    // System.out.println("手指移动的太慢了");
+                    return true;
+                }
+
+                // 手势向下 down
+                if ((e2.getRawY() - e1.getRawY()) > 200) {
+                    Animation animation = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_up_out);
+                    animation.setAnimationListener(new PictureSetActivity.AnimationImp() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            super.onAnimationEnd(animation);
+                            main_al.setVisibility(View.GONE);
+                            finish();
+                        }
+                    });
+                    main_al.startAnimation(animation);
+
+                    return true;
+                }
+                // 手势向上 up
+                if ((e1.getRawY() - e2.getRawY()) > 200) {
+                    Animation animation1 = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_down_out);
+                    animation1.setAnimationListener(new PictureSetActivity.AnimationImp() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            super.onAnimationEnd(animation);
+                            main_al.setVisibility(View.GONE);
+                            finish();
+                        }
+                    });
+                    main_al.startAnimation(animation1);
+
+                    return true;
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
     }
     private void getIntentData(){
         content_id = getIntent().getStringExtra("content_id");
@@ -90,13 +144,13 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         iv_left = (ImageView) findViewById(R.id.iv_left);
         iv_right = (ImageView) findViewById(R.id.iv_right);
         toleft_iv_right = (ImageView) findViewById(R.id.toleft_iv_right);
-        photoViewpager = (ViewPager) findViewById(R.id.photoViewpager);
+        photoViewpager = (SolveViewPager) findViewById(R.id.photoViewpager);
         bottomTextLayout = (LinearLayout) findViewById(R.id.bottomTextLayout);
         pageNumLayout = (RelativeLayout) findViewById(R.id.page_num_layout);
         bottomPageNumberTV = (TextView) findViewById(R.id.bottomPageNumber);
         bottomPageTotalTV = (TextView) findViewById(R.id.pageNumberTotal);
         describeTV = (TextView) findViewById(R.id.describe);
-
+        main_al = (RelativeLayout) findViewById(R.id.main_al);
         mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
 
     }
@@ -170,7 +224,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         String contentURL = voditem.getContentURL();
         shareManager.setCategory_id("0");
         shareManager.setContent_id(voditem.getArtid()+"");
-        shareManager.share(this,text,title,imageURL,contentURL,this);
+        shareManager.share(this,text,title,imageURL, ConstantValues.addH5ShareParams(contentURL),this);
 
     }
 
@@ -429,6 +483,28 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         super.onResume();
         if (shareManager != null) {
             shareManager.CloseDialog ();
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+      //  Toast.makeText(PictureSetActivity.this, "touch", Toast.LENGTH_SHORT).show();
+        return super.dispatchTouchEvent(event);
+    }
+
+
+    private class AnimationImp implements Animation.AnimationListener {
+        @Override
+        public void onAnimationEnd(Animation animation) {
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
         }
     }
 }
