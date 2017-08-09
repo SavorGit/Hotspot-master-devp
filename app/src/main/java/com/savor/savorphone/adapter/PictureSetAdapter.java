@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.savor.savorphone.R;
 import com.savor.savorphone.bean.PictureSetBean;
+import com.savor.savorphone.utils.MulitPointTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class PictureSetAdapter extends PagerAdapter{
             }
         });
 
+        photoImg.setOnTouchListener(new MulitPointTouchListener());
         return view;
     }
 

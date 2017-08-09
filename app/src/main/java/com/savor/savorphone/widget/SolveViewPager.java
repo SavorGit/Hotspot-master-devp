@@ -51,12 +51,22 @@ public class SolveViewPager extends ViewPager {
 //                        }
 //                    }
                 } else {// 上下滑动
-                    getParent().requestDisallowInterceptTouchEvent(true); //不需要父控件拦截
+                    getParent().requestDisallowInterceptTouchEvent(true); //需要父控件拦截
                 }
 
                 break;
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+    //这个方法是为了避免手势滑动的时候产生异常
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        try {
+            return super.onInterceptTouchEvent(ev);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
