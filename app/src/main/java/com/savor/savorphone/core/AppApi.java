@@ -919,7 +919,7 @@ public class AppApi {
      * @param articleId 文章id
      * @param sort_num 排序序号
      */
-    public static void getTvRecommendList(Context context,ApiRequestListener listener,String articleId,String sort_num) {
+    public static void getTvRecommendList(Context context,ApiRequestListener listener,int articleId,int sort_num) {
         final HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("articleId", articleId);
         params.put("sort_num", sort_num);
