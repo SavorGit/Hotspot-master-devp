@@ -400,11 +400,27 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
         mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+
+                if (!mProjecting) {
+                    if(mSession.isBindTv()) {
+                        force = 0;
+                        AppApi.localVideoPro(mContext,mSession.getTVBoxUrl(),mModelVideo,force,LocalVideoProAcitvity.this);
+                    }else {
+                        if(!AppUtils.isWifiNetwork(LocalVideoProAcitvity.this)) {
+                            new CommonDialog(LocalVideoProAcitvity.this,"请前往手机设置，连接至电视同一WiFi下").show();
+                        }else{
+                            RecordUtils.onEvent(LocalVideoProAcitvity.this,R.string.album_toscreen_video_link);
+                            mBindTvPresenter.bindTv();
+                        }
+                    }
+                }else {
                     querySeek();
                     int progress = seekBar.getProgress();
                     SeekRequest seekRequest = new SeekRequest();
                     seekRequest.setAbsolutepos(progress);
                     AppApi.notifyTvBoxSeekChange(LocalVideoProAcitvity.this,mSession.getTVBoxUrl(), seekRequest,projectId,LocalVideoProAcitvity.this);
+                }
+
             }
 
             @Override

@@ -32,9 +32,6 @@ public class MulitPointTouchListener implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
 
         ImageView view = (ImageView) v;
-        // Log.e("view_width",
-        // view.getImageMatrix()..toString()+"*"+v.getWidth());
-        // Dump touch event to log
         dumpEvent(event);
 
         // Handle touch events here...
