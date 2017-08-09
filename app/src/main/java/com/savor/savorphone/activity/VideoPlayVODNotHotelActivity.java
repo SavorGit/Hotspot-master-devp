@@ -417,6 +417,9 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         AppApi.getRecommendInfo(mContext,videoItem.getArtid(),this);
     }
 
+    private void getReCommendList() {
+        AppApi.getTvRecommendList(this,this,videoItem.getArtid(),videoItem.getSort_num());
+    }
 
     OnItemClickListener recommendItemClickListener = new OnItemClickListener() {
         @Override
@@ -1024,6 +1027,9 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         toleft_iv_right.setVisibility(View.VISIBLE);
                         headLayout.setBackgroundResource(R.drawable.ico_player_title);
                         display();
+
+                        // 获取推荐列表
+                        getReCommendList();
                     }
                 }
                 break;
@@ -1070,6 +1076,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 break;
         }
     }
+
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
