@@ -417,10 +417,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         AppApi.getRecommendInfo(mContext,videoItem.getArtid(),this);
     }
 
-    private void getReCommendList() {
-        AppApi.getTvRecommendList(this,this,videoItem.getArtid(),videoItem.getSort_num());
-    }
-
     OnItemClickListener recommendItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
@@ -1028,8 +1024,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         headLayout.setBackgroundResource(R.drawable.ico_player_title);
                         display();
 
-                        // 获取推荐列表
-                        getReCommendList();
                     }
                 }
                 break;
