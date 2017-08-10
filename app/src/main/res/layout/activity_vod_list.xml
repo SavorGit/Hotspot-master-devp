@@ -5,7 +5,12 @@
     android:background="@color/color_main_bg"
     android:layout_height="match_parent"
     tools:context="com.savor.savorphone.activity.VodListActivity">
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/layout_head_title"
+        />
     <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
+        android:layout_below="@id/title_layout"
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         ptr:ptrAnimationStyle = "scale"
         android:layout_marginLeft="15dp"
