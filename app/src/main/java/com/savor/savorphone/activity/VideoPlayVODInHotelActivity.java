@@ -15,9 +15,12 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -30,6 +33,7 @@ import com.common.api.utils.ShowMessage;
 import com.savor.savorphone.R;
 import com.savor.savorphone.SavorApplication;
 import com.savor.savorphone.activity.VideoPlayVODNotHotelActivity.UpdateProgressListener;
+import com.savor.savorphone.adapter.RecommendListAdapter;
 import com.savor.savorphone.bean.AliLogBean;
 import com.savor.savorphone.bean.BaseProReqeust;
 import com.savor.savorphone.bean.BaseProResponse;
@@ -41,6 +45,7 @@ import com.savor.savorphone.bean.SmallPlatformByGetIp;
 import com.savor.savorphone.bean.StopProResponseVo;
 import com.savor.savorphone.bean.TvBoxSSDPInfo;
 import com.savor.savorphone.bean.VodProResponse;
+import com.savor.savorphone.core.ApiRequestListener;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.interfaces.CopyCallBack;
@@ -52,6 +57,7 @@ import com.savor.savorphone.utils.ActivitiesManager;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.ConstantsWhat;
 import com.savor.savorphone.projection.ProjectionManager;
+import com.savor.savorphone.utils.IntentUtil;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.STIDUtil;
 import com.savor.savorphone.utils.ShareManager;
@@ -68,7 +74,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 餐厅环境视频点播页（带有退出投频按钮，声音控制，暂停继续播放）
@@ -76,13 +84,14 @@ import java.util.HashMap;
  * @author savor
  */
 public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
-        OnClickListener, OnStopListener,OnQueryListener,ProgressBarViewClickListener,CopyCallBack {
+        OnClickListener, OnStopListener,OnQueryListener,ProgressBarViewClickListener,CopyCallBack, AdapterView.OnItemClickListener {
 
     private static final int UPDATE_SEEK = 10;
     private static final int UPDATE_CURRENT = 11;
     private static final int PLAY_OVER = 12;
     private static final int PLAY_ERROR = 13;
-
+    public static final int FORCE_MSG = 104;
+    private static final int ERROR_MSG = 105;
     private SavorApplication mApp;
 
     /**是否正在播放*/
@@ -183,11 +192,14 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     play_over = true;
                     isPlaying = false;
                     break;
-//                case QUERY_SEEK:
-//                    projectionId = ProjectionManager.getInstance().getProjectId();
-//                    AppApi.getSeekBySessionId(VideoPlayVODInHotelActivity.this,mSession.getTVBoxUrl(),projectionId,VideoPlayVODInHotelActivity.this);
-//                    querySeek();
-//                    break;
+                case FORCE_MSG:
+                    String user = (String) msg.obj;
+                    showConfirm(user);
+                    break;
+                case ERROR_MSG:
+                    String hint = (String) msg.obj;
+                    showToast(hint);
+                    break;
             }
         }
 
@@ -249,6 +261,12 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     private ProgressBarView mProgressLayout;
     /**是否是手动点击收藏，只有手动点击才需要提示*/
     private boolean isClickCollection = false;
+    private ListView recommend_listview;
+    private RecommendListAdapter recommendListAdapter;
+    private List<CommonListItem> list = new ArrayList<>();
+    private LinkDialog mProDialog;
+    private ScrollView mContentSlv;
+    private TextView mMoreVideoBtn;
 
     protected void onSaveInstanceState(Bundle outState) {
         LogUtils.e("onSaveInstanceState");
@@ -269,6 +287,21 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         setListeners();
         getDataFromServer();
         // 开始查询进度
+        bindProService();
+        getTvRecommendList();
+    }
+
+    private void getTvRecommendList() {
+        int artId = 0;
+        int sortNum = 0;
+        try {
+            artId = Integer.valueOf(mVodItem.getArtid());
+            sortNum = Integer.valueOf(mVodItem.getSort_num());
+        }catch (Exception e){}
+        AppApi.getTvRecommendList(this,this,artId,sortNum);
+    }
+
+    private void bindProService() {
         Intent intent = new Intent(this, ProjectionService.class);
         intent.putExtra(ProjectionService.EXTRA_TYPE,ProjectionService.TYPE_VOD_VIDEO);
         bindService(intent,mServiceConn, Context.BIND_AUTO_CREATE);
@@ -297,6 +330,8 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     }
 
     public void getViews() {
+        mMoreVideoBtn = (TextView) findViewById(R.id.tv_more_video);
+        mContentSlv = (ScrollView) findViewById(R.id.slv_content);
         title_layout = (LinearLayout) findViewById(R.id.title_layout);
         iv_left = (ImageView) findViewById(R.id.iv_left);
         toleft_iv_right = (ImageView) findViewById(R.id.toleft_iv_right);
@@ -313,6 +348,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         shareQqIV = (ImageView) findViewById(R.id.share_qq);
         shareWeiboIV = (ImageView) findViewById(R.id.share_weibo);
         recommendLayuot = (LinearLayout) findViewById(R.id.recommend_layout);
+        recommend_listview = (ListView) findViewById(R.id.recommend_listview);
         mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
 
         mPlayButton = (ImageButton) findViewById(R.id.play);
@@ -328,7 +364,11 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         toleft_iv_right.setVisibility(View.VISIBLE);
         iv_right.setImageResource(R.drawable.fenxiang3x);
         Glide.with(this).load(mVodItem.getImageURL()).centerCrop().into(picIV);
+
         recommendLayuot.setVisibility(View.GONE);
+        recommendListAdapter = new RecommendListAdapter(mContext,list);
+        recommend_listview.setAdapter(recommendListAdapter);
+
         isMute = mVodItem.isMute();
         setVolType(isMute);
         totalTimeTV.setText(DateUtil.formatSecondsTimeCh(String.valueOf(mVodItem.getDuration())));
@@ -367,6 +407,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     }
 
     public void setListeners() {
+        mMoreVideoBtn.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         toleft_iv_right.setOnClickListener(this);
         iv_right.setOnClickListener(this);
@@ -387,6 +428,8 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         shareQqIV.setOnClickListener(this);
         shareWeiboIV.setOnClickListener(this);
         mProgressLayout.setProgressBarViewClickListener(this);
+        recommend_listview.setOnItemClickListener(this);
+
     }
 
     private void initShare() {
@@ -561,7 +604,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 String projectId = ProjectionManager.getInstance().getProjectId();
                 AppApi.notifyTvBoxStop(this,mSession.getTVBoxUrl(),projectId,this);
                 showToScreenDialog("退出投屏...");
-
+                break;
+            case R.id.tv_more_video:
+                IntentUtil.openActivity(this,VodListActivity.class);
                 break;
 
         }
@@ -799,6 +844,23 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
         switch (method) {
+            case POST_TV_RECOMMEND_JSON:
+                if(obj instanceof List<?>) {
+                    List<CommonListItem> listRecommend = (List<CommonListItem>) obj;
+                    if(listRecommend!=null&&listRecommend.size()>0) {
+                        recommendLayuot.setVisibility(View.VISIBLE);
+                        recommendListAdapter.setData(listRecommend);
+                        recommend_listview.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mContentSlv.scrollTo(0,0);
+                            }
+                        },100);
+                    }else {
+                        recommendLayuot.setVisibility(View.GONE);
+                    }
+                }
+                break;
             case POST_NOTIFY_TVBOX_STOP_JSON:
                 dismissScreenDialog();
                 isPlaying = false;
@@ -937,6 +999,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         super.onError(method, obj);
         dismissScreenDialog();
         switch (method) {
+            case POST_TV_RECOMMEND_JSON:
+                recommendLayuot.setVisibility(View.GONE);
+                break;
             case GET_VOD_PRO_JSON:
                 if(obj == AppApi.ERROR_TIMEOUT) {
                     showToast(getString(R.string.network_error));
@@ -1088,5 +1153,108 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(mVodItem.getContentURL());
         ShowMessage.showToast(mContext,"复制完毕");
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CommonListItem item = (CommonListItem) parent.getItemAtPosition(position);
+        startDemandItemPro(item);
+    }
+
+    /**
+     * 点播投屏
+     */
+    private void startDemandItemPro(final CommonListItem currentItem) {
+        // 当点击连接电视按钮时，要清除掉mCurrentProItem对象，否则绑定成功后会自动进行投屏
+        if(currentItem!=null) {
+            BaseProReqeust baseProReqeust = new BaseProReqeust();
+            baseProReqeust.setVodType(1);
+            baseProReqeust.setAssetname(currentItem.getName());
+
+            // 请求机顶盒投屏，如果成功跳转到播放页面，失败弹出提示接口返回错误信息
+            showProLoadingDialog();
+            AppApi.vodProection(this, mSession.getTVBoxUrl(), baseProReqeust, force, new ApiRequestListener() {
+                @Override
+                public void onSuccess(AppApi.Action method, Object obj) {
+                    switch (method) {
+                        case GET_VOD_PRO_JSON:
+                            dismissProLoadingDialog();
+                            // 保存会话id
+                            if(obj instanceof BaseProResponse) {
+                                VodProResponse response = (VodProResponse) obj;
+                                String projectId = response.getProjectId();
+                                ProjectionManager.getInstance().setProjectId(projectId);
+                                ProjectionManager.getInstance().setVideoTVProjection(VideoPlayVODInHotelActivity.class,currentItem,true);
+                                boolean isPlaying = ProjectionManager.getInstance().getVodPlayStatus();
+                                Intent vodIntent = new Intent(context, VideoPlayVODInHotelActivity.class);
+                                vodIntent.putExtra("voditem", currentItem);
+                                vodIntent.putExtra("isPlaying", isPlaying);
+                                vodIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(vodIntent);
+                            }
+                            break;
+                    }
+                }
+
+                @Override
+                public void onError(AppApi.Action method, Object obj) {
+                    switch (method) {
+                        case GET_VOD_PRO_JSON:
+                            dismissProLoadingDialog();
+                            if(obj instanceof ResponseErrorMessage) {
+                                ResponseErrorMessage message = (ResponseErrorMessage) obj;
+                                int code = message.getCode();
+                                Message msg = Message.obtain();
+                                if (code == 4) {
+//                        mCurrentMediaInfo.setMobileUser(message.getMessage());
+                                    msg.what = FORCE_MSG;
+                                    msg.obj = message.getMessage();
+                                    mHandler.sendMessage(msg);
+                                } else {
+                                    msg.what = ERROR_MSG;
+                                    msg.obj = message.getMessage();
+                                    mHandler.sendMessage(msg);
+                                }
+                                break;
+                            }
+                            break;
+                    }
+                }
+
+                @Override
+                public void onNetworkFailed(AppApi.Action method) {
+
+                }
+            });
+        }
+    }
+
+    /**
+     * 展示请求投屏弹窗
+     * */
+    private void showProLoadingDialog() {
+        if(mProDialog==null) {
+            mProDialog = new LinkDialog(this,"请求投屏...");
+        }
+        mProDialog.show();
+    }
+
+    private void dismissProLoadingDialog() {
+        if(mProDialog!=null) {
+            mProDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleIntent();
+        ProjectionManager.getInstance().setVideoTVProjection(VideoPlayVODInHotelActivity.class,mVodItem,isPlaying);
+        initShare();
+        setViews();
+        setListeners();
+        getDataFromServer();
+        getTvRecommendList();
     }
 }

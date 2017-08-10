@@ -556,6 +556,10 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info,new TypeToken<SpecialNameResult>(){
                 }.getType());
                 break;
+            case POST_TV_RECOMMEND_JSON:
+                result = gson.fromJson(info,new TypeToken<List<CommonListItem>>(){
+                }.getType());
+                break;
             default:
                 break;
         }

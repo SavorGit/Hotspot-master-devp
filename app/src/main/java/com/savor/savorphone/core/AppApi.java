@@ -156,6 +156,8 @@ public class AppApi {
         POST_AWARD_RECORD_JSON,
         /**获取专题名称*/
         POST_SPECIAL_NAME_JSON,
+        /**电视推荐*/
+        POST_TV_RECOMMEND_JSON,
     }
 
     /**
@@ -226,6 +228,7 @@ public class AppApi {
             put(Action.POST_DEMAND_LIST_JSON,formatPhpUrl("APP3/Content/demandList"));
             put(Action.POST_AWARD_RECORD_JSON,formatPhpUrl("APP3/Activity/geteggAwardRecord"));
             put(Action.POST_SPECIAL_NAME_JSON,formatPhpUrl("APP3/Special/getSpecialName"));
+            put(Action.POST_TV_RECOMMEND_JSON,formatPhpUrl("APP3/Recommend/getTvPlayRecommend"));
         }
     };
 
@@ -908,6 +911,21 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<String, Object>();
         new AppServiceOk(context,Action.POST_SPECIAL_NAME_JSON,listener,null).post();
     }
+
+    /**
+     * 获取点播详情页推荐列表
+     * @param context
+     * @param listener
+     * @param articleId 文章id
+     * @param sort_num 排序序号
+     */
+    public static void getTvRecommendList(Context context,ApiRequestListener listener,int articleId,int sort_num) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("articleId", articleId);
+        params.put("sort_num", sort_num);
+        new AppServiceOk(context,Action.POST_TV_RECOMMEND_JSON,listener,params).post();
+    }
+
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常

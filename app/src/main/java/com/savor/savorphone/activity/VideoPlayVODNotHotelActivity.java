@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -140,6 +141,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
     public ProgressBarView allProgressLayuot;
     private boolean isPlaying;
+    private TextView mCollectedTv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -202,6 +204,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     }
     @Override
     public void getViews() {
+        mCollectedTv = (TextView) findViewById(R.id.tv_collect);
         headLayout = (LinearLayout) findViewById(R.id.head_layout);
         iv_left = (ImageView) findViewById(R.id.iv_left);
         iv_right = (ImageView) findViewById(R.id.iv_right);
@@ -326,6 +329,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
     @Override
     public void setListeners() {
+        mCollectedTv.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         iv_right.setOnClickListener(this);
         toleft_iv_right.setOnClickListener(this);
@@ -416,7 +420,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         AppApi.isCollection(mContext,this,videoItem.getArtid());
         AppApi.getRecommendInfo(mContext,videoItem.getArtid(),this);
     }
-
 
     OnItemClickListener recommendItemClickListener = new OnItemClickListener() {
         @Override
@@ -712,6 +715,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 shareMethod();
                 break;
             case R.id.toleft_iv_right: //收藏
+            case R.id.tv_collect:
                 toleft_iv_right.setOnClickListener(null);
                 collect();
                 break;
@@ -1024,6 +1028,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         toleft_iv_right.setVisibility(View.VISIBLE);
                         headLayout.setBackgroundResource(R.drawable.ico_player_title);
                         display();
+
                     }
                 }
                 break;
@@ -1033,7 +1038,9 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                     collected = str;
                     if ("1".equals(collected)){
                         toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                        mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_collected_big),null,null);
                     }else{
+                        mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_uncollect_big),null,null);
                         toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
                     }
                 }
@@ -1045,10 +1052,12 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         if ("0".equals(collected)){
                             collected = "1";
                             toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,getResources().getDrawable(R.drawable.icon_collected_big));
                             ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"收藏成功");
                         }else{
                             collected = "0";
                             toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
+                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,getResources().getDrawable(R.drawable.icon_uncollect_big));
                             ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"取消收藏");
                         }
                     }
@@ -1070,6 +1079,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 break;
         }
     }
+
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
