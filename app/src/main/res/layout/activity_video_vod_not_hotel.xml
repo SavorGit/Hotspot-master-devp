@@ -42,19 +42,18 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:visibility="gone">
-
                 <TextView
-                    android:layout_marginRight="30dp"
                     android:drawablePadding="10dp"
-                    android:gravity="center"
                     android:textColor="@color/white"
-                    android:text="重播"
-                    android:id="@+id/replay"
+                    android:gravity="center"
+                    android:text="收藏"
+                    android:id="@+id/tv_collect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_video_replay" />
-
+                    android:drawableTop="@drawable/icon_uncollect_big" />
                 <TextView
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
                     android:drawablePadding="10dp"
                     android:textColor="@color/white"
                     android:gravity="center"
@@ -62,9 +61,19 @@
                     android:id="@+id/share_finish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:drawableTop="@drawable/ic_video_share" />
-            </LinearLayout>
+                    android:drawableTop="@drawable/icon_share_big" />
+
+                <TextView
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="重播"
+                    android:id="@+id/replay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/icon_replay" />
+
+               </LinearLayout>
             <include
                 android:id="@+id/head_layout"
                 layout="@layout/layout_head_title" />
