@@ -5,18 +5,20 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.savor.savorphone.interfaces.OnChildMovingListener;
+
 /**
  * Created by bushlee on 2017/8/8.
  */
 
-public class SolveViewPager extends ViewPager {
+public class SolveViewPager extends ViewPager implements OnChildMovingListener {
 
     int startX;
     int startY;
     boolean upeable = true;    //上滑事件默认需要true
     boolean downeable = true; //下滑事件默认需要true
     boolean leftrighable = false; // 左右滑动事件是否需要父控件拦截    默认不需要 false
-
+    private boolean mChildIsBeingDragged=false; /**  当前子控件是否处理拖动状态  */
     public SolveViewPager(Context context) {
         super(context);
     }
@@ -59,14 +61,29 @@ public class SolveViewPager extends ViewPager {
 
         return super.dispatchTouchEvent(ev);
     }
-    //这个方法是为了避免手势滑动的时候产生异常
+
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent arg0) {
+//        if(mChildIsBeingDragged)
+//            return false;
+//        return super.onInterceptTouchEvent(arg0);
+//    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             return false;
         }
+    }
+    @Override
+    public void startDrag() {
+        mChildIsBeingDragged = true;
+    }
+
+    @Override
+    public void stopDrag() {
+        mChildIsBeingDragged=false;
     }
 }

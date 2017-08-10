@@ -9,7 +9,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.view.GestureDetector;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.ShowMessage;
@@ -38,7 +36,6 @@ import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.ScreenOrientationUtil;
 import com.savor.savorphone.utils.ShareManager;
-import com.savor.savorphone.widget.AlignTextView;
 import com.savor.savorphone.widget.ProgressBarView;
 import com.savor.savorphone.widget.ProgressBarView.ProgressBarViewClickListener;
 import com.savor.savorphone.widget.SolveViewPager;
@@ -52,7 +49,7 @@ import java.util.List;
  * Created by bichao on 2017/7/6.
  */
 
-public class PictureSetActivity extends BaseActivity implements ApiRequestListener,
+public class ImageCollectionActivity extends BaseActivity implements ApiRequestListener,
         View.OnClickListener,PageOnClickListener,ProgressBarViewClickListener,CopyCallBack {
     private Context context;
     private LinearLayout headLayout;
@@ -101,9 +98,9 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 }
 
                 // 手势向下 down
-                if ((e2.getRawY() - e1.getRawY()) >450) {
-                    Animation animation = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_up_out);
-                    animation.setAnimationListener(new PictureSetActivity.AnimationImp() {
+                if ((e2.getRawY() - e1.getRawY()) > 200) {
+                    Animation animation = AnimationUtils.loadAnimation(ImageCollectionActivity.this, R.anim.slide_up_out);
+                    animation.setAnimationListener(new ImageCollectionActivity.AnimationImp() {
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             super.onAnimationEnd(animation);
@@ -116,9 +113,9 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 450) {
-                    Animation animation1 = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_down_out);
-                    animation1.setAnimationListener(new PictureSetActivity.AnimationImp() {
+                if ((e1.getRawY() - e2.getRawY()) > 200) {
+                    Animation animation1 = AnimationUtils.loadAnimation(ImageCollectionActivity.this, R.anim.slide_down_out);
+                    animation1.setAnimationListener(new ImageCollectionActivity.AnimationImp() {
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             super.onAnimationEnd(animation);
@@ -162,7 +159,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         iv_right.setImageResource(R.drawable.fenxiang3x);
 
 
-        pictureSetAdapter = new PictureSetAdapter(context,pictureSetBeanList,this,photoViewpager);
+       // pictureSetAdapter = new PictureSetAdapter(context,pictureSetBeanList,this);
         photoViewpager.setAdapter(pictureSetAdapter);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
         { // 竖屏
@@ -274,10 +271,10 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     if (screenState == 0) {
-                        RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_vertical_hide));
+                        RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_vertical_hide));
                     }else if (screenState == 1) {
 
-                        RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_landscape_hide));
+                        RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_landscape_hide));
                     }
                     bottomTextLayout.setVisibility(View.GONE);
                 }
@@ -297,9 +294,9 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         }else{
             bottomTextLayout.setVisibility(View.VISIBLE);
             if (screenState == 0) {
-                RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_vertical_show));
+                RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_vertical_show));
             }else if (screenState == 1) {
-                RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_landscape_show));
+                RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_landscape_show));
             }
             ObjectAnimator animator = ObjectAnimator.ofFloat(bottomTextLayout, "alpha", 0f, 1f);
             animator.setDuration(0);
@@ -345,12 +342,12 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         { // 竖屏
             screenState = 0;
             headLayout.setBackgroundColor(getResources().getColor(R.color.color_main));
-            RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_landscape_rotate));
+            RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_landscape_rotate));
         } else {
             // 横屏
             screenState = 1;
             headLayout.setBackgroundResource(R.drawable.quanpingmc);
-            RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_vertical_rotate));
+            RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_vertical_rotate));
         }
 
         super.onConfigurationChanged(newConfig);
@@ -389,14 +386,14 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                         if ("0".equals(state)){
                             state = "1";
                             toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
-                            ShowMessage.showToast(PictureSetActivity.this,"收藏成功");
+                            ShowMessage.showToast(ImageCollectionActivity.this,"收藏成功");
                         }else{
                             state = "0";
                             toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
-                            ShowMessage.showToast(PictureSetActivity.this,"取消收藏");
+                            ShowMessage.showToast(ImageCollectionActivity.this,"取消收藏");
                         }
                     }
-                    toleft_iv_right.setOnClickListener(PictureSetActivity.this);
+                    toleft_iv_right.setOnClickListener(ImageCollectionActivity.this);
                 }
                 break;
         }
@@ -423,7 +420,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
                 break;
             case GET_ADD_MY_COLLECTION_JSON:
-                toleft_iv_right.setOnClickListener(PictureSetActivity.this);
+                toleft_iv_right.setOnClickListener(ImageCollectionActivity.this);
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     if (!TextUtils.isEmpty(errorMessage.getMessage())){

@@ -134,7 +134,6 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
         t1 = (TextView) findViewById(R.id.t1);
         t2 = (TextView) findViewById(R.id.t2);
         t3 = (TextView) findViewById(R.id.t3);
-
         num_one = (TextView) findViewById(R.id.num_one);
         num_two = (TextView) findViewById(R.id.num_two);
         num_three = (TextView) findViewById(R.id.num_three);
