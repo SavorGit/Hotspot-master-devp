@@ -116,6 +116,20 @@
                         android:layout_height="wrap_content"/>
 
                     <include layout="@layout/layout_share_to" />
+                    <LinearLayout
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_more_video"
+                            android:layout_gravity="center"
+                            android:text="更多点播视频"
+                            android:background="@drawable/bg_link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="49dp"/>

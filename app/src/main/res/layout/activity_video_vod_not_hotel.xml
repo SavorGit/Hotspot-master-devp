@@ -44,7 +44,7 @@
                 android:visibility="gone">
                 <TextView
                     android:drawablePadding="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_text_list_item"
                     android:gravity="center"
                     android:text="收藏"
                     android:id="@+id/tv_collect"
@@ -55,7 +55,7 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:drawablePadding="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_text_list_item"
                     android:gravity="center"
                     android:text="分享"
                     android:id="@+id/share_finish"
@@ -66,7 +66,7 @@
                 <TextView
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_text_list_item"
                     android:text="重播"
                     android:id="@+id/replay"
                     android:layout_width="wrap_content"

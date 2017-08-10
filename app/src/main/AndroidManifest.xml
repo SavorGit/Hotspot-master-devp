@@ -44,10 +44,9 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-
-         <meta-data
-         android:name="com.savor.savorphone.utils.CustomCachingGlideModule"
-         android:value="GlideModule" />
+        <meta-data
+            android:name="com.savor.savorphone.utils.CustomCachingGlideModule"
+            android:value="GlideModule" />
         <meta-data
             android:name="com.openinstall.APP_KEY"
             android:value="w7gvub" />
@@ -323,7 +322,8 @@
             android:name=".activity.MediaGalleryActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.BaseProActivity"></activity>
+        <activity android:name=".activity.BaseProActivity" />
+        <activity android:name=".activity.VodListActivity"></activity>
     </application>
 
 </manifest>

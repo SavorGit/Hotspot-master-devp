@@ -57,6 +57,7 @@ import com.savor.savorphone.utils.ActivitiesManager;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.ConstantsWhat;
 import com.savor.savorphone.projection.ProjectionManager;
+import com.savor.savorphone.utils.IntentUtil;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.STIDUtil;
 import com.savor.savorphone.utils.ShareManager;
@@ -265,6 +266,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     private List<CommonListItem> list = new ArrayList<>();
     private LinkDialog mProDialog;
     private ScrollView mContentSlv;
+    private TextView mMoreVideoBtn;
 
     protected void onSaveInstanceState(Bundle outState) {
         LogUtils.e("onSaveInstanceState");
@@ -328,6 +330,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     }
 
     public void getViews() {
+        mMoreVideoBtn = (TextView) findViewById(R.id.tv_more_video);
         mContentSlv = (ScrollView) findViewById(R.id.slv_content);
         title_layout = (LinearLayout) findViewById(R.id.title_layout);
         iv_left = (ImageView) findViewById(R.id.iv_left);
@@ -404,6 +407,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     }
 
     public void setListeners() {
+        mMoreVideoBtn.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         toleft_iv_right.setOnClickListener(this);
         iv_right.setOnClickListener(this);
@@ -425,6 +429,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         shareWeiboIV.setOnClickListener(this);
         mProgressLayout.setProgressBarViewClickListener(this);
         recommend_listview.setOnItemClickListener(this);
+
     }
 
     private void initShare() {
@@ -599,7 +604,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 String projectId = ProjectionManager.getInstance().getProjectId();
                 AppApi.notifyTvBoxStop(this,mSession.getTVBoxUrl(),projectId,this);
                 showToScreenDialog("退出投屏...");
-
+                break;
+            case R.id.tv_more_video:
+                IntentUtil.openActivity(this,VodListActivity.class);
                 break;
 
         }

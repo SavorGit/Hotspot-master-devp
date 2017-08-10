@@ -425,7 +425,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         @Override
         public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
             mSuperVideoPlayer.pausePlay(true);
-
             mSuperVideoPlayer.postDelayed(new Runnable() {
                 @Override
                 public void run() {
