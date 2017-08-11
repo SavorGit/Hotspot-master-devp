@@ -616,20 +616,11 @@ public class SuperVideoPlayer extends RelativeLayout {
             if(mTitleView!=null
                     &&(requestedOrientation== ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                     ||requestedOrientation== ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE)) {
-//                mTitleView.clearAnimation();
-//                Animation titlanimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_exit_from_top);
-//                titlanimation.setAnimationListener(new AnimationImp() {
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//                        super.onAnimationEnd(animation);
                         mTitleView.setVisibility(View.GONE);
-//                    }
-//                });
-//                mTitleView.startAnimation(titlanimation);
             }
+
             return false;
         } else {
-
             ObjectAnimator animator = ObjectAnimator.ofFloat(mMediaController, "alpha", 0f, 1f);
             animator.setDuration(200);
             animator.addListener(new Animator.AnimatorListener() {
@@ -673,16 +664,7 @@ public class SuperVideoPlayer extends RelativeLayout {
 
             if(mTitleView!=null&&
                     requestedOrientation== ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-//                mTitleView.clearAnimation();
-//                Animation topExitanimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_enter_from_top);
-//                topExitanimation.setAnimationListener(new AnimationImp() {
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//                        super.onAnimationEnd(animation);
                         mTitleView.setVisibility(View.VISIBLE);
-//                    }
-//                });
-//                mTitleView.startAnimation(topExitanimation);
             }
 
             return true;
