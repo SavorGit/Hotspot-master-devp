@@ -372,12 +372,16 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         isMute = mVodItem.isMute();
         setVolType(isMute);
         totalTimeTV.setText(DateUtil.formatSecondsTimeCh(String.valueOf(mVodItem.getDuration())));
-        if(mVodItem.getType() == 4) {
+
+        String contentURL = mVodItem.getContentURL();
+        Uri contentUri = Uri.parse(contentURL);
+        String pure = contentUri.getQueryParameter("pure");
+        if(mVodItem.getType() == 4||"1".equals(pure)) {
             share_layout.setVisibility(View.GONE);
         }else {
-//            mProgressLayout.startLoading();
             share_layout.setVisibility(View.VISIBLE);
         }
+
         mWebView.loadUrl(ConstantValues.addH5Params(mVodItem.getContentURL()), null, new UpdateProgressListener() {
             @Override
             public void loadFinish() {
@@ -606,7 +610,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 showToScreenDialog("退出投屏...");
                 break;
             case R.id.tv_more_video:
-                IntentUtil.openActivity(this,VodListActivity.class);
+                Intent intent = new Intent(this,VodListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 break;
 
         }

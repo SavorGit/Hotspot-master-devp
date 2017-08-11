@@ -330,7 +330,9 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.BaseProActivity" />
-        <activity android:name=".activity.VodListActivity"></activity>
+        <activity android:name=".activity.VodListActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

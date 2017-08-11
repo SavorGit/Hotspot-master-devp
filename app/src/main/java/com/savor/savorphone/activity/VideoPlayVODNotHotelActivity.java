@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -256,7 +257,10 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         mShareManager = ShareManager.getInstance();
         mShareListener = new ShareManager.CustomShareListener(mContext);
         initVideo();
-        if( 4==videoItem.getType()) {
+        String contentURL = videoItem.getContentURL();
+        Uri contentUri = Uri.parse(contentURL);
+        String pure = contentUri.getQueryParameter("pure");
+        if( 4==videoItem.getType()||"1".equals(pure)) {
             shareLayout.setVisibility(View.GONE);
         }else{
             shareLayout.setVisibility(View.VISIBLE);
@@ -510,22 +514,15 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {    // 单击
             // 单击显示/隐藏控制栏
-//
-//            int requestedOrientation = getRequestedOrientation();
-            mSuperVideoPlayer.showOrHideController();
-            if(ScreenOrientationUtil.getInstance().isPortrait()) {
-//                if(mSuperVideoPlayer.getSuperVideoView().isPlaying()) {
-//                    mSuperVideoPlayer.showOrHideController();
-//                }else {
-//                    mSuperVideoPlayer.pausePlay(true);
-//                }
-                headLayout.setVisibility(View.VISIBLE);
-
-//                mTvTitle.setVisibility(View.GONE);
-//                mDescTv.setText(videoItem.getTitle());
+            boolean show = mSuperVideoPlayer.showOrHideController();
+            if(show) {
+                headLayout.setBackgroundResource(R.drawable.ico_player_title);
             }else {
-//                mTvTitle.setText(videoItem.getTitle());
-                boolean show = mSuperVideoPlayer.showOrHideController();
+                headLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+            }
+            if(ScreenOrientationUtil.getInstance().isPortrait()) {
+                headLayout.setVisibility(View.VISIBLE);
+            }else {
                 if (show) {  //显示
                     Animation animation = AnimationUtils.loadAnimation(VideoPlayVODNotHotelActivity.this, R.anim.anim_enter_from_top);
                     animation.setAnimationListener(new AnimationImp() {
@@ -892,9 +889,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             ViewGroup.LayoutParams layerParams = mFinishLayer.getLayoutParams();
             layerParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layerParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//            mRightLandscape.setVisibility(View.VISIBLE);
-//            mTvTitle.setVisibility(View.VISIBLE);
-//            mTvTitle.setText(videoItem.getTitle());
             if(mSuperVideoPlayer.getSuperVideoView().isPlaying()) {
                 headLayout.setVisibility(View.GONE);
             }else{
@@ -907,7 +901,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             getWindow().setAttributes(attrs);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             float width = DensityUtil.getWidthInPx(this);
-            float height = DensityUtil.dip2px(this, 200.f);
+            float height = DensityUtil.dip2px(this, 200f);
             ViewGroup.LayoutParams layerParams = mFinishLayer.getLayoutParams();
             layerParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -915,8 +909,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             mSuperVideoPlayer.getLayoutParams().height = (int) height;
             mSuperVideoPlayer.getLayoutParams().width = (int) width;
             mSuperVideoPlayer.setPageType(MediaController.PageType.SHRINK);
-//            mRightLandscape.setVisibility(View.GONE);
-//            mTvTitle.setVisibility(View.GONE);
             headLayout.setVisibility(View.VISIBLE);
             mSuperVideoPlayer.refreshPlayBtnState(MediaController.ORITATION_PORTAIT);
         }
@@ -1052,12 +1044,12 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         if ("0".equals(collected)){
                             collected = "1";
                             toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
-                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,getResources().getDrawable(R.drawable.icon_collected_big));
+                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_collected_big),null,null);
                             ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"收藏成功");
                         }else{
                             collected = "0";
                             toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
-                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,getResources().getDrawable(R.drawable.icon_uncollect_big));
+                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_uncollect_big),null,null);
                             ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"取消收藏");
                         }
                     }
@@ -1155,7 +1147,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
      * */
     private void display(){
 
-        headLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+//        headLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
         setViews();
         //开始初始化视频相关
         ImageView coverImageView = mSuperVideoPlayer.getCoverImageView();
