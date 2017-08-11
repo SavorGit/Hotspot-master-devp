@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -256,7 +257,10 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         mShareManager = ShareManager.getInstance();
         mShareListener = new ShareManager.CustomShareListener(mContext);
         initVideo();
-        if( 4==videoItem.getType()) {
+        String contentURL = videoItem.getContentURL();
+        Uri contentUri = Uri.parse(contentURL);
+        String pure = contentUri.getQueryParameter("pure");
+        if( 4==videoItem.getType()||"1".equals(pure)) {
             shareLayout.setVisibility(View.GONE);
         }else{
             shareLayout.setVisibility(View.VISIBLE);
