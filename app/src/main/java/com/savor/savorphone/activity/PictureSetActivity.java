@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -15,6 +17,7 @@ import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -34,6 +37,7 @@ import com.savor.savorphone.core.ApiRequestListener;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.interfaces.CopyCallBack;
+import com.savor.savorphone.interfaces.SetRecommend;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.ScreenOrientationUtil;
@@ -53,9 +57,10 @@ import java.util.List;
  */
 
 public class PictureSetActivity extends BaseActivity implements ApiRequestListener,
-        View.OnClickListener,PageOnClickListener,ProgressBarViewClickListener,CopyCallBack {
+        View.OnClickListener,PageOnClickListener,ProgressBarViewClickListener,CopyCallBack,SetRecommend {
     private Context context;
     private LinearLayout headLayout;
+    private final int PICK_CITY = 1;
     private ImageView iv_left;
     private ImageView iv_right;
     private ImageView toleft_iv_right;
@@ -70,6 +75,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     private PictureSetAdapter pictureSetAdapter;
     private List<PictureSetBean> pictureSetBeanList = new ArrayList<>();
     private CommonListItem voditem;
+    private int mCurrentItem;
     //文章ID
     private String content_id;
     //收藏状态,1:收藏，0:取消收藏
@@ -78,6 +84,26 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     private ShareManager shareManager;
     private ProgressBarView mProgressLayout;
     private GestureDetector mGestureDetector;
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case PICK_CITY:
+                    // 跳转选择城市
+                    Intent pickIntent = new Intent(mContext, HelpActivity.class);
+                    Intent intent = getIntent();
+                    if(intent!=null&&("application/pdf").equals(intent.getType())) {
+                        Uri data = getIntent().getData();
+                        pickIntent.setDataAndType(data,intent.getType());
+                        pickIntent.setData(data);
+                    }
+                    startActivity(pickIntent);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_in_left);// 这部分代码是切换Activity时的动画，看起来就不会很生硬
+                    finish();
+                    break;
+            }
+        };
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,13 +115,14 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         setListeners();
         getDataFromServer();
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
                 // // System.out.println("水平方向移动距离过大");
                 // return true;
                 // }
-                if (Math.abs(velocityY) < 100) {
+                if (Math.abs(velocityY) < 180|| Math.abs(velocityX)<180) {
                     // System.out.println("手指移动的太慢了");
                     return true;
                 }
@@ -173,6 +200,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         }
 
         shareManager = ShareManager.getInstance();
+        photoViewpager.setRecommend(this);
     }
 
     @Override
@@ -244,6 +272,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
         @Override
         public void onPageSelected(final int position) {
+            mCurrentItem = position;
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -491,6 +520,22 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         mGestureDetector.onTouchEvent(event);
       //  Toast.makeText(PictureSetActivity.this, "touch", Toast.LENGTH_SHORT).show();
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void setData(float startX, float endX) {
+        WindowManager windowManager = (WindowManager) getApplicationContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+
+        // 获取屏幕的宽度
+        Point size = new Point();
+        windowManager.getDefaultDisplay().getSize(size);
+        int width = size.x;
+        // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
+        if (mCurrentItem == (pictureSetBeanList.size() - 1)) {
+           // && endX - startX >= (width / 6)
+            mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
+        }
     }
 
 
