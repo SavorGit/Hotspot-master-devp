@@ -610,7 +610,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 showToScreenDialog("退出投屏...");
                 break;
             case R.id.tv_more_video:
-                IntentUtil.openActivity(this,VodListActivity.class);
+                Intent intent = new Intent(this,VodListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 break;
 
         }

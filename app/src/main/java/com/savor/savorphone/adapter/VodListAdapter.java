@@ -1,6 +1,7 @@
 package com.savor.savorphone.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.common.api.utils.DateUtil;
 import com.common.api.utils.DensityUtil;
 import com.savor.savorphone.R;
 import com.savor.savorphone.bean.CommonListItem;
+import com.savor.savorphone.utils.MyBitmapImageViewTarget;
 
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class VodListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return mData == null ?0:mData.size();
     }
 
     @Override
@@ -66,6 +70,7 @@ public class VodListAdapter extends BaseAdapter {
             holder.tv_source = (TextView) convertView.findViewById(R.id.tv_source);
             holder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);
             holder.tv_len = (TextView) convertView.findViewById(R.id.tv_len);
+            holder.page_num_layout = (RelativeLayout) convertView.findViewById(R.id.page_num_layout);
             convertView.setTag(holder);
         }else {
             holder = (Holder) convertView.getTag();
@@ -77,10 +82,49 @@ public class VodListAdapter extends BaseAdapter {
         layoutParams.width = with;
         layoutParams.height = height;
 
+        final CommonListItem item = (CommonListItem) getItem(position);
+        String title = item.getTitle();
+        String sourceName = item.getSourceName();
+        String updateTime = item.getUpdateTime();
+        String duration = item.getDuration();
+        String time = DateUtil.formatSecondsTime(duration);
+        holder.title.setText(title);
+        holder.tv_date.setText(updateTime);
+        holder.tv_len.setText(time);
+        if(!TextUtils.isEmpty(sourceName)) {
+            holder.tv_source.setVisibility(View.VISIBLE);
+            holder.tv_source.setText(sourceName);
+        }else {
+            holder.tv_source.setVisibility(View.GONE);
+        }
+        String imageURL = item.getImageURL();
+        Glide.with(mContext).load(imageURL)
+                .asBitmap()
+                .centerCrop()
+                .into(new MyBitmapImageViewTarget(holder.ivChannelImg));
+        holder.page_num_layout.setVisibility(View.GONE);
+
+        holder.btn_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnPhoneClickListener!=null) {
+                    mOnPhoneClickListener.onPhoneClick(item);
+                }
+            }
+        });
+        holder.btn_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnTvClickListener!=null) {
+                    mOnTvClickListener.onTvClick(item);
+                }
+            }
+        });
         return convertView;
     }
 
     public static class Holder {
+        public RelativeLayout page_num_layout;
         ImageView ivChannelImg;
         public ImageView btn_phone;
         public ImageView btn_tv;

@@ -1056,12 +1056,12 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         if ("0".equals(collected)){
                             collected = "1";
                             toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
-                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,getResources().getDrawable(R.drawable.icon_collected_big));
+                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_collected_big),null,null);
                             ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"收藏成功");
                         }else{
                             collected = "0";
                             toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
-                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,getResources().getDrawable(R.drawable.icon_uncollect_big));
+                            mCollectedTv.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_uncollect_big),null,null);
                             ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"取消收藏");
                         }
                     }
