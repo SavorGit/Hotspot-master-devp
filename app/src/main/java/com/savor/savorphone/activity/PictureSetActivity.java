@@ -99,7 +99,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     startActivity(pickIntent);
                     overridePendingTransition(R.anim.slide_in_right,
                             R.anim.slide_in_left);// 这部分代码是切换Activity时的动画，看起来就不会很生硬
-                    finish();
+                    //finish();
                     break;
             }
         };
