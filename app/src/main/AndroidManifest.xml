@@ -180,6 +180,12 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.PicRecommendActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+
+        <activity
             android:name=".activity.GameActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"

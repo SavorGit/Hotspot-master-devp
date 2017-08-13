@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -98,6 +99,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
     private long mStartTime;
     private boolean isnew = true;
     private int num = 0;
+    private LinearLayout share_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         setViews();
         setListeners();
         contentIsOnline();
+        setShareView();
 
     }
 
@@ -121,6 +124,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         //setWeb();
         info.fullScroll(ScrollView.FOCUS_UP);
         contentIsOnline();
+        setShareView();
 
 
     }
@@ -172,6 +176,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         shareQqIV = (ImageView) findViewById(R.id.share_qq);
         shareWeiboIV = (ImageView) findViewById(R.id.share_weibo);
         recommend_layout = (LinearLayout)findViewById(R.id.recommend_layout);
+        share_layout = (LinearLayout)findViewById(R.id.share_layout);
         share = (ImageView) findViewById(R.id.share);
         mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
         info = (ScrollView) findViewById(R.id.info);
@@ -195,8 +200,19 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         });
        // recommend_layout.setVisibility(View.GONE);
        // setWeb();
+      //  setShareView();
 
+    }
 
+    private void setShareView(){
+        String contentURL = item.getContentURL();
+        Uri contentUri = Uri.parse(contentURL);
+        String pure = contentUri.getQueryParameter("pure");
+        if("1".equals(pure)) {
+            share_layout.setVisibility(View.GONE);
+        }else {
+            share_layout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setWeb(){

@@ -31,6 +31,7 @@ import com.common.api.utils.ShowMessage;
 import com.savor.savorphone.R;
 import com.savor.savorphone.adapter.PictureSetAdapter;
 import com.savor.savorphone.adapter.PictureSetAdapter.PageOnClickListener;
+import com.savor.savorphone.adapter.RecommendListAdapter;
 import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.PictureSetBean;
 import com.savor.savorphone.core.ApiRequestListener;
@@ -48,6 +49,7 @@ import com.savor.savorphone.widget.ProgressBarView.ProgressBarViewClickListener;
 import com.savor.savorphone.widget.SolveViewPager;
 import com.umeng.socialize.UMShareAPI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +77,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     private PictureSetAdapter pictureSetAdapter;
     private List<PictureSetBean> pictureSetBeanList = new ArrayList<>();
     private CommonListItem voditem;
+    public List<CommonListItem> rList = new ArrayList<CommonListItem>();
     private int mCurrentItem;
     //文章ID
     private String content_id;
@@ -89,16 +92,23 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
             switch (msg.what) {
                 case PICK_CITY:
                     // 跳转选择城市
-                    Intent pickIntent = new Intent(mContext, HelpActivity.class);
-                    Intent intent = getIntent();
-                    if(intent!=null&&("application/pdf").equals(intent.getType())) {
-                        Uri data = getIntent().getData();
-                        pickIntent.setDataAndType(data,intent.getType());
-                        pickIntent.setData(data);
+                    if (rList != null && rList.size()>0) {
+                        Intent pickIntent = new Intent(mContext, PicRecommendActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("rList", (Serializable) rList);
+                        pickIntent.putExtras(bundle);
+                        pickIntent.putExtra("voditem",voditem);
+                        Intent intent = getIntent();
+                        if(intent!=null&&("application/pdf").equals(intent.getType())) {
+                            Uri data = getIntent().getData();
+                            pickIntent.setDataAndType(data,intent.getType());
+                            pickIntent.setData(data);
+                        }
+                        startActivity(pickIntent);
+                        overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_in_left);
                     }
-                    startActivity(pickIntent);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_in_left);// 这部分代码是切换Activity时的动画，看起来就不会很生硬
+                   // 这部分代码是切换Activity时的动画，看起来就不会很生硬
                     //finish();
                     break;
             }
@@ -165,6 +175,10 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         content_id = getIntent().getStringExtra("content_id");
         voditem = (CommonListItem) getIntent().getSerializableExtra("voditem");
     }
+    private void getData(){
+        AppApi.getRecommendInfo(this,voditem.getArtid(),this);
+        //AppApi.getRecommendInfo(this,"2702",this);
+    }
     @Override
     public void getViews() {
         headLayout = (LinearLayout) findViewById(R.id.head_layout);
@@ -220,6 +234,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         mProgressLayout.startLoading();
         AppApi.isCollection(mContext,this,content_id);
         AppApi.getPictureSet(mContext,this,content_id);
+        getData();
     }
 
     @Override
@@ -428,6 +443,13 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     toleft_iv_right.setOnClickListener(PictureSetActivity.this);
                 }
                 break;
+            case POST_RECOMMEND_LIST_JSON:
+                if (obj instanceof List<?>){
+                    List<CommonListItem> mList = (List<CommonListItem>) obj;
+                    setRecommendData(mList);
+                }
+
+                break;
         }
     }
 
@@ -464,6 +486,19 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     }
 
 
+    private void setRecommendData(List<CommonListItem> mList){
+        if (mList != null && mList.size()>0) {
+            if (rList != null && rList.size()>0) {
+                rList.clear();
+                rList = mList;
+            }else {
+                rList = mList;
+            }
+
+        }
+
+
+    }
     private void handlePictureSet(){
         if (pictureSetBeanList==null||pictureSetBeanList.size()==0){
             return;

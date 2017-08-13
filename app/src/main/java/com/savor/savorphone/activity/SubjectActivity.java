@@ -4,6 +4,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -83,6 +84,7 @@ public class SubjectActivity extends BaseActivity implements View.OnClickListene
     public ProgressBarView allProgressLayuot;
     private String UUID;
     private long mStartTime;
+    private LinearLayout share_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +145,7 @@ public class SubjectActivity extends BaseActivity implements View.OnClickListene
         share = (ImageView) findViewById(R.id.share);
         mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
         allProgressLayuot = (ProgressBarView) findViewById(R.id.all_pbv_loading);
+        share_layout = (LinearLayout)findViewById(R.id.share_layout);
     }
 
     @Override
@@ -160,8 +163,19 @@ public class SubjectActivity extends BaseActivity implements View.OnClickListene
                 writeAppLog("complete");
             }
         });
+        setShareView();
     }
 
+    private void setShareView(){
+        String contentURL = item.getContentURL();
+        Uri contentUri = Uri.parse(contentURL);
+        String pure = contentUri.getQueryParameter("pure");
+        if("1".equals(pure)) {
+            share_layout.setVisibility(View.GONE);
+        }else {
+            share_layout.setVisibility(View.VISIBLE);
+        }
+    }
     private void setWeb(){
         if (mCustomWebView.canGoBack()) {
             webUrl =  mCustomWebView.getUrl();
