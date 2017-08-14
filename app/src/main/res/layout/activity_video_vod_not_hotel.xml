@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@color/black" />
-
+            <!--初次播放引导图-->
             <ImageView
                 android:id="@+id/gesture"
                 android:layout_width="match_parent"
@@ -31,54 +31,21 @@
                 android:onClick="onClick"
                 android:src="@drawable/bg_video_gesture"
                 android:visibility="gone" />
-
-            <LinearLayout
-                android:background="@color/deep_trans"
+            <!--加载失败布局-->
+            <include
+                android:visibility="gone"
                 android:id="@+id/finish_layer"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_centerInParent="true"
-                android:clickable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-                <TextView
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/color_text_list_item"
-                    android:gravity="center"
-                    android:text="收藏"
-                    android:id="@+id/tv_collect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/icon_uncollect_big" />
-                <TextView
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/color_text_list_item"
-                    android:gravity="center"
-                    android:text="分享"
-                    android:id="@+id/share_finish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/icon_share_big" />
-
-                <TextView
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:textColor="@color/color_text_list_item"
-                    android:text="重播"
-                    android:id="@+id/replay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/icon_replay" />
-
-               </LinearLayout>
+                layout="@layout/include_finish_layout"
+                />
+            <include
+                android:visibility="gone"
+                android:id="@+id/play_error"
+                layout="@layout/include_play_error_layout"
+                />
+            <!--标题栏-->
             <include
                 android:id="@+id/head_layout"
                 layout="@layout/layout_head_title" />
-
-
 
         </RelativeLayout>
 

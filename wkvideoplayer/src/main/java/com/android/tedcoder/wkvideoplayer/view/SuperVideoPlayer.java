@@ -70,7 +70,7 @@ public class SuperVideoPlayer extends RelativeLayout {
     private View mTitleView;
     //是否自动隐藏控制栏
     private boolean mAutoHideController = true;
-
+    private boolean isLoadError;
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -283,6 +283,7 @@ public class SuperVideoPlayer extends RelativeLayout {
      * @param seekTime     开始进度
      */
     public void loadMultipleVideo(Video playVideo, int selectFormat, int seekTime) {
+        isLoadError = false;
         mNowPlayVideo = playVideo;
         mNowPlayVideo.setPlayUrl(selectFormat);
         mMediaController.initPlayVideo(mNowPlayVideo);
@@ -524,7 +525,7 @@ public class SuperVideoPlayer extends RelativeLayout {
         int allTime = mSuperVideoView.getDuration();
         int playTime = mSuperVideoView.getCurrentPosition();
         int loadProgress = mSuperVideoView.getBufferPercentage();
-        if(oldProgress == playTime && mMediaController.getPlayState()==MediaController.PlayState.PLAY) {
+        if(oldProgress == playTime && mMediaController.getPlayState()==MediaController.PlayState.PLAY&&!isLoadError) {
             mProgressBarView.setVisibility(VISIBLE);
         }else {
             dismissProgress();
@@ -729,6 +730,7 @@ public class SuperVideoPlayer extends RelativeLayout {
      * 停止更新时间
      */
     public void stopUpdateTimer() {
+        mHandler.removeMessages(MSG_UPDATE_PLAY_TIME);
         if (mUpdateTimer != null) {
             mUpdateTimer.cancel();
             mUpdateTimer = null;
@@ -779,4 +781,9 @@ public class SuperVideoPlayer extends RelativeLayout {
     public void setOnPlayBtnClickListener(MediaController.OnPlayBtnClickListener listener ){
         mMediaController.setOnPlayBtnClickListener(listener);
     }
+
+    public void setPlayError(boolean isPlayError) {
+        isLoadError = isPlayError;
+    }
+
 }

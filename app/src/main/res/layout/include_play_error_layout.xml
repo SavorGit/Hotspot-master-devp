@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/deep_trans"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:textSize="16sp"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/tv_play_error_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载超时，点击重试"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:textSize="16sp"
+        android:id="@+id/tv_reload"
+        android:padding="10dp"
+        android:background="@drawable/bg_reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重新加载"
+        android:textColor="@color/app_red_color" />
+
+
+</LinearLayout>
