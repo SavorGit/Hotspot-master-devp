@@ -58,5 +58,6 @@
     <color name="color_share_bg">#f6f3f0</color>
     <color name="color_share_cl_bg">#fefbf8</color>
     <color name="color_share_text">#444444</color>
+    <color name="color_corner_lookmore">#E3DEDA</color>
 
 </resources>
