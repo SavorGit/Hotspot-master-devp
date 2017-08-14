@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,7 +41,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PicRecommendActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener {
+public class PicRecommendActivity extends BaseActivity implements View.OnClickListener,
+        ApiRequestListener,
+        AdapterView.OnItemClickListener{
 
     private Context context;
     private TextView tv_center;
@@ -145,5 +148,10 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         UMShareAPI.get(this).release();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }

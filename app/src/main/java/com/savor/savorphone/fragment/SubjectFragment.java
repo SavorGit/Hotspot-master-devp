@@ -156,7 +156,6 @@ public class SubjectFragment extends BaseFragment implements ApiRequestListener,
         if(specialData==null||specialData.size()==0) {
             mProgressLayout.startLoading();
         }
-
         AppApi.getSpecialList(context,sort_num,this);
 
     }

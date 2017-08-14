@@ -48,9 +48,10 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
                 ev.getY();
                 break;
             case MotionEvent.ACTION_UP:
-
+                endX1 = ev.getX();
+                ev.getY();
                 mode = 0;
-
+                obj.setData(startX1,endX1);
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 mode -= 1;
@@ -71,13 +72,7 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
 //                            getParent().requestDisallowInterceptTouchEvent(false);
 //                        }
                     } else {// 左划
-                        endX1 = ev.getX();
-                        ev.getY();
-                        obj.setData(startX1,endX1);
-//                        if (getCurrentItem() == getAdapter().getCount() - 1) {// 最后一个页面,
-//                            // 需要拦截
-//                            getParent().requestDisallowInterceptTouchEvent(false);
-//                        }
+
                     }
                 } else {// 上下滑动
                     if (mode >= 2) {
