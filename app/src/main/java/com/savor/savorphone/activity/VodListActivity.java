@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
@@ -20,6 +21,7 @@ import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.projection.ProjectionManager;
 import com.savor.savorphone.utils.ActivitiesManager;
 import com.savor.savorphone.utils.RecordUtils;
+import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
 import com.savor.savorphone.widget.ProgressBarView;
@@ -56,7 +58,16 @@ public class VodListActivity extends BaseProActivity implements View.OnClickList
             }
         }
     };
+    private Runnable ptrRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            mVodListView.onRefreshComplete();
+        }
+    };
     private CommonDialog dialog;
+    private TextView refreshDataHintTV;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +89,7 @@ public class VodListActivity extends BaseProActivity implements View.OnClickList
     }
 
     public void getViews() {
+        refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
         mVodListView = (PullToRefreshListView) findViewById(R.id.ptl_vod_list);
         mLoadingLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
@@ -109,10 +121,11 @@ public class VodListActivity extends BaseProActivity implements View.OnClickList
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
-        mVodListView.onRefreshComplete();
+        setPtrSuccessComplete();
         switch (method) {
             case POST_DEMAND_LIST_JSON:
                 mLoadingLayout.loadSuccess();
+                showRefreshHintAnimation("更新成功");
                 handleDemandList(obj);
                 break;
             case GET_VOD_PRO_JSON:
@@ -136,9 +149,21 @@ public class VodListActivity extends BaseProActivity implements View.OnClickList
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
+        setPtrSuccessComplete();
         switch (method) {
             case POST_DEMAND_LIST_JSON:
-                mLoadingLayout.loadFailure();
+                if(mVodAdapter.getCount()==0) {
+                    mLoadingLayout.loadFailure();
+                }
+                if (obj instanceof ResponseErrorMessage) {
+                    ResponseErrorMessage errorMessage = (ResponseErrorMessage) obj;
+                    String statusCode = String.valueOf(errorMessage.getCode());
+                    if (AppApi.ERROR_TIMEOUT.equals(statusCode)) {
+                        showRefreshHintAnimation("数据加载超时");
+                    } else if (AppApi.ERROR_NETWORK_FAILED.equals(statusCode)) {
+                        showRefreshHintAnimation("无法连接到网络,请检查网络设置");
+                    }
+                }
                 break;
             case GET_VOD_PRO_JSON:
                 dismissProLoadingDialog();
@@ -159,6 +184,16 @@ public class VodListActivity extends BaseProActivity implements View.OnClickList
                     break;
                 }
         }
+    }
+
+    private void showRefreshHintAnimation(final String hint) {
+        refreshDataHintTV.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshDataHintTV.setText(hint);
+                SavorAnimUtil.startListRefreshHintAnimation(refreshDataHintTV);
+            }
+        },500);
     }
 
     private void handleDemandList(Object obj) {
@@ -266,5 +301,12 @@ public class VodListActivity extends BaseProActivity implements View.OnClickList
             }
         },"继续投屏",true);
         dialog.show();
+    }
+
+    private void setPtrSuccessComplete() {
+        if (handler == null) {
+            handler = new Handler();
+        }
+        handler.postDelayed(ptrRunnable, 1000);
     }
 }
