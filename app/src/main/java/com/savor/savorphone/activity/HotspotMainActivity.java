@@ -633,8 +633,13 @@ public class HotspotMainActivity extends AppCompatActivity
         if(!mTitleList.contains("投屏")) {
             RecordUtils.onEvent(getApplicationContext(),R.string.home_find_tv);
             mPagerAdapter.addPager(mProjectionFragment,"投屏",0);
-            mTabLayout.refresh();
             mViewPager.setCurrentItem(0);
+            mViewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mTabLayout.refresh();
+                }
+            },100);
         }
     }
 
