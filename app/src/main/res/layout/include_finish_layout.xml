@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/finish_layer"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_centerInParent="true"
+    android:background="@color/deep_trans"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/tv_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/icon_uncollect_big"
+        android:gravity="center"
+        android:text="收藏"
+        android:textColor="@color/color_text_list_item" />
+
+    <TextView
+        android:id="@+id/share_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/icon_share_big"
+        android:gravity="center"
+        android:text="分享"
+        android:textColor="@color/color_text_list_item" />
+
+    <TextView
+        android:id="@+id/replay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/icon_replay"
+        android:gravity="center"
+        android:text="重播"
+        android:textColor="@color/color_text_list_item" />
+
+</LinearLayout>

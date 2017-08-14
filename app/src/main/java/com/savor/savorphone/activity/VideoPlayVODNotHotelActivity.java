@@ -143,6 +143,8 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     public ProgressBarView allProgressLayuot;
     private boolean isPlaying;
     private TextView mCollectedTv;
+    private LinearLayout mPlayErrorLayout;
+    private TextView mReloadBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -205,6 +207,8 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     }
     @Override
     public void getViews() {
+        mReloadBtn = (TextView) findViewById(R.id.tv_reload);
+        mPlayErrorLayout = (LinearLayout) findViewById(R.id.play_error);
         mCollectedTv = (TextView) findViewById(R.id.tv_collect);
         headLayout = (LinearLayout) findViewById(R.id.head_layout);
         iv_left = (ImageView) findViewById(R.id.iv_left);
@@ -283,15 +287,11 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         mSuperVideoPlayer.getSuperVideoView().setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
-                display();
-                mSuperVideoPlayer.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSuperVideoPlayer.alwaysShowController();
-                    }
-                },1000);
+                mSuperVideoPlayer.setPlayError(true);
+                currentMsec = mSuperVideoPlayer.getCurrentMsec();
+                mSuperVideoPlayer.stopUpdateTimer();
                 mSuperVideoPlayer.dismissProgress();
-                ShowMessage.showToast(VideoPlayVODNotHotelActivity.this,"由于网络问题，播放失败");
+                mPlayErrorLayout.setVisibility(View.VISIBLE);
                 return true;
             }
         });
@@ -333,6 +333,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
     @Override
     public void setListeners() {
+        mReloadBtn.setOnClickListener(this);
         mCollectedTv.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         iv_right.setOnClickListener(this);
@@ -705,6 +706,14 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_reload:
+                mPlayErrorLayout.setVisibility(View.GONE);
+                mSuperVideoPlayer.loadMultipleVideo(video,0,currentMsec);
+                mFinishLayer.setVisibility(View.GONE);
+                mSuperVideoPlayer.setBottomProgressBarVisible();
+                writeAppLog("start",true);
+//                rePlayVideo();
+                break;
             case R.id.iv_left: //返回
                 onBackPressed();
                 break;
@@ -725,10 +734,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 break;
 
             case R.id.replay:   //重播
-                mSuperVideoPlayer.playTurn();
-                mFinishLayer.setVisibility(View.GONE);
-                mSuperVideoPlayer.setBottomProgressBarVisible();
-                writeAppLog("start",true);
+                rePlayVideo();
                 break;
             case R.id.share_finish:
                 shareMethod();
@@ -761,6 +767,14 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 hashMap3.put(getString(R.string.menu_recommend_sina),"success");
                 RecordUtils.onEvent(mContext,"menu_recommend_sina",hashMap3);
         }
+    }
+
+    private void rePlayVideo() {
+        mPlayErrorLayout.setVisibility(View.GONE);
+        mSuperVideoPlayer.playTurn();
+        mFinishLayer.setVisibility(View.GONE);
+        mSuperVideoPlayer.setBottomProgressBarVisible();
+        writeAppLog("start",true);
     }
 
     private void share(SHARE_MEDIA platform){
@@ -889,6 +903,11 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             ViewGroup.LayoutParams layerParams = mFinishLayer.getLayoutParams();
             layerParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layerParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+            ViewGroup.LayoutParams playParams = mPlayErrorLayout.getLayoutParams();
+            playParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            playParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+
             if(mSuperVideoPlayer.getSuperVideoView().isPlaying()) {
                 headLayout.setVisibility(View.GONE);
             }else{
@@ -906,6 +925,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             layerParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             mFinishLayer.getLayoutParams().height = (DensityUtil.dip2px(this,200f));
+            mPlayErrorLayout.getLayoutParams().height = (DensityUtil.dip2px(this,200f));
             mSuperVideoPlayer.getLayoutParams().height = (int) height;
             mSuperVideoPlayer.getLayoutParams().width = (int) width;
             mSuperVideoPlayer.setPageType(MediaController.PageType.SHRINK);
@@ -999,6 +1019,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         }
         if(video!=null&&mFinishLayer.getVisibility()!=View.VISIBLE) {
             mSuperVideoPlayer.loadMultipleVideo(video,0,currentMsec);
+            // 当分享操作时暂停播放，同时记录暂停前状态，当重新返回时恢复
             if(!isPlaying) {
                 mSuperVideoPlayer.pausePlay(true);
             }
