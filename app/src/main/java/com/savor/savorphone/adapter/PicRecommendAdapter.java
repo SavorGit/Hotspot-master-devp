@@ -27,8 +27,6 @@ public class PicRecommendAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<CommonListItem> commonList  = new ArrayList<CommonListItem>();
-    private OnItemStoreClickListener callback;
-    private PicRecommendAdapter.OnItemLongClickListener mOnItemLongClickListener;
     public static final float SCAL = 1.829f;
 
     public PicRecommendAdapter(Context context,List<CommonListItem> common) {
@@ -112,59 +110,59 @@ public class PicRecommendAdapter extends BaseAdapter {
                 break;
         }
 
-        convertView.setOnClickListener(new mStoreListener(itemVo) );
-        convertView.setOnLongClickListener(new mLongItemListener(itemVo));
+//        convertView.setOnClickListener(new mStoreListener(itemVo) );
+//        convertView.setOnLongClickListener(new mLongItemListener(itemVo));
         return convertView;
     }
 
 
-    /**
-     * 单击收藏事件监听器
-     */
-    public class mStoreListener implements OnClickListener{
-        private CommonListItem itemVo;
-
-        public mStoreListener(CommonListItem vodAndTopicItemVo) {
-            this.itemVo = vodAndTopicItemVo;
-        }
-
-        @Override
-        public void onClick(View view) {
-            callback.onStoreClick(itemVo);
-        }
-    }
-
-
-    public interface OnItemStoreClickListener {
-        void onStoreClick(CommonListItem itemVo);
-    }
-
-
-    public class mLongItemListener implements View.OnLongClickListener{
-        private CommonListItem itemVo;
-
-        public mLongItemListener(CommonListItem vodAndTopicItemVo) {
-            this.itemVo = vodAndTopicItemVo;
-        }
-        @Override
-        public boolean onLongClick(View v) {
-            mOnItemLongClickListener.onItemLongClick(itemVo);
-            return false;
-        }
-    }
-    /**
-     * 单击分享事件监听器
-     */
+//    /**
+//     * 单击收藏事件监听器
+//     */
+//    public class mStoreListener implements OnClickListener{
+//        private CommonListItem itemVo;
+//
+//        public mStoreListener(CommonListItem vodAndTopicItemVo) {
+//            this.itemVo = vodAndTopicItemVo;
+//        }
+//
+//        @Override
+//        public void onClick(View view) {
+//            callback.onStoreClick(itemVo);
+//        }
+//    }
+//
+//
+//    public interface OnItemStoreClickListener {
+//        void onStoreClick(CommonListItem itemVo);
+//    }
 
 
-
-    public interface OnItemLongClickListener {
-        void onItemLongClick(CommonListItem itemVo);
-    }
-
-    public void setOnItemLongClickListener(PicRecommendAdapter.OnItemLongClickListener listener) {
-        this.mOnItemLongClickListener = listener;
-    }
+//    public class mLongItemListener implements View.OnLongClickListener{
+//        private CommonListItem itemVo;
+//
+//        public mLongItemListener(CommonListItem vodAndTopicItemVo) {
+//            this.itemVo = vodAndTopicItemVo;
+//        }
+//        @Override
+//        public boolean onLongClick(View v) {
+//            mOnItemLongClickListener.onItemLongClick(itemVo);
+//            return false;
+//        }
+//    }
+//    /**
+//     * 单击分享事件监听器
+//     */
+//
+//
+//
+//    public interface OnItemLongClickListener {
+//        void onItemLongClick(CommonListItem itemVo);
+//    }
+//
+//    public void setOnItemLongClickListener(PicRecommendAdapter.OnItemLongClickListener listener) {
+//        this.mOnItemLongClickListener = listener;
+//    }
 
 
     private class ViewHolder {
