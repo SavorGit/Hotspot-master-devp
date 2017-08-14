@@ -493,24 +493,28 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         @Override
         public void onPageSelected(int position) {
             selectedPosition = position;
-
             //set old view statue
             ViewHelper.setAlpha(tabViews.get(oldPosition).get("normal"), 1);
             ViewHelper.setAlpha(tabViews.get(oldPosition).get("selected"), 0);
-            View v_old = tabsContainer.getChildAt(oldPosition);
-            ViewHelper.setPivotX(v_old, v_old.getMeasuredWidth() * 0.5f);
-            ViewHelper.setPivotY(v_old, v_old.getMeasuredHeight() * 0.5f);
-            ViewHelper.setScaleX(v_old, 1f);
-            ViewHelper.setScaleY(v_old, 1f);
+            if(oldPosition<tabsContainer.getChildCount()) {
+                View v_old = tabsContainer.getChildAt(oldPosition);
+                ViewHelper.setPivotX(v_old, v_old.getMeasuredWidth() * 0.5f);
+                ViewHelper.setPivotY(v_old, v_old.getMeasuredHeight() * 0.5f);
+                ViewHelper.setScaleX(v_old, 1f);
+                ViewHelper.setScaleY(v_old, 1f);
+            }
 
             //set new view statue
             ViewHelper.setAlpha(tabViews.get(position).get("normal"), 0);
             ViewHelper.setAlpha(tabViews.get(position).get("selected"), 1);
-            View v_new = tabsContainer.getChildAt(position);
-            ViewHelper.setPivotX(v_new, v_new.getMeasuredWidth() * 0.5f);
-            ViewHelper.setPivotY(v_new, v_new.getMeasuredHeight() * 0.5f);
-            ViewHelper.setScaleX(v_new, 1 + zoomMax);
-            ViewHelper.setScaleY(v_new, 1 + zoomMax);
+
+            if(position<tabsContainer.getChildCount()) {
+                View v_new = tabsContainer.getChildAt(position);
+                ViewHelper.setPivotX(v_new, v_new.getMeasuredWidth() * 0.5f);
+                ViewHelper.setPivotY(v_new, v_new.getMeasuredHeight() * 0.5f);
+                ViewHelper.setScaleX(v_new, 1 + zoomMax);
+                ViewHelper.setScaleY(v_new, 1 + zoomMax);
+            }
 
             if (delegatePageListener != null) {
                 delegatePageListener.onPageSelected(position);

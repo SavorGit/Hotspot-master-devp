@@ -175,7 +175,7 @@ public class CompressImage {
             fileOutputStream = new FileOutputStream(copyPath);
             bm.compress(Bitmap.CompressFormat.JPEG,80,fileOutputStream);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             copyPath = filePath;
         }finally {
             if(fileOutputStream!=null) {

@@ -58,8 +58,8 @@ public class SlideAdapter extends PagerAdapter {
                         dontAnimate().
                         into(imageView);
             }else {
-                Glide.with(mContext).load(R.drawable.kong_mrjz).
-                        placeholder(R.drawable.kong_mrjz).
+                Glide.with(mContext).load(R.drawable.icon_pic_unexits).
+                        placeholder(R.drawable.icon_pic_unexits).
                         dontAnimate().
                         into(imageView);
             }
