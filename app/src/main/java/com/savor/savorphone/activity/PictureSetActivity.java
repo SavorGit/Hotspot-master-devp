@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -129,11 +131,11 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
-                // // System.out.println("水平方向移动距离过大");
-                // return true;
-                // }
-                if (Math.abs(velocityY) < 180|| Math.abs(velocityX)<180) {
+                 if (Math.abs(e1.getRawX() - e2.getRawX()) > 100) {
+                 // System.out.println("水平方向移动距离过大");
+                 return true;
+                 }
+                if (Math.abs(velocityY) < 230|| Math.abs(velocityX)<230) {
                     // System.out.println("手指移动的太慢了");
                     return true;
                 }
@@ -197,6 +199,23 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
     }
 
+//    private void settop(){
+//        Window window = getWindow();
+//        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+//                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//
+//        window.setFlags(
+//                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+//                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        // 创建状态栏的管理实例
+//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        // 激活状态栏设置
+//        tintManager.setStatusBarTintEnabled(true);
+//        // 激活导航栏设置
+//        tintManager.setNavigationBarTintEnabled(true);
+//        // 设置一个颜色给系统栏
+//        tintManager.setTintColor(Color.parseColor("#FFFF6666"));
+//    }
     @Override
     public void setViews() {
         iv_right.setVisibility(View.VISIBLE);
@@ -568,8 +587,8 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         windowManager.getDefaultDisplay().getSize(size);
         int width = size.x;
         // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
-        if (mCurrentItem == (pictureSetBeanList.size() - 1)) {
-           // && endX - startX >= (width / 6)
+        if (mCurrentItem == (pictureSetBeanList.size() - 1)&& endX - startX >= 300) {
+
             mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
         }
     }
