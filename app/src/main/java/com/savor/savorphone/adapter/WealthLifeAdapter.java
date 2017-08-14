@@ -195,6 +195,7 @@ public class WealthLifeAdapter extends BaseAdapter{
         ImageView headerSourceIconIV = (ImageView) view.findViewById(R.id.hesder_source_icon);
         TextView headerSourceNameTV = (TextView) view.findViewById(R.id.hesder_source_name);
         TextView headerSourceTimeTV = (TextView) view.findViewById(R.id.hesder_source_time);
+        TextView headerlengthTV = (TextView) view.findViewById(R.id.length);
         CommonListItem item = list.get(0);
         ViewGroup.LayoutParams layoutParams = headerBigImageIV.getLayoutParams();
         int width = DensityUtil.getScreenWidth(context)-DensityUtil.dip2px(context,20f);
@@ -216,6 +217,17 @@ public class WealthLifeAdapter extends BaseAdapter{
                 .into(headerSourceIconIV);
         headerSourceNameTV.setText(item.getSourceName());
         headerSourceTimeTV.setText(item.getUpdateTime());
+        int tpye = item.getType();
+        if (tpye == 2) {
+            headerlengthTV.setVisibility(View.VISIBLE);
+            headerlengthTV.setText(item.getColTuJi()+"图");
+        }else if (tpye == 3 ||tpye == 4) {
+            headerlengthTV.setVisibility(View.VISIBLE);
+            String time = DateUtil.formatSecondsCh(item.getDuration());
+            headerlengthTV.setText(time);
+        }else {
+            headerlengthTV.setVisibility(View.GONE);
+        }
         return view;
     }
 

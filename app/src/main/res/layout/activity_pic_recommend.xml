@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_text_list_item">
+    <RelativeLayout
+        android:id="@+id/top"
+        android:background="@color/color_main"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/back3x" />
+        <LinearLayout
+            android:id="@+id/right_landscape"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/toleft_iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/shoucang3x"/>
+
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:onClick="onClick"
+                android:paddingRight="10dp"
+                android:src="@drawable/fenxiang3x" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/top"
+        android:id="@+id/re_lab"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lab_t"
+            android:text="图集推荐"
+            android:textColor="@color/color_main"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/lab_t"
+            android:background="@color/color_main"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_marginLeft="40dp"
+            android:layout_height="2dp"/>
+        <View
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:background="@color/color_main"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:layout_width="105dp"
+            android:layout_height="2dp"/>
+    </RelativeLayout>
+
+    <GridView
+
+
+        android:id="@+id/gview"
+        android:layout_below="@id/re_lab"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#e0dad2"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:horizontalSpacing = "2dp"
+        android:verticalSpacing = "2dp"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        android:smoothScrollbar="false"
+        android:numColumns="2"/>
+
+</RelativeLayout>

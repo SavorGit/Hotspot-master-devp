@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.common.api.utils.DateUtil;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.savorphone.R;
@@ -65,6 +66,7 @@ public class SubjectFragment extends BaseFragment implements ApiRequestListener,
     private TextView headerNameTV;
     /**头部来源时间**/
     private TextView headerSourceTimeTV;
+    private TextView headerlengthTV;
     private TextView mRefreshDataHinttv;
     private SubjectAdapter subjectAdapter=null;
     private String sort_num = "";
@@ -164,6 +166,7 @@ public class SubjectFragment extends BaseFragment implements ApiRequestListener,
         headerTitleTV = (TextView) view.findViewById(R.id.header_title);
         headerNameTV = (TextView) view.findViewById(R.id.header_info);
         headerSourceTimeTV = (TextView) view.findViewById(R.id.hesder_source_time);
+        headerlengthTV = (TextView) view.findViewById(R.id.length);
 
         return view;
     }
@@ -321,6 +324,18 @@ public class SubjectFragment extends BaseFragment implements ApiRequestListener,
         headerTitleTV.setText(first.getTitle());
         headerNameTV.setText(first.getShareTitle());
         headerSourceTimeTV.setText(first.getUpdateTime());
+        int tpye = first.getType();
+        if (tpye == 2) {
+            headerlengthTV.setVisibility(View.VISIBLE);
+            headerlengthTV.setText(first.getColTuJi()+"图");
+        }else if (tpye == 3 ||tpye == 4) {
+            headerlengthTV.setVisibility(View.VISIBLE);
+            String time = DateUtil.formatSecondsCh(first.getDuration());
+            headerlengthTV.setText(time);
+        }else {
+            headerlengthTV.setVisibility(View.GONE);
+        }
+
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
