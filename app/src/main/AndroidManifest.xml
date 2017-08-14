@@ -145,6 +145,7 @@
         <activity
             android:name=".activity.PictureSetActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppPicTheme"
             android:screenOrientation="sensor" />
         <activity
             android:name=".activity.ImageCollectionActivity"

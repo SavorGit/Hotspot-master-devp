@@ -21,6 +21,7 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
     boolean leftrighable = false; // 左右滑动事件是否需要父控件拦截    默认不需要 false
     private boolean mChildIsBeingDragged=false; /**  当前子控件是否处理拖动状态  */
     private int  mode = 0;
+    private boolean isRight = false;
     private SetRecommend obj;
     public SolveViewPager(Context context) {
         super(context);
@@ -51,7 +52,10 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
                 endX1 = ev.getX();
                 ev.getY();
                 mode = 0;
-                obj.setData(startX1,endX1);
+                if (endX1 >startX1&& isRight == false) {
+                    obj.setData(startX1,endX1);
+                }
+
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 mode -= 1;
@@ -70,9 +74,10 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
                     if (endX > startX) {// 右划
 //                        if (getCurrentItem() == 0) {// 第一个页面, 需要父控件拦截
 //                            getParent().requestDisallowInterceptTouchEvent(false);
+                        isRight = true;
 //                        }
                     } else {// 左划
-
+                        isRight = false;
                     }
                 } else {// 上下滑动
                     if (mode >= 2) {

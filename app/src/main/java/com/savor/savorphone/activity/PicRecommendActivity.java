@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.AppUtils;
 import com.common.api.utils.ShowMessage;
 import com.savor.savorphone.R;
 import com.savor.savorphone.SavorApplication;
@@ -25,6 +26,7 @@ import com.savor.savorphone.bean.SmallPlatInfoBySSDP;
 import com.savor.savorphone.bean.SmallPlatformByGetIp;
 import com.savor.savorphone.bean.TvBoxSSDPInfo;
 import com.savor.savorphone.core.ApiRequestListener;
+import com.savor.savorphone.interfaces.CopyCallBack;
 import com.savor.savorphone.log.AliLogFileUtil;
 import com.savor.savorphone.utils.BarcodeUtil;
 import com.savor.savorphone.utils.ConstantValues;
@@ -43,13 +45,12 @@ import java.util.List;
 
 public class PicRecommendActivity extends BaseActivity implements View.OnClickListener,
         ApiRequestListener,
-        AdapterView.OnItemClickListener{
+        AdapterView.OnItemClickListener,CopyCallBack {
 
     private Context context;
-    private TextView tv_center;
-    private ImageView iv_left;
-    private ImageView iv_right;
-    private ImageView code;
+    private ImageView back;
+    private ImageView toleft_iv_right;
+    private ImageView share;
     private ShareManager mShareManager;
     private ShareManager.CustomShareListener mShareListener;
     public List<CommonListItem> rList = new ArrayList<CommonListItem>();
@@ -81,6 +82,9 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void getViews() {
+        back = (ImageView) findViewById(R.id.back);
+        toleft_iv_right = (ImageView) findViewById(R.id.toleft_iv_right);
+        share = (ImageView) findViewById(R.id.share);
        // tv_center = (TextView) findViewById(R.id.tv_center);
 //        iv_left = (ImageView) findViewById(R.id.iv_left);
 //        iv_right = (ImageView) findViewById(R.id.iv_right);
@@ -100,7 +104,9 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void setListeners() {
-        //iv_left.setOnClickListener(this);
+        toleft_iv_right.setOnClickListener(this);
+        back.setOnClickListener(this);
+        gview.setOnItemClickListener(this);
     }
 
     @Override
@@ -112,13 +118,29 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_left:
-                RecordUtils.onEvent(this,getString(R.string.menu_feedback_back));
-                onBackPressed();
+            case R.id.back:
+                finish();
                 break;
+            case R.id.share:
+                share();
 
             default:
         }
+    }
+
+    private void share() {
+        if (!AppUtils.isNetworkAvailable(this)) {
+            ShowMessage.showToastSavor(this, getString(R.string.bad_wifi));
+            return;
+        }
+        //暂停，记录播放位置
+
+        String stitle = "小热点| "+ voditem.getTitle();
+        String text = "小热点| "+voditem.getTitle();
+        // ShareManager shareManager = ShareManager.getInstance();
+        mShareManager.setCategory_id("1");
+        mShareManager.setContent_id(voditem.getArtid());
+        mShareManager.share(this,text,stitle,voditem.getImageURL(),ConstantValues.addH5ShareParams(voditem.getContentURL()),this);
     }
 
 
@@ -152,6 +174,40 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CommonListItem item = (CommonListItem)parent.getItemAtPosition(position);
+        if (item!=null){
+            int type = Integer.valueOf(item.getType());
+            switch (type){
+                case 0:
+                case 1:
+                    item.setCategoryId(item.getCategoryId());
+                    Intent intent = new Intent(context, ImageTextActivity.class);
+                    intent.putExtra("item",item);
+                    startActivity(intent);
+                    break;
+                case 2:
+                    intent = new Intent(context, PictureSetActivity.class);
+                    intent.putExtra("voditem",item);
+                    intent.putExtra("content_id",item.getArtid());
+                    intent.putExtra("category_id",item.getCategoryId());
+                    startActivity(intent);
+                    break;
+                case 3:
+                case 4:
+                    intent = new Intent(context, VideoPlayVODNotHotelActivity.class);
+                    item.setCategoryId(item.getCategoryId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.putExtra("voditem",item);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    }
 
+    @Override
+    public void copyLink() {
+        ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(voditem.getContentURL());
+        ShowMessage.showToast(mContext,"复制完毕");
     }
 }
