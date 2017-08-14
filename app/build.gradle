@@ -13,7 +13,7 @@ android {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode 2017080201
-        versionName "3.0"
+        versionName "3.0.1"
 
         multiDexEnabled true
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]

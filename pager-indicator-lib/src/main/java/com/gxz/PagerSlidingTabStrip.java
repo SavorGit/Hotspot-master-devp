@@ -492,8 +492,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
         @Override
         public void onPageSelected(int position) {
-            selectedPosition = position;
+            if(position>=tabsContainer.getChildCount())
+                return;
 
+            selectedPosition = position;
             //set old view statue
             ViewHelper.setAlpha(tabViews.get(oldPosition).get("normal"), 1);
             ViewHelper.setAlpha(tabViews.get(oldPosition).get("selected"), 0);
