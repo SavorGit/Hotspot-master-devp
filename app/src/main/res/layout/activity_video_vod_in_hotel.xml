@@ -122,10 +122,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:id="@+id/tv_more_video"
                             android:layout_gravity="center"
-                            android:text="更多点播视频"
-                            android:background="@drawable/bg_link"
+                            android:text="更多点播视频 》"
+                            android:background="@drawable/round_corner_lookmore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
