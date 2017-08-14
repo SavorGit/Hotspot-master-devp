@@ -104,6 +104,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                             pickIntent.setDataAndType(data,intent.getType());
                             pickIntent.setData(data);
                         }
+
                         startActivity(pickIntent);
                         overridePendingTransition(R.anim.slide_in_right,
                                 R.anim.slide_in_left);
