@@ -16,6 +16,7 @@
     <!--浅灰  -->
     <color name="red">#F43531</color>
     <color name="transparent">#00000000</color>
+    <color name="picout">#0000</color>
     <color name="pdf_dialog_bg">#19000000</color>
     <color name="deep_trans">#b2000000</color>
 

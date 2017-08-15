@@ -96,7 +96,7 @@ public class RecommendActivity extends BaseActivity implements View.OnClickListe
         friends_la = (RelativeLayout)findViewById(R.id.friends_la);
         qq_la = (RelativeLayout)findViewById(R.id.qq_la);
         weibo_la = (RelativeLayout)findViewById(R.id.weibo_la);
-        copy_link_la = (RelativeLayout)findViewById(R.id.copy_link_la);
+       //copy_link_la = (RelativeLayout)findViewById(R.id.copy_link_la);
         code = (ImageView) findViewById(R.id.code);
 
     }
@@ -115,7 +115,7 @@ public class RecommendActivity extends BaseActivity implements View.OnClickListe
         friends_la.setOnClickListener(this);
         qq_la.setOnClickListener(this);
         weibo_la.setOnClickListener(this);
-        copy_link_la.setOnClickListener(this);
+       // copy_link_la.setOnClickListener(this);
     }
 
     private void setCode(){
@@ -176,12 +176,12 @@ public class RecommendActivity extends BaseActivity implements View.OnClickListe
                         .setCallback(mShareListener)
                         .share();
                 break;
-            case R.id.copy_link_la:
-                RecordUtils.onEvent(RecommendActivity.this,getString(R.string.menu_recommend_copy_link));
-                ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setText(shareUrl);
-                ShowMessage.showToast(context,"复制完毕");
-                break;
+//            case R.id.copy_link_la:
+//                RecordUtils.onEvent(RecommendActivity.this,getString(R.string.menu_recommend_copy_link));
+//                ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                cmb.setText(shareUrl);
+//                ShowMessage.showToast(context,"复制完毕");
+//                break;
 
             default:
         }
