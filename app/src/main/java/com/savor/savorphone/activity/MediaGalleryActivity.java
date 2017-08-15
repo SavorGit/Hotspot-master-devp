@@ -1013,10 +1013,6 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initBindcodeResult() {
-//        if(AppUtils.isFastDoubleClick(1)) {
-//            showToast("连接电视成功");
-//        }
-
         if(mCurrentProType == TYPE_PRO_SLIDES) {
             small = 1;
             force = 0;
