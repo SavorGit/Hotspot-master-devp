@@ -148,12 +148,20 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 int x2 = (int) e2.getRawX();
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) >450) {
+ //                   main_al.setBackgroundResource(R.color.transparent);
+                    main_al.setVisibility(View.INVISIBLE);
+                    Window window = getWindow();
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
+                            WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    lp.alpha = 0.3f;
+                    getWindow().setAttributes(lp);
                     Animation animation = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_up_out);
                     animation.setAnimationListener(new PictureSetActivity.AnimationImp() {
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             super.onAnimationEnd(animation);
-                            main_al.setVisibility(View.GONE);
+
                             finish();
                         }
                     });
@@ -163,13 +171,23 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) > 450 ) {
+ //                   main_al.setBackgroundResource(R.color.transparent);
+                    main_al.setVisibility(View.INVISIBLE);
+                    Window window = getWindow();
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
+                            WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    lp.alpha = 0.3f;
+                    getWindow().setAttributes(lp);
+
+
                     Animation animation1 = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_down_out);
                     animation1.setAnimationListener(new PictureSetActivity.AnimationImp() {
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             super.onAnimationEnd(animation);
-                            main_al.setVisibility(View.GONE);
                             finish();
+
                         }
                     });
                     main_al.startAnimation(animation1);
