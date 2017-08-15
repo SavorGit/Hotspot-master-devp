@@ -3,14 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_text_list_item">
+    android:background="@color/color_ede6de">
     <RelativeLayout
         android:id="@+id/ic_la"
         android:layout_alignParentLeft="true"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="10dp">
+        android:layout_height="150dp"
+        android:background="@color/color_text_list_item">
 
         <ImageView
             android:id="@+id/content_small_img"
@@ -19,46 +18,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/length"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentLeft="true" />
         <TextView
             android:id="@+id/length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="16dp"
+            android:visibility="gone"
             android:gravity="center"
-            android:padding="1dp"
+            android:padding="2dp"
             android:text="05'29"
-            android:background="@drawable/list_text_bg"
-            android:shadowColor="@color/title_text_color"
-            android:shadowDx ="0.5"
-            android:shadowDy ="1"
-            android:shadowRadius ="3"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:background="@drawable/type_corner_bg"
+            android:textColor="@color/color_text_list_item"
+            android:textSize="11sp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="2dp"
-            android:layout_marginBottom="2dp"/>
+            android:layout_marginBottom="6dp"/>
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/title"
         android:layout_below="@id/ic_la"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:background="@color/color_text_list_item"
+        android:layout_height="45dp">
         <TextView
             android:id="@+id/content_title"
             android:text="美元对多数主要货币汇dddddddd"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:maxLines="2"
             android:ellipsize="end"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
             android:gravity="center|left"
             android:textColor="@color/color_text_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
 
     </RelativeLayout>
+    <TextView
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/color_ede6de"
+        />
 
 
 
