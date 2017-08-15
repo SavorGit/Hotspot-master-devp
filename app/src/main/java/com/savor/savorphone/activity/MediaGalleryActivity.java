@@ -179,6 +179,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
                         dismissLoadingDialog();
                         Intent intent = new Intent(MediaGalleryActivity.this,LocalVideoProAcitvity.class);
                         intent.putExtra("ModelVideo", mCurrentVideoInfo);
+                        intent.putExtra("isPlaying",false);
                         startActivity(intent);
                         resetNormalState();
                     }
