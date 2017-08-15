@@ -90,26 +90,36 @@ public class PicRecommendAdapter extends BaseAdapter {
 
         /**文章类型  0:纯文本，1:图文，2:图集,3:视频,4:纯视频*/
         int  type = itemVo.getType();
-        switch (type){
-            case 0:
-            case 1:
-                holder.contentLengthTV.setVisibility(View.GONE);
-                break;
-            case 2:
-                int colTuJi = itemVo.getColTuJi();
-                if (colTuJi > 0) {
-                    holder.contentLengthTV.setText(colTuJi+"图");
-                }
-                break;
-            case 3:
-            case 4:
-                String  duration = itemVo.getDuration();
-                if (!TextUtils.isEmpty(duration)) {
-                    holder.contentLengthTV.setText(DateUtil.formatSecondsTime(duration));
-                }
-                break;
-        }
+//        switch (type){
+//            case 0:
+//            case 1:
+//                holder.contentLengthTV.setVisibility(View.GONE);
+//                break;
+//            case 2:
+//                int colTuJi = itemVo.getColTuJi();
+//                if (colTuJi > 0) {
+//                    holder.contentLengthTV.setText(colTuJi+"图");
+//                }
+//                break;
+//            case 3:
+//            case 4:
+//                String  duration = itemVo.getDuration();
+//                if (!TextUtils.isEmpty(duration)) {
+//                    holder.contentLengthTV.setText(DateUtil.formatSecondsTime(duration));
+//                }
+//                break;
+//        }
 
+        if (type == 2) {
+            holder.contentLengthTV.setVisibility(View.VISIBLE);
+            holder.contentLengthTV.setText(itemVo.getColTuJi()+"图");
+        }else if (type == 3 ||type == 4) {
+            holder.contentLengthTV.setVisibility(View.VISIBLE);
+            String time = DateUtil.formatSecondsCh(itemVo.getDuration());
+            holder.contentLengthTV.setText(time);
+        }else {
+            holder.contentLengthTV.setVisibility(View.GONE);
+        }
 //        convertView.setOnClickListener(new mStoreListener(itemVo) );
 //        convertView.setOnLongClickListener(new mLongItemListener(itemVo));
         return convertView;

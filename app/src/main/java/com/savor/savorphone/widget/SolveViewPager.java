@@ -49,12 +49,17 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
                 ev.getY();
                 break;
             case MotionEvent.ACTION_UP:
+//                startX = (int) ev.getRawX();
+//                startY = (int) ev.getRawY();
+                int X = startX;
+                int Y = startY;
                 endX1 = ev.getX();
                 ev.getY();
                 mode = 0;
-                if (endX1 >startX1&& isRight == false) {
-                    obj.setData(startX1,endX1);
+                if (isRight == false) {
+                     obj.setData(startX,endX1);
                 }
+
 
                 break;
             case MotionEvent.ACTION_POINTER_UP:
@@ -72,19 +77,16 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
                 if (Math.abs(endX - startX) > Math.abs(endY - startY)) {// 左右滑动
                     getParent().requestDisallowInterceptTouchEvent(false);
                     if (endX > startX) {// 右划
-//                        if (getCurrentItem() == 0) {// 第一个页面, 需要父控件拦截
-//                            getParent().requestDisallowInterceptTouchEvent(false);
                         isRight = true;
-//                        }
                     } else {// 左划
                         isRight = false;
                     }
                 } else {// 上下滑动
-                    if (mode >= 2) {
+//                    if (mode >= 2) {
                         getParent().requestDisallowInterceptTouchEvent(false); //不需要父控件拦截
-                    }else {
-                        getParent().requestDisallowInterceptTouchEvent(true); //需要父控件拦截
-                    }
+//                    }else {
+//                        getParent().requestDisallowInterceptTouchEvent(true); //需要父控件拦截
+//                    }
 
 
                 }

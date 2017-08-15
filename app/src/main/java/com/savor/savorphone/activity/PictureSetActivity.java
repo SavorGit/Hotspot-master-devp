@@ -107,7 +107,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                             pickIntent.setData(data);
                         }
 
-                        startActivity(pickIntent);
+                        startActivityForResult(pickIntent,555);
                         overridePendingTransition(R.anim.slide_in_right,
                                 R.anim.slide_in_left);
                     }
@@ -131,15 +131,21 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                 if (Math.abs(e1.getRawX() - e2.getRawX()) > 100) {
+                if (Math.abs(e1.getRawX() - e2.getRawX()) > 450) {
                  // System.out.println("水平方向移动距离过大");
                  return true;
                  }
+
+                if (Math.abs(e1.getRawX() - e2.getRawX()) > Math.abs(e1.getRawY() - e2.getRawY())) {//左右滑动
+                    return true;
+                }
                 if (Math.abs(velocityY) < 230|| Math.abs(velocityX)<230) {
                     // System.out.println("手指移动的太慢了");
                     return true;
                 }
 
+                int x1 = (int) e1.getRawX();
+                int x2 = (int) e2.getRawX();
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) >450) {
                     Animation animation = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_up_out);
@@ -156,7 +162,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 450) {
+                if ((e1.getRawY() - e2.getRawY()) > 450 ) {
                     Animation animation1 = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_down_out);
                     animation1.setAnimationListener(new PictureSetActivity.AnimationImp() {
                         @Override
@@ -177,6 +183,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     private void getIntentData(){
         content_id = getIntent().getStringExtra("content_id");
         voditem = (CommonListItem) getIntent().getSerializableExtra("voditem");
+        voditem.setArtid(content_id);
     }
     private void getData(){
         AppApi.getRecommendInfo(this,voditem.getArtid(),this);
@@ -556,13 +563,6 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must add this**/
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (shareManager != null) {
@@ -587,7 +587,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         windowManager.getDefaultDisplay().getSize(size);
         int width = size.x;
         // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
-        if (mCurrentItem == (pictureSetBeanList.size() - 1)&& endX - startX >= 300) {
+        if (mCurrentItem == (pictureSetBeanList.size() - 1)&& startX - endX >= width/5) {
 
             mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
         }
@@ -605,6 +605,24 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
         @Override
         public void onAnimationStart(Animation animation) {
+        }
+    }
+
+    // 回调方法，从第二个页面回来的时候会执行这个方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // 根据上面发送过去的请求吗来区别
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 555:
+                AppApi.isCollection(mContext,this,content_id);
+                break;
+            case 2:
+
+                break;
+            default:
+                break;
         }
     }
 }
