@@ -113,6 +113,7 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         toleft_iv_right.setOnClickListener(this);
         back.setOnClickListener(this);
         gview.setOnItemClickListener(this);
+        share.setOnClickListener(this);
     }
 
     private void getDataFromServer(){
