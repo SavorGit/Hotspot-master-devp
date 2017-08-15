@@ -9,6 +9,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.view.GestureDetector;
@@ -22,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.api.utils.AppUtils;
+import com.common.api.utils.LogUtils;
 import com.common.api.utils.ShowMessage;
 import com.savor.savorphone.R;
 import com.savor.savorphone.adapter.PictureSetAdapter;
@@ -31,7 +34,9 @@ import com.savor.savorphone.bean.PictureSetBean;
 import com.savor.savorphone.core.ApiRequestListener;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
+import com.savor.savorphone.core.Session;
 import com.savor.savorphone.interfaces.CopyCallBack;
+import com.savor.savorphone.utils.ActivitiesManager;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.ScreenOrientationUtil;
@@ -49,323 +54,85 @@ import java.util.List;
  * Created by bichao on 2017/7/6.
  */
 
-public class ImageCollectionActivity extends BaseActivity implements ApiRequestListener,
-        View.OnClickListener,PageOnClickListener,ProgressBarViewClickListener,CopyCallBack {
-    private Context context;
-    private LinearLayout headLayout;
-    private ImageView iv_left;
-    private ImageView iv_right;
+public class ImageCollectionActivity extends BaseFragmentActivity implements View.OnClickListener{
+
+    private ImageView back;
     private ImageView toleft_iv_right;
-    private SolveViewPager photoViewpager;
-    private LinearLayout bottomTextLayout;
-    private RelativeLayout pageNumLayout;
-    private RelativeLayout main_al;
-    private TextView bottomPageNumberTV;
-    private TextView bottomPageTotalTV;
-    private TextView describeTV;
-    private int screenState;//横竖屏状态，0：竖屏，1：横屏
-    private PictureSetAdapter pictureSetAdapter;
-    private List<PictureSetBean> pictureSetBeanList = new ArrayList<>();
-    private CommonListItem voditem;
-    //文章ID
+    private ImageView share;
+    private ShareManager mShareManager;
+    private ShareManager.CustomShareListener mShareListener;
+    private ViewPager mViewPager;
     private String content_id;
+    private CommonListItem voditem;
     //收藏状态,1:收藏，0:取消收藏
     private String state="0";
-    Handler handler = new Handler();
-    private ShareManager shareManager;
-    private ProgressBarView mProgressLayout;
-    private GestureDetector mGestureDetector;
+    private List<PictureSetBean> pictureSetBeanList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_picture_set);
-        context = this;
+        setContentView(R.layout.activity_hotspot_main);
+        mContext = this;
         getIntentData();
         getViews();
         setViews();
         setListeners();
         getDataFromServer();
-        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                // if (Math.abs(e1.getRawX() - e2.getRawX()) > 250) {
-                // // System.out.println("水平方向移动距离过大");
-                // return true;
-                // }
-                if (Math.abs(velocityY) < 100) {
-                    // System.out.println("手指移动的太慢了");
-                    return true;
-                }
 
-                // 手势向下 down
-                if ((e2.getRawY() - e1.getRawY()) > 200) {
-                    Animation animation = AnimationUtils.loadAnimation(ImageCollectionActivity.this, R.anim.slide_up_out);
-                    animation.setAnimationListener(new ImageCollectionActivity.AnimationImp() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            super.onAnimationEnd(animation);
-                            main_al.setVisibility(View.GONE);
-                            finish();
-                        }
-                    });
-                    main_al.startAnimation(animation);
-
-                    return true;
-                }
-                // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 200) {
-                    Animation animation1 = AnimationUtils.loadAnimation(ImageCollectionActivity.this, R.anim.slide_down_out);
-                    animation1.setAnimationListener(new ImageCollectionActivity.AnimationImp() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            super.onAnimationEnd(animation);
-                            main_al.setVisibility(View.GONE);
-                            finish();
-                        }
-                    });
-                    main_al.startAnimation(animation1);
-
-                    return true;
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
     }
-    private void getIntentData(){
-        content_id = getIntent().getStringExtra("content_id");
-        voditem = (CommonListItem) getIntent().getSerializableExtra("voditem");
-    }
+
     @Override
     public void getViews() {
-        headLayout = (LinearLayout) findViewById(R.id.head_layout);
-        iv_left = (ImageView) findViewById(R.id.iv_left);
-        iv_right = (ImageView) findViewById(R.id.iv_right);
+        back = (ImageView) findViewById(R.id.back);
         toleft_iv_right = (ImageView) findViewById(R.id.toleft_iv_right);
-        photoViewpager = (SolveViewPager) findViewById(R.id.photoViewpager);
-        bottomTextLayout = (LinearLayout) findViewById(R.id.bottomTextLayout);
-        pageNumLayout = (RelativeLayout) findViewById(R.id.page_num_layout);
-        bottomPageNumberTV = (TextView) findViewById(R.id.bottomPageNumber);
-        bottomPageTotalTV = (TextView) findViewById(R.id.pageNumberTotal);
-        describeTV = (TextView) findViewById(R.id.describe);
-        main_al = (RelativeLayout) findViewById(R.id.main_al);
-        mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
-
+        share = (ImageView) findViewById(R.id.share);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
     }
 
     @Override
     public void setViews() {
-        iv_right.setVisibility(View.VISIBLE);
-        toleft_iv_right.setVisibility(View.VISIBLE);
-        iv_right.setImageResource(R.drawable.fenxiang3x);
-
-
-       // pictureSetAdapter = new PictureSetAdapter(context,pictureSetBeanList,this);
-        photoViewpager.setAdapter(pictureSetAdapter);
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-        { // 竖屏
-            screenState = 0;
-        } else {
-            // 横屏
-            screenState = 1;
-        }
-
-        shareManager = ShareManager.getInstance();
+        mShareManager = ShareManager.getInstance();
+        mShareListener = new ShareManager.CustomShareListener(ImageCollectionActivity.this);
     }
 
     @Override
     public void setListeners() {
-        headLayout.setOnClickListener(this);
-        iv_left.setOnClickListener(this);
-        iv_right.setOnClickListener(this);
         toleft_iv_right.setOnClickListener(this);
-        photoViewpager.setOnPageChangeListener(onPageChangeListener);
-        mProgressLayout.setProgressBarViewClickListener(this);
+        back.setOnClickListener(this);
+        share.setOnClickListener(this);
     }
 
-    /**
-     * 获取图集数据
-     */
-    private void getDataFromServer(){
-        mProgressLayout.startLoading();
-        AppApi.isCollection(mContext,this,content_id);
-        AppApi.getPictureSet(mContext,this,content_id);
+    private void getIntentData(){
+        content_id = getIntent().getStringExtra("content_id");
+        voditem = (CommonListItem) getIntent().getSerializableExtra("voditem");
+        voditem.setArtid(content_id);
     }
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_left:
-                    finish();
-                break;
-            case R.id.iv_right:
-                shareMethod();
-                break;
-            case R.id.toleft_iv_right:
-                toleft_iv_right.setOnClickListener(null);
-                handleCollection();
-                break;
-        }
-    }
-
-    /**
-     * 分享方法
-     */
-    private void shareMethod(){
-        if (!AppUtils.isNetworkAvailable(this)) {
-            ShowMessage.showToastSavor(this, getString(R.string.bad_wifi));
-            return;
-        }
-        String title = "小热点| "+voditem.getTitle();
-        String text = "小热点| "+voditem.getTitle();
-        String imageURL = voditem.getImageURL();
-        String contentURL = voditem.getContentURL();
-        shareManager.setCategory_id("0");
-        shareManager.setContent_id(voditem.getArtid()+"");
-        shareManager.share(this,text,title,imageURL, ConstantValues.addH5ShareParams(contentURL),this);
 
     }
-
-    private void handleCollection(){
-        if ("1".equals(state)){
-            AppApi.handleCollection(mContext,this,content_id,"0");
-        }else{
-            AppApi.handleCollection(mContext,this,content_id,"1");
-        }
+    private void getDataFromServer(){
+        AppApi.isCollection(mContext,this,content_id);
+        AppApi.getPictureSet(mContext,this,content_id);
+        getData();
     }
 
-    OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-        @Override
-        public void onPageSelected(final int position) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    bottomPageNumberTV.setText((position+1)+"");
-                    bottomPageTotalTV.setText(pictureSetBeanList.size()+"");
-                    describeTV.setText(pictureSetBeanList.get(position).getAtext());
-                }
-            },500);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    };
-
-    @Override
-    public void handleBottomText(int position) {
-        if (bottomTextLayout.getVisibility()== View.VISIBLE){
-            ObjectAnimator animator = ObjectAnimator.ofFloat(bottomTextLayout, "alpha", 1f, 0f);
-            animator.setDuration(0);
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (screenState == 0) {
-                        RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_vertical_hide));
-                    }else if (screenState == 1) {
-
-                        RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_landscape_hide));
-                    }
-                    bottomTextLayout.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-
-            animator.start();
-        }else{
-            bottomTextLayout.setVisibility(View.VISIBLE);
-            if (screenState == 0) {
-                RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_vertical_show));
-            }else if (screenState == 1) {
-                RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_landscape_show));
-            }
-            ObjectAnimator animator = ObjectAnimator.ofFloat(bottomTextLayout, "alpha", 0f, 1f);
-            animator.setDuration(0);
-            animator.start();
-
-        }
-        if (headLayout.getVisibility()==View.VISIBLE){
-            ObjectAnimator animator = ObjectAnimator.ofFloat(headLayout, "alpha", 1f, 0f);
-            animator.setDuration(0);
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    headLayout.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            animator.start();
-        }else{
-            headLayout.setVisibility(View.VISIBLE);
-            ObjectAnimator animator = ObjectAnimator.ofFloat(headLayout, "alpha", 0f, 1f);
-            animator.setDuration(0);
-            animator.start();
-        }
+    private void getData(){
+        AppApi.getRecommendInfo(this,voditem.getArtid(),this);
+        //AppApi.getRecommendInfo(this,"2702",this);
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-        { // 竖屏
-            screenState = 0;
-            headLayout.setBackgroundColor(getResources().getColor(R.color.color_main));
-            RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_landscape_rotate));
-        } else {
-            // 横屏
-            screenState = 1;
-            headLayout.setBackgroundResource(R.drawable.quanpingmc);
-            RecordUtils.onEvent(ImageCollectionActivity.this,getString(R.string.page_pic_vertical_rotate));
-        }
-
-        super.onConfigurationChanged(newConfig);
-
-    }
-
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
             case POST_PICTURE_SET_JSON:
-                mProgressLayout.loadSuccess();
+              //  mProgressLayout.loadSuccess();
                 if (obj instanceof List<?>){
                     pictureSetBeanList = (List<PictureSetBean>)obj;
                     handlePictureSet();
                     ScreenOrientationUtil.getInstance().start(this);
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-                    iv_right.setVisibility(View.VISIBLE);
-                    toleft_iv_right.setVisibility(View.VISIBLE);
+//                    iv_right.setVisibility(View.VISIBLE);
+//                    toleft_iv_right.setVisibility(View.VISIBLE);
                 }
                 break;
             case GET_IS_COLLECTION_JSON:
@@ -396,37 +163,12 @@ public class ImageCollectionActivity extends BaseActivity implements ApiRequestL
                     toleft_iv_right.setOnClickListener(ImageCollectionActivity.this);
                 }
                 break;
-        }
-    }
-
-    @Override
-    public void onError(AppApi.Action method, Object obj) {
-        switch (method){
-            case POST_PICTURE_SET_JSON:
-                if (obj instanceof ResponseErrorMessage){
-                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-                    if (errorMessage.getCode()==19002){
-                        mProgressLayout.loadFailure("该内容找不到了~","",R.drawable.kong_wenzhang);
-                        iv_right.setVisibility(View.GONE);
-                        toleft_iv_right.setVisibility(View.GONE);
-                    }else{
-                        mProgressLayout.loadFailure();
-                    }
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    ScreenOrientationUtil.getInstance().stop();
-                    iv_right.setVisibility(View.GONE);
-                    toleft_iv_right.setVisibility(View.GONE);
+            case POST_RECOMMEND_LIST_JSON:
+                if (obj instanceof List<?>){
+                    List<CommonListItem> mList = (List<CommonListItem>) obj;
+                    //setRecommendData(mList);
                 }
 
-                break;
-            case GET_ADD_MY_COLLECTION_JSON:
-                toleft_iv_right.setOnClickListener(ImageCollectionActivity.this);
-                if (obj instanceof ResponseErrorMessage){
-                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-                    if (!TextUtils.isEmpty(errorMessage.getMessage())){
-                        ShowMessage.showToast(mContext,errorMessage.getMessage());
-                    }
-                }
                 break;
         }
     }
@@ -436,72 +178,6 @@ public class ImageCollectionActivity extends BaseActivity implements ApiRequestL
         if (pictureSetBeanList==null||pictureSetBeanList.size()==0){
             return;
         }
-        if (pictureSetAdapter!=null){
-            pictureSetAdapter.setData(pictureSetBeanList);
-        }
-        pageNumLayout.setVisibility(View.VISIBLE);
-        bottomPageNumberTV.setText(1+"");
-        bottomPageTotalTV.setText(pictureSetBeanList.size()+"");
-        describeTV.setText(pictureSetBeanList.get(0).getAtext());
-    }
 
-    @Override
-    public void loadDataEmpty() {
-
-    }
-
-    @Override
-    public void loadFailureNoNet() {
-        getDataFromServer();
-    }
-
-    @Override
-    public void loadFailure() {
-        getDataFromServer();
-    }
-
-    @Override
-    public void copyLink() {
-        ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-        cmb.setText(voditem.getContentURL());
-        ShowMessage.showToast(mContext,"复制完毕");
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must add this**/
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (shareManager != null) {
-            shareManager.CloseDialog ();
-        }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-      //  Toast.makeText(PictureSetActivity.this, "touch", Toast.LENGTH_SHORT).show();
-        return super.dispatchTouchEvent(event);
-    }
-
-
-    private class AnimationImp implements Animation.AnimationListener {
-        @Override
-        public void onAnimationEnd(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-        }
     }
 }
