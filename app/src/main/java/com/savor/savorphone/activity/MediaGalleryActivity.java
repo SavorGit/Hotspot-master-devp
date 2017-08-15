@@ -1007,11 +1007,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
-//            mBackFromInternal = true;
+            initBindcodeResult();
         }
     }
 
