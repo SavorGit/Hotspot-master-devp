@@ -38,10 +38,12 @@ import com.savor.savorphone.interfaces.IHotspotSenseView;
 import com.savor.savorphone.projection.ProjectionManager;
 import com.savor.savorphone.service.ProjectionService;
 import com.savor.savorphone.utils.ConstantsWhat;
+import com.savor.savorphone.utils.NetWorkUtil;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
 
+import java.io.File;
 import java.util.HashMap;
 
 import static com.savor.savorphone.activity.HotspotMainActivity.SCAN_QR;
@@ -194,7 +196,9 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mProjectionService = ((ProjectionService.ProjectionBinder) service).getService();
-            mProjectionService.querySeek();
+            if(isPlaying) {
+                mProjectionService.querySeek();
+            }
             mProjectionService.setOnProgressChangeListener(new ProjectionService.OnProgressChangeListener() {
                 @Override
                 public void progressChange(QuerySeekResponse progressInfo) {
@@ -219,12 +223,6 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
                     onError(method,obj);
                 }
             });
-//            projectionService.setOnProjectionSuccessListener(new ProjectionService.OnProjectoinSuccessListener() {
-//                @Override
-//                public void onProjectionSuccess(AppApi.Action method, Object response) {
-//                    onSuccess(method,response);
-//                }
-//            });
         }
 
         @Override
@@ -336,6 +334,13 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == EXTRA_TV_INFO){
+            // 可能会发生网络切换所以这里要重新设置视频播放地址
+            String asseturl = mModelVideo.getAsseturl();
+            if(!TextUtils.isEmpty(asseturl)&&asseturl.contains("0/")) {
+                int index = asseturl.indexOf("0/");
+                asseturl = NetWorkUtil.getLocalUrl(LocalVideoProAcitvity.this)+asseturl.substring(index+1,asseturl.length());
+                mModelVideo.setAsseturl(asseturl);
+            }
             initBindcodeResult();
 //            if(data!=null) {
 //                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
@@ -362,20 +367,6 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
         to_back.setOnClickListener(this);
         tv_link.setOnClickListener(this);
     }
-
-    /**
-     * 动画
-     */
-//    private void initAnim() {
-//        LinearInterpolator lir = new LinearInterpolator();
-//        if(mAnimator==null) {
-//            mAnimator = ObjectAnimator.ofFloat(mRound, "rotation", 0.0f, 360f);
-//        }
-//        mAnimator.setInterpolator(lir);
-//        mAnimator.setDuration(15000);
-//        mAnimator.setRepeatCount(ValueAnimator.INFINITE);
-//        mAnimator.addUpdateListener(updateListener);
-//    }
 
 
     @Override
