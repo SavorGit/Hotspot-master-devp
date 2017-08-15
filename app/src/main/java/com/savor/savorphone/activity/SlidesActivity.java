@@ -35,11 +35,10 @@ import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.interfaces.IHotspotSenseView;
 import com.savor.savorphone.interfaces.OnStopListener;
-import com.savor.savorphone.service.ProjectionService;
 import com.savor.savorphone.projection.ProjectionManager;
+import com.savor.savorphone.service.ProjectionService;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.widget.CommonDialog;
-import com.savor.savorphone.widget.HotsDialog;
 import com.savor.savorphone.widget.LinkDialog;
 import com.savor.savorphone.widget.LoopViewPager;
 
@@ -66,10 +65,7 @@ public class SlidesActivity extends BaseProActivity implements
     private static final int DISPLAY = 3;
     private static final int ERROR_MSG = 4;
     private static final int SCRENN_SUCESS = 5;
-    private static final int CANCEL_CHECK_WIFI = 6;
-    private static final int CHECK_WIFI_LINKED = 7;
     private static final int FORCE_MSG = 8;
-    private int switchDelayed;
     private int mInterval = 5;
     private int currentPager = 0;
     private Context mContext;
@@ -304,7 +300,6 @@ public class SlidesActivity extends BaseProActivity implements
         mContext = this;
         setContentView(R.layout.activity_slides);
         mInterval = mSession.getInterval();
-        switchDelayed = mInterval * 1000;
 
         handleIntent();
 
@@ -463,10 +458,7 @@ public class SlidesActivity extends BaseProActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
+            initBindcodeResult();
         }else  if (resultCode == SCAN_QR) {
             if(data!=null) {
                 String scanResult = data.getStringExtra("scan_result");
@@ -492,7 +484,6 @@ public class SlidesActivity extends BaseProActivity implements
                     String[] clickText = clickButtonData.getTexts();
 
                     // 设置幻灯片切换延时时间
-                    int time = 5*1000;
                     String delaytime = clickText[0];
                     delaytime = delaytime.replaceAll("s","");
                     Long dTime = Long.valueOf(delaytime);
@@ -718,26 +709,6 @@ public class SlidesActivity extends BaseProActivity implements
             tv_current_type.setText("正在播放图片");
         }
 
-    }
-
-    @Override
-    public void showChangeWifiDialog() {
-        mChangeWifiDiallog = new CommonDialog(this,
-                getString(R.string.tv_bind_wifi) + "" + (TextUtils.isEmpty(mSession.getSsid()) ? "与电视相同的wifi" : mSession.getSsid())
-                , new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm() {
-                Intent intent = new Intent();
-                intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
-                startActivity(intent);
-            }
-        }, new CommonDialog.OnCancelListener() {
-            @Override
-            public void onCancel() {
-
-            }
-        },"去设置");
-        mChangeWifiDiallog.show();
     }
 
     @Override

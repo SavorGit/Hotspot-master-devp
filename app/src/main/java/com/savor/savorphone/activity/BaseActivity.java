@@ -13,7 +13,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.common.api.utils.LogUtils;
@@ -206,11 +205,9 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
     protected void onDestroy() {
         super.onDestroy();
         ActivitiesManager.getInstance().popActivity(this);
-    }
-
-    @Override
-    public void showChangeWifiDialog() {
-
+        if(mBindTvPresenter!=null) {
+            mBindTvPresenter.onDestroy();
+        }
     }
 
     @Override
@@ -307,5 +304,10 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
     private void startCheckWifiLinkedTimer() {
         mHandler.removeMessages(CHECK_WIFI_LINKED);
         mHandler.sendEmptyMessageDelayed(CHECK_WIFI_LINKED,1000);
+    }
+
+    @Override
+    public void showChangeWifiDialog() {
+
     }
 }
