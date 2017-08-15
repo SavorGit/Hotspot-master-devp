@@ -3,6 +3,7 @@ package com.savor.savorphone.activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,16 +23,19 @@ import com.savor.savorphone.SavorApplication;
 import com.savor.savorphone.adapter.PicRecommendAdapter;
 import com.savor.savorphone.bean.AliLogBean;
 import com.savor.savorphone.bean.CommonListItem;
+import com.savor.savorphone.bean.PictureSetBean;
 import com.savor.savorphone.bean.SmallPlatInfoBySSDP;
 import com.savor.savorphone.bean.SmallPlatformByGetIp;
 import com.savor.savorphone.bean.TvBoxSSDPInfo;
 import com.savor.savorphone.core.ApiRequestListener;
+import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.interfaces.CopyCallBack;
 import com.savor.savorphone.log.AliLogFileUtil;
 import com.savor.savorphone.utils.BarcodeUtil;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.STIDUtil;
+import com.savor.savorphone.utils.ScreenOrientationUtil;
 import com.savor.savorphone.utils.ShareManager;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -57,6 +61,8 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     private CommonListItem voditem;
     private PicRecommendAdapter adapter;
     private GridView gview;
+    //收藏状态,1:收藏，0:取消收藏
+    private String state="0";
 
 
 
@@ -71,7 +77,7 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         getViews();
         setViews();
         setListeners();
-
+        getDataFromServer();
     }
 
     private void getIntentData(){
@@ -109,6 +115,12 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         gview.setOnItemClickListener(this);
     }
 
+    private void getDataFromServer(){
+
+       AppApi.isCollection(mContext,this,voditem.getArtid());
+//        AppApi.getPictureSet(mContext,this,content_id);
+
+    }
     @Override
     public void onBackPressed() {
         setResult(EXTRA_FROM_RECOMMEND);
@@ -123,11 +135,25 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.share:
                 share();
+                break;
+            case R.id.toleft_iv_right:
+                toleft_iv_right.setOnClickListener(null);
+                handleCollection();
+                break;
 
             default:
         }
     }
 
+    private void handleCollection(){
+
+        if ("0".equals(state)) {//已收藏
+            AppApi.handleCollection(mContext,this,voditem.getArtid(),"1");
+        }else if ("1".equals(state)) {
+            AppApi.handleCollection(mContext,this,voditem.getArtid(),"0");
+        }
+
+    }
     private void share() {
         if (!AppUtils.isNetworkAvailable(this)) {
             ShowMessage.showToastSavor(this, getString(R.string.bad_wifi));
@@ -201,6 +227,42 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
                     startActivity(intent);
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onSuccess(AppApi.Action method, Object obj) {
+        switch (method){
+
+            case GET_IS_COLLECTION_JSON:
+                if (obj instanceof String){
+                    String str = (String)obj;
+                    state = str;
+                    if ("1".equals(state)){
+                        toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                    }else{
+                        toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
+                    }
+                }
+                break;
+            case GET_ADD_MY_COLLECTION_JSON:
+                if (obj instanceof String){
+                    String str = (String)obj;
+                    if ("success".equals(str)){
+                        if ("0".equals(state)){
+                            state = "1";
+                            toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                            ShowMessage.showToast(PicRecommendActivity.this,"收藏成功");
+                        }else{
+                            state = "0";
+                            toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
+                            ShowMessage.showToast(PicRecommendActivity.this,"取消收藏");
+                        }
+                    }
+                    toleft_iv_right.setOnClickListener(PicRecommendActivity.this);
+                }
+                break;
+
         }
     }
 

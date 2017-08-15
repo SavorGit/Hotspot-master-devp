@@ -107,7 +107,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                             pickIntent.setData(data);
                         }
 
-                        startActivity(pickIntent);
+                        startActivityForResult(pickIntent,555);
                         overridePendingTransition(R.anim.slide_in_right,
                                 R.anim.slide_in_left);
                     }
@@ -183,6 +183,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     private void getIntentData(){
         content_id = getIntent().getStringExtra("content_id");
         voditem = (CommonListItem) getIntent().getSerializableExtra("voditem");
+        voditem.setArtid(content_id);
     }
     private void getData(){
         AppApi.getRecommendInfo(this,voditem.getArtid(),this);
@@ -562,13 +563,6 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must add this**/
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (shareManager != null) {
@@ -611,6 +605,24 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
         @Override
         public void onAnimationStart(Animation animation) {
+        }
+    }
+
+    // 回调方法，从第二个页面回来的时候会执行这个方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // 根据上面发送过去的请求吗来区别
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 555:
+                AppApi.isCollection(mContext,this,content_id);
+                break;
+            case 2:
+
+                break;
+            default:
+                break;
         }
     }
 }
