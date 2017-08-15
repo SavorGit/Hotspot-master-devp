@@ -39,7 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.savor.savorphone.activity.HotspotMainActivity.SCAN_QR;
-import static com.savor.savorphone.activity.LinkTvActivity.EXRA_TV_BOX;
 import static com.savor.savorphone.activity.LinkTvActivity.EXTRA_TV_INFO;
 
 public class SingleImageProActivity extends BaseProActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -308,10 +307,11 @@ public class SingleImageProActivity extends BaseProActivity implements View.OnCl
                 LogUtils.d("扫描结果：" + scanResult);
             }
         }else if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
+            initBindcodeResult();
+//            if(data!=null) {
+//                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
+//                mBindTvPresenter.handleBindCodeResult(boxInfo);
+//            }
         }
     }
 
@@ -616,26 +616,6 @@ public class SingleImageProActivity extends BaseProActivity implements View.OnCl
         dialog.show();
     }
 
-    @Override
-    public void showChangeWifiDialog() {
-        super.showChangeWifiDialog();
-        mChangeWifiDiallog = new CommonDialog(this,
-                getString(R.string.tv_bind_wifi) + "" + (TextUtils.isEmpty(mSession.getSsid()) ? "与电视相同的wifi" : mSession.getSsid())
-                , new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm() {
-                Intent intent = new Intent();
-                intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
-                startActivity(intent);
-            }
-        }, new CommonDialog.OnCancelListener() {
-            @Override
-            public void onCancel() {
-
-            }
-        },"去设置");
-        mChangeWifiDiallog.show();
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -542,14 +542,6 @@ public class BindTvPresenter extends BasePresenter implements ApiRequestListener
             return;
         }
 
-        // 扫码完判断如果酒店id和之前酒店id不同则刷新热点数据
-//        String bid = tvBoxInfo.getHotel_id();
-//        String hotelid = String.valueOf(mSession.getHotelid());
-//        if(!hotelid.equals(bid)) {
-//            // 刷新首页数据
-//            Intent intent = new Intent(mContext, HotspotFragment.RefreshReceiver.class);
-//            mContext.sendBroadcast(intent);
-//        }
         Message obtain = Message.obtain();
         obtain.what = SAVE_BOX_INFO;
         obtain.obj = tvBoxInfo;

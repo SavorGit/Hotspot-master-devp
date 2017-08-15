@@ -336,10 +336,11 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
+            initBindcodeResult();
+//            if(data!=null) {
+//                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
+//                mBindTvPresenter.handleBindCodeResult(boxInfo);
+//            }
         }else  if (resultCode == SCAN_QR) {
             if(data!=null) {
                 String scanResult = data.getStringExtra("scan_result");
@@ -825,26 +826,6 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
            // mute.setBackgroundResource(R.drawable.sptplaba_dianbo);
             mute.setImageResource(R.drawable.sptplaba_dianbo);
         }
-    }
-
-    @Override
-    public void showChangeWifiDialog() {
-        mChangeWifiDiallog = new CommonDialog(this,
-                getString(R.string.tv_bind_wifi) + "" + (TextUtils.isEmpty(mSession.getSsid()) ? "与电视相同的wifi" : mSession.getSsid())
-                , new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm() {
-                Intent intent = new Intent();
-                intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
-                startActivity(intent);
-            }
-        }, new CommonDialog.OnCancelListener() {
-            @Override
-            public void onCancel() {
-
-            }
-        },"去设置");
-        mChangeWifiDiallog.show();
     }
 
     @Override

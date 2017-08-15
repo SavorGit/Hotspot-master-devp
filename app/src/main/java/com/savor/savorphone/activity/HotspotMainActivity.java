@@ -751,10 +751,10 @@ public class HotspotMainActivity extends AppCompatActivity
         if(resultCode == EXTRA_FROM_RECOMMEND) {
             mBackFromInternal = true;
         }else if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
+//            if(data!=null) {
+//                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
+//                mBindTvPresenter.handleBindCodeResult(boxInfo);
+//            }
             mBackFromInternal = true;
         } else if (resultCode == SCAN_QR) {
             if(data!=null) {
@@ -855,16 +855,6 @@ public class HotspotMainActivity extends AppCompatActivity
         mHandler.removeMessages(CHECK_WIFI_LINKED);
         mHandler.sendEmptyMessageDelayed(CHECK_WIFI_LINKED,1000);
     }
-
-//    private void showBackgroundProjectionImage(String assetpath,int defaultPicRes) {
-//        Glide.with(this)
-//                .load(assetpath)
-//                .centerCrop()
-//                .placeholder(defaultPicRes)
-//                .error(defaultPicRes)
-//                .crossFade()
-//                .into(mProjectionImage);
-//    }
 
     private void bindProjectionService(int type,ServiceConnection connon) {
         mProjectionIntent = new Intent(this, ProjectionService.class);

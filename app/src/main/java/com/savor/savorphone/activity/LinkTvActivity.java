@@ -28,8 +28,10 @@ import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.receiver.NetworkConnectChangedReceiver;
 import com.savor.savorphone.service.SSDPService;
+import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.WifiUtil;
+import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
 
 import java.util.HashMap;
@@ -79,7 +81,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                 case WifiManager.WIFI_STATE_ENABLED:
                     LogUtils.d("savor:网络变为可用");
                     // 为了解决多次重复发送请求利用延时发送方式
-                    getSmallPlatformUrl(true);
+                    getSmallPlatformUrl();
                     isWifi = true;
                     break;
                 case WifiManager.WIFI_STATE_DISABLED:
@@ -90,6 +92,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
+    private CommonDialog mChangeWifiDiallog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
         setViews();
         setListeners();
         registerNetWorkReceiver();
+        initPresenter();
     }
 
     @Override
@@ -155,7 +159,6 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void setViews() {
-
         String wifiName = WifiUtil.getWifiName(context);
         if (TextUtils.isEmpty(wifiName)) {
             wifi.setVisibility(View.INVISIBLE);
@@ -281,10 +284,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                         link_status.setVisibility(View.INVISIBLE);
                         relink_la.setVisibility(View.INVISIBLE);
                         TvBoxInfo info = (TvBoxInfo) obj;
-                        Intent intent = new Intent();
-                        intent.putExtra(EXRA_TV_BOX,info);
-                        setResult(EXTRA_TV_INFO,intent);
-                        finish();
+                        mBindTvPresenter.handleBindCodeResult(info);
                     }
                 }
 
@@ -363,7 +363,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        setResult(EXTRA_TV_INFO);
+//        setResult(EXTRA_TV_INFO);
         super.onBackPressed();
     }
 
@@ -372,7 +372,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()){
             case R.id.finish:
                 RecordUtils.onEvent(this, getString(R.string.link_tv_back));
-                setResult(EXTRA_TV_INFO);
+//                setResult(EXTRA_TV_INFO);
                 finish();
                 break;
             case R.id.relink_la:
@@ -529,7 +529,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-    public void getSmallPlatformUrl(boolean isNeedRefresh) {
+    public void getSmallPlatformUrl() {
         LogUtils.d("getSmallPlatformUrl........");
         if(!AppUtils.isWifiNetwork(mContext)) {
             wifi.setVisibility(View.INVISIBLE);
@@ -539,4 +539,54 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
         }
 
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(!mSession.isBindTv()) {
+            TvBoxInfo tvBoxInfo = mSession.getTvboxInfo();
+            if(tvBoxInfo!=null) {
+                LogUtils.d(ConstantValues.LOG_PREFIX+"有缓存的盒子信息，检测三分钟内是否连接到指定wifi");
+                checkWifiLinked(tvBoxInfo);
+            }else {
+                LogUtils.d(ConstantValues.LOG_PREFIX+"无缓存的盒子信息");
+            }
+        }else {
+            if(mChangeWifiDiallog!=null&&mChangeWifiDiallog.isShowing()) {
+                mChangeWifiDiallog.dismiss();
+            }
+        }
+    }
+
+    @Override
+    public void initBindcodeResult() {
+            Intent intent = new Intent();
+            setResult(EXTRA_TV_INFO,intent);
+            finish();
+    }
+
+    /**显示修改wifi设置弹窗
+     * 1.不在同一网段
+     * 2.二维码解析数据通过&符号分割不是4段
+     * 3.二维码扫码结果为空
+     * */
+    public void showChangeWifiDialog() {
+        mChangeWifiDiallog = new CommonDialog(this,
+                getString(R.string.tv_bind_wifi) + "" + (TextUtils.isEmpty(mSession.getSsid()) ? "与电视相同的wifi" : mSession.getSsid())
+                , new CommonDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                Intent intent = new Intent();
+                intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
+                startActivity(intent);
+            }
+        }, new CommonDialog.OnCancelListener() {
+            @Override
+            public void onCancel() {
+                isVerify = false;
+            }
+        },"去设置");
+        mChangeWifiDiallog.show();
+    }
+
 }
