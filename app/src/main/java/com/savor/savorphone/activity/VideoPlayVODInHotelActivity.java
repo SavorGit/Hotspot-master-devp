@@ -198,7 +198,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     break;
                 case ERROR_MSG:
                     String hint = (String) msg.obj;
-                    showToast(hint);
+                    if(!TextUtils.isEmpty(hint)) {
+                        showToast(hint);
+                    }
                     break;
             }
         }
@@ -385,17 +387,17 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         mWebView.loadUrl(ConstantValues.addH5Params(mVodItem.getContentURL()), null, new UpdateProgressListener() {
             @Override
             public void loadFinish() {
-//                mProgressLayout.loadSuccess();
+                mProgressLayout.loadSuccess();
             }
 
             @Override
             public void loadHttpError() {
-//                mProgressLayout.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mProgressLayout.loadFailure();
-//                    }
-//                });
+                mProgressLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressLayout.loadFailure();
+                    }
+                });
             }
         });
         hashMap.put(UmengContact.contentId, mVodItem.getArtid() + "");
@@ -1002,7 +1004,6 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-//        super.onError(method, obj);
         dismissScreenDialog();
         switch (method) {
             case POST_TV_RECOMMEND_JSON:
