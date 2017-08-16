@@ -6,10 +6,9 @@ import android.content.Intent;
 import com.savor.savorphone.bean.SlideSetInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by luminita on 2016/12/13.
+ * Created by hezd on 2016/12/13.
  */
 
 public class IntentUtil {
@@ -55,6 +54,7 @@ public class IntentUtil {
         Intent intent = new Intent(activity, cls);
         intent.putExtra(KEY_TYPE, type);
         intent.putExtra(KEY_SLIDE, slideSetInfo);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         activity.startActivity(intent);
 
     }
