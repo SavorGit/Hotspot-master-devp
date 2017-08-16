@@ -31,6 +31,7 @@ public class DefaultWebView extends FrameLayout implements MyWebView.OnScrollBot
     private UpdateProgressListener updateProgressListener;
     private boolean isLoadError;
 
+
     public DefaultWebView(Context context) {
         this(context, null);
     }
@@ -48,24 +49,24 @@ public class DefaultWebView extends FrameLayout implements MyWebView.OnScrollBot
         mWebView.setWebViewClient(new MyClient());
         mWebView.setWebChromeClient(new MyWebChromeClient());
         WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(false);
+//        webSettings.setJavaScriptCanOpenWindowsAutomatically(false);
         webSettings.setJavaScriptEnabled(true);
-        //webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 //        }
-       // webSettings.setBlockNetworkImage(true);
+        webSettings.setBlockNetworkImage(true);
         mWebView.setOnScrollBottomListener(this);
 //        mWebView.setLayerType(View.La, null);
 //        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 //        mWebView.setVerticalScrollBarEnabled(true);
 //        mWebView.setHorizontalScrollBarEnabled(false);
-//        webSettings.setSupportZoom(false);
+         webSettings.setSupportZoom(false);
 //        webSettings.setBlockNetworkImage(true);
-//        webSettings.setDomStorageEnabled(true);
+         webSettings.setDomStorageEnabled(true);
 //        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
 //        webSettings.setPluginState(WebSettings.PluginState.ON);
-//        webSettings.setDefaultTextEncodingName("UTF-8");
+        webSettings.setDefaultTextEncodingName("UTF-8");
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
     }
 

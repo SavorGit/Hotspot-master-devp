@@ -214,6 +214,9 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
                     Intent intent = new Intent(context, ImageTextActivity.class);
                     intent.putExtra("item",item);
                     startActivity(intent);
+                    Intent mIntent1 = new Intent();
+                    this.setResult(222, mIntent1);
+                    finish();
                     break;
                 case 2:
                     intent = new Intent(context, PictureSetActivity.class);
@@ -232,6 +235,9 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.putExtra("voditem",item);
                     startActivity(intent);
+                    Intent mIntent2 = new Intent();
+                    this.setResult(222, mIntent2);
+                    finish();
                     break;
             }
         }

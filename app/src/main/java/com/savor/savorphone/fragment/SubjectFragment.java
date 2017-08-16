@@ -294,7 +294,10 @@ public class SubjectFragment extends BaseFragment implements ApiRequestListener,
             if (haveNext>0) {
                 sort_num = mList.get(mList.size()-1).getSort_num()+"";
             }else {
-                sort_num = first.getSort_num()+"";
+                if (first != null){
+                    sort_num = first.getSort_num()+"";
+                }
+
             }
 
             list.addAll(mList);

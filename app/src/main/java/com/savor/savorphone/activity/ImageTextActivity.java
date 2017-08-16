@@ -484,6 +484,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             num = 0;
+            finish();
           //  mCustomWebView.clearHistory();
           //  mCustomWebView.destroy();
         //    finish();

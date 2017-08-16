@@ -39,6 +39,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 	public static final int SUBJECT = 20;
 	private int currentH5 = 0;
 	private ImageView iv_right;
+	private ImageView iv_left_b;
 
 	//
 	@Override
@@ -73,6 +74,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
 		switch (view.getId()){
 			case R.id.iv_left :
+			case R.id.iv_left_b :
 				RecordUtils.onEvent(this,getString(R.string.menu_help_back));
 				onBackPressed();
 				break;
@@ -96,7 +98,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 	public void getViews() {
 		iv_left = (ImageView) findViewById(R.id.iv_left);
 		iv_right = (ImageView) findViewById(R.id.iv_right);
-
+		iv_left_b = (ImageView) findViewById(R.id.iv_left_b);
 		tv_center = (TextView)findViewById(R.id.tv_center);
 		iv_left = (ImageView)findViewById(R.id.iv_left);
 		mCustomWebView = (DefaultWebView) findViewById(R.id.webview_custom);
@@ -115,6 +117,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 	@Override
 	public void setListeners() {
 		iv_left.setOnClickListener(this);
+		iv_left_b.setOnClickListener(this);
 
 	}
 
