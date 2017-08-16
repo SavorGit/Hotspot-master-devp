@@ -385,17 +385,17 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         mWebView.loadUrl(ConstantValues.addH5Params(mVodItem.getContentURL()), null, new UpdateProgressListener() {
             @Override
             public void loadFinish() {
-//                mProgressLayout.loadSuccess();
+                mProgressLayout.loadSuccess();
             }
 
             @Override
             public void loadHttpError() {
-//                mProgressLayout.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mProgressLayout.loadFailure();
-//                    }
-//                });
+                mProgressLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressLayout.loadFailure();
+                    }
+                });
             }
         });
         hashMap.put(UmengContact.contentId, mVodItem.getArtid() + "");
