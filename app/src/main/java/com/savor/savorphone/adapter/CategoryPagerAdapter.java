@@ -66,18 +66,6 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-//        Fragment fragment = mPagerList.get(0);
-//
-//        Fragment fragment = mPagerList.get(position);
-//        if(fragment instanceof HotspotFragment) {
-//            return HotspotFragment.newInstance();
-//        }else if(fragment instanceof RedianerFragment) {
-//            return new RedianerFragment();
-//        }
-//        CategoryFragment categoryFragment = (CategoryFragment) fragment;
-//        Bundle arguments = categoryFragment.getArguments();
-//        int id = arguments.getInt("id");
-//        return CategoryFragment.getInstance(id);
         return mPagerList.get(position);
     }
 
