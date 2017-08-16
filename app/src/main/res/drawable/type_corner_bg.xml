@@ -4,7 +4,7 @@
 
     <!-- 圆角 -->
     <corners
-        android:radius="4px"/>
+        android:radius="7px"/>
     <solid
         android:color="#7F000000"
         />
