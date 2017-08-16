@@ -5,13 +5,26 @@
 
     <include
         android:id="@+id/subtitle_layout"
+        android:visibility="gone"
         layout="@layout/layout_head_title"/>
 
+
+
         <com.savor.savorphone.widget.DefaultWebView
-                android:layout_below="@id/subtitle_layout"
                 android:id="@+id/webview_custom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+    <ImageView
+        android:id="@+id/iv_left_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/back3x"
+        android:visibility="visible" />
 
 
     <!--<WebView-->
