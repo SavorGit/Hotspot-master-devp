@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.common.api.utils.DateUtil;
+import com.common.api.utils.DensityUtil;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.savorphone.R;
@@ -166,6 +167,11 @@ public class SubjectFragment extends BaseFragment implements ApiRequestListener,
         headerNameTV = (TextView) view.findViewById(R.id.header_info);
         headerSourceTimeTV = (TextView) view.findViewById(R.id.hesder_source_time);
         headerlengthTV = (TextView) view.findViewById(R.id.length);
+        ViewGroup.LayoutParams layoutParams = headerBigImageIV.getLayoutParams();
+        int width = DensityUtil.getScreenWidth(context)-DensityUtil.dip2px(context,20f);
+        int height = (int) (width/(1242f/802f));
+        layoutParams.width = width;
+        layoutParams.height = height;
 
         return view;
     }

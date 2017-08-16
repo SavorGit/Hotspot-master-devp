@@ -6,11 +6,19 @@
     <include
         android:id="@+id/subtitle_layout"
         layout="@layout/layout_head_title"/>
+
         <com.savor.savorphone.widget.DefaultWebView
                 android:layout_below="@id/subtitle_layout"
                 android:id="@+id/webview_custom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+
+    <!--<WebView-->
+        <!--android:layout_below="@id/subtitle_layout"-->
+        <!--android:id="@+id/webview_custom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 
 
