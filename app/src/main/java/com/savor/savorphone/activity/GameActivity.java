@@ -630,7 +630,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                 }
                 break;
             case GET_HIT_EGG_JSON:
-
+                isHintMode = false;
                 if(obj instanceof GameResult) {
                     gameResult = (GameResult) obj;
                     //处理砸金蛋摇一摇结果
@@ -638,7 +638,6 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                 }
                 break;
             case POST_SMASH_EGG_JSON:
-                isHintMode = false;
                 if(obj instanceof SmashEgg) {
                     SmashEgg eggInfo = (SmashEgg) obj;
                     //处理砸金蛋摇一摇结果
