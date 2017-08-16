@@ -8,7 +8,7 @@
         android:id="@+id/ic_la"
         android:layout_alignParentLeft="true"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="140dp"
         android:background="@color/color_text_list_item">
 
         <ImageView
@@ -16,24 +16,22 @@
             android:scaleType="fitXY"
             android:src="@drawable/kong_mrjz"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/length"
+            android:layout_height="140dp"
             android:layout_alignParentLeft="true" />
         <TextView
             android:id="@+id/length"
             android:layout_width="30dp"
             android:layout_height="16dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:gravity="center"
-            android:padding="2dp"
             android:text="05'29"
             android:background="@drawable/type_corner_bg"
             android:textColor="@color/color_text_list_item"
             android:textSize="11sp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="6dp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="4dp"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -61,7 +59,7 @@
     <TextView
         android:layout_below="@id/title"
         android:layout_width="match_parent"
-        android:layout_height="8dp"
+        android:layout_height="6dp"
         android:background="@color/color_ede6de"
         />
 

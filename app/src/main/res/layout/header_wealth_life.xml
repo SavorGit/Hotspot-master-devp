@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
+
             <ImageView
                 android:id="@+id/header_big_img"
                 android:src="@drawable/beidishipinbg"
@@ -24,29 +25,38 @@
                 android:layout_margin="11px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentTop="true"/>
             <ImageView
                 android:layout_margin="6px"
                 android:src="@drawable/toutiao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/length"
-                android:layout_width="30dp"
-                android:layout_height="16dp"
-                android:visibility="gone"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="05'29"
-                android:background="@drawable/type_corner_bg"
-                android:textColor="@color/color_text_list_item"
-                android:textSize="11sp"
-                android:layout_alignParentBottom="true"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="4dp"
-                android:layout_marginBottom="6dp"/>
+                android:padding="6dp"
+                android:layout_marginBottom="4dp"
+                android:layout_alignParentBottom="true">
+                <TextView
+                    android:id="@+id/length"
+                    android:layout_width="30dp"
+                    android:layout_height="16dp"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="05'29"
+                    android:background="@drawable/type_corner_bg"
+                    android:textColor="@color/color_text_list_item"
+                    android:textSize="11sp"
+                    android:layout_centerInParent="true"
+                    />
+
+
+            </RelativeLayout>
+
+
         </RelativeLayout>
 
         <TextView
@@ -62,6 +72,7 @@
             android:text="asdasdasdddddddddddddddddddddddddddd"
             android:textColor="@color/color_text_black"
             android:textSize="16sp" />
+
 
         <LinearLayout
             android:layout_width="fill_parent"
