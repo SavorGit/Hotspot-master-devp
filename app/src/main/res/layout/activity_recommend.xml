@@ -46,13 +46,6 @@
 
             </RelativeLayout>
 
-
-
-
-
-
-
-
         </RelativeLayout>
 
 
@@ -60,7 +53,7 @@
         <LinearLayout
             android:id="@+id/share_btn_la"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -131,7 +124,7 @@
 
 
         <RelativeLayout
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/share_la"
             android:layout_above="@id/share_btn_la"
             android:layout_width="match_parent"
