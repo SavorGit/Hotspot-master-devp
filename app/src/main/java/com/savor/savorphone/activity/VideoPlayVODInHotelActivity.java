@@ -1002,7 +1002,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-        super.onError(method, obj);
+//        super.onError(method, obj);
         dismissScreenDialog();
         switch (method) {
             case POST_TV_RECOMMEND_JSON:
