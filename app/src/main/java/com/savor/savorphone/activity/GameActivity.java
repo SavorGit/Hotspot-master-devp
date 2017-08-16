@@ -687,6 +687,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                     if(code == 4) {
                         showConfirm(msg);
                     }else {
+                        if(TextUtils.isEmpty(msg)) {
+                            msg = "投屏失败";
+                        }
                         dialog = new CommonDialog(mContext,msg);
                         dialog.show();
                     }
@@ -1069,10 +1072,8 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
+            force = 0;
+            getEgg();
         }else  if (resultCode == SCAN_QR) {
             if(data!=null) {
                 String scanResult = data.getStringExtra("scan_result");
@@ -1081,26 +1082,6 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
             }
 //            showToast(scanResult);
         }
-    }
-
-    @Override
-    public void showChangeWifiDialog() {
-        super.showChangeWifiDialog();
-        mChangeWifiDiallog = new CommonDialog(this,((TextUtils.isEmpty(mSession.getSsid())||!AppUtils.isWifiNetwork(this)) ?"请连接包间wifi后进行操作" :  getString(R.string.tv_bind_wifi) +mSession.getSsid())
-                , new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm() {
-                Intent intent = new Intent();
-                intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
-                startActivity(intent);
-            }
-        }, new CommonDialog.OnCancelListener() {
-            @Override
-            public void onCancel() {
-
-            }
-        },"去设置");
-        mChangeWifiDiallog.show();
     }
 
     @Override

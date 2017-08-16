@@ -598,30 +598,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                     LogUtils.e("movePercentX=" + movePercentX + ",movePercentX=" + movePercentX);
                     // 在屏幕上横向滑动时修改视频播放进度，纵向滑动时修改系统音量
                     float offset = Math.abs(offsetX) - Math.abs(offsetY);
-                    if (offset > 100) {
-                        if (offsetX > 0) {  //快进
-                            //修改播放进度
-                            RecordUtils.onEvent(this,getString(R.string.details_page_sliding_progress));
-                            mSuperVideoPlayer.updateSeekTime(TIME_FORWARD, movePercentX / 100);
-                            mSuperVideoPlayer.updateSeekProgress(TIME_FORWARD, movePercentX / 100);
-                        } else if (offsetX < 0) {  //快退
-                            RecordUtils.onEvent(this,getString(R.string.details_page_sliding_progress));
-                            mSuperVideoPlayer.updateSeekTime(TIME_BACKWARD, movePercentX / 100);
-                            mSuperVideoPlayer.updateSeekProgress(TIME_BACKWARD, movePercentX / 100);
-                        } else {
-                            mSuperVideoPlayer.updateSeekTime(TIME_GONE, movePercentX / 100);
-                            mSuperVideoPlayer.updateSeekProgress(TIME_GONE, movePercentX / 100);
-                        }
-                    } else if (offset < -100*scale) {
-                        // 修改音量
-                        if (offsetY > 0 && movePercentY > 0.3) {  //减小音量
-                            RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
-                            lowerVoice();
-                        } else if (offsetY < 0 && movePercentY > 0.3) {   //增加音量
-                            RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
-                            raiseVoice();
-                        }
-                    }
+                    handleGesture(offsetX, offsetY, scale, movePercentX, movePercentY, offset);
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
@@ -644,33 +621,58 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                     int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
                     int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
                     float scale = screenWidth*1.0f/screenHeight;
+                    int range = DensityUtil.dip2px(mContext, 200);
                     float movePercentX = Math.abs(offsetX) / screenWidth;
-                    float movePercentY = Math.abs(offsetY) / screenHeight;
+                    float movePercentY = Math.abs(offsetY) / range;
                     LogUtils.e("movePercentX=" + movePercentX + ",movePercentX=" + movePercentX);
                     // 在屏幕上横向滑动时修改视频播放进度，纵向滑动时修改系统音量
                     float offset = Math.abs(offsetX) - Math.abs(offsetY);
-                    int range = DensityUtil.dip2px(mContext, 200);
-                    if (offset > 100&&moveY>0&&moveY<range) {
-                        if (offsetX > 0) {  //快进
-                            //修改播放进度
-                            RecordUtils.onEvent(this,getString(R.string.details_page_sliding_progress));
-                            mSuperVideoPlayer.updateSeekTime(TIME_FORWARD, movePercentX / 100);
-                            mSuperVideoPlayer.updateSeekProgress(TIME_FORWARD, movePercentX / 100);
-                        } else if (offsetX < 0) {  //快退
-                            RecordUtils.onEvent(this,getString(R.string.details_page_sliding_progress));
-                            mSuperVideoPlayer.updateSeekTime(TIME_BACKWARD, movePercentX / 100);
-                            mSuperVideoPlayer.updateSeekProgress(TIME_BACKWARD, movePercentX / 100);
-                        } else {
-                            mSuperVideoPlayer.updateSeekTime(TIME_GONE, movePercentX / 100);
-                            mSuperVideoPlayer.updateSeekProgress(TIME_GONE, movePercentX / 100);
-                        }
+                    if(moveY>0&&moveY<=range) {
+                        handleGesture(offsetX, offsetY, scale, movePercentX, movePercentY, offset);
                     }
+
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
             }
         }
         return super.onTouchEvent(event);
+    }
+
+    /**
+     * 播放器手势处理
+     * @param offsetX
+     * @param offsetY
+     * @param scale
+     * @param movePercentX
+     * @param movePercentY
+     * @param offset
+     */
+    private void handleGesture(float offsetX, float offsetY, float scale, float movePercentX, float movePercentY, float offset) {
+        if (offset > 100) {
+            if (offsetX > 0) {  //快进
+                //修改播放进度
+                RecordUtils.onEvent(this,getString(R.string.details_page_sliding_progress));
+                mSuperVideoPlayer.updateSeekTime(TIME_FORWARD, movePercentX / 100);
+                mSuperVideoPlayer.updateSeekProgress(TIME_FORWARD, movePercentX / 100);
+            } else if (offsetX < 0) {  //快退
+                RecordUtils.onEvent(this,getString(R.string.details_page_sliding_progress));
+                mSuperVideoPlayer.updateSeekTime(TIME_BACKWARD, movePercentX / 100);
+                mSuperVideoPlayer.updateSeekProgress(TIME_BACKWARD, movePercentX / 100);
+            } else {
+                mSuperVideoPlayer.updateSeekTime(TIME_GONE, movePercentX / 100);
+                mSuperVideoPlayer.updateSeekProgress(TIME_GONE, movePercentX / 100);
+            }
+        } else if (offset < -100*scale) {
+            // 修改音量
+            if (offsetY > 0 && movePercentY > 0.3) {  //减小音量
+                RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
+                lowerVoice();
+            } else if (offsetY < 0 && movePercentY > 0.3) {   //增加音量
+                RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
+                raiseVoice();
+            }
+        }
     }
 
     /**
