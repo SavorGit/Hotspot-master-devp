@@ -638,7 +638,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                 }
                 break;
             case POST_SMASH_EGG_JSON:
-
+                isHintMode = false;
                 if(obj instanceof SmashEgg) {
                     SmashEgg eggInfo = (SmashEgg) obj;
                     //处理砸金蛋摇一摇结果
@@ -646,7 +646,6 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                 }
                 break;
             case POST_AWARD_RECORD_JSON:
-
                 if(obj instanceof GameResult) {
                     GameResult re = (GameResult) obj;
                     if (re != null) {
@@ -655,12 +654,10 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                             toRecord();
                         }
                     }
-
                 }
                 break;
             default:
                 break;
-
         }
     }
 
@@ -697,6 +694,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
 
                 break;
             case GET_HIT_EGG_JSON:
+                isHintMode = false;
                 dismissScreenDialog();
                 HashMap<String,String> hashMap1 = new HashMap<>();
                 hashMap1.put(getString(R.string.game_page_result),"prize_failure");
