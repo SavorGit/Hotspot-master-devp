@@ -648,7 +648,7 @@ public class HotspotMainActivity extends AppCompatActivity
         // 切换到非酒店环境 1.隐藏绑定按钮 2.隐藏点播列表
         LogUtils.d("savor:hotel 切换为非酒店环境");
         if(mTitleList.contains("投屏")) {
-            mPagerAdapter.removePager(mProjectionFragment,"投屏",0);
+            mPagerAdapter.removePager(mProjectionFragment,"投屏");
             mTabLayout.refresh();
             if(prePosition>0) {
                 mViewPager.setCurrentItem(prePosition-1);
