@@ -46,7 +46,7 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void removePager(Fragment fragment,String title,int index) {
+    public void removePager(Fragment fragment,String title) {
         mPagerList.remove(fragment);
         mTitleList.remove(title);
         notifyDataSetChanged();
