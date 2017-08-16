@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.ShowMessage;
@@ -85,6 +86,7 @@ public class SubjectActivity extends BaseActivity implements View.OnClickListene
     private String UUID;
     private long mStartTime;
     private LinearLayout share_layout;
+    private ScrollView info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +148,7 @@ public class SubjectActivity extends BaseActivity implements View.OnClickListene
         mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
         allProgressLayuot = (ProgressBarView) findViewById(R.id.all_pbv_loading);
         share_layout = (LinearLayout)findViewById(R.id.share_layout);
+        info = (ScrollView) findViewById(R.id.info);
     }
 
     @Override
@@ -191,7 +194,7 @@ public class SubjectActivity extends BaseActivity implements View.OnClickListene
                    mProgressLayout.loadSuccess();
                     share.setVisibility(View.VISIBLE);
                     toleft_iv_right.setVisibility(View.VISIBLE);
-
+                    info.fullScroll(ScrollView.FOCUS_UP);
                     //getData();
                 }
 

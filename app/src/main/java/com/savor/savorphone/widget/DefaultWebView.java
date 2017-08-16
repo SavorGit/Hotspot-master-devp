@@ -50,11 +50,11 @@ public class DefaultWebView extends FrameLayout implements MyWebView.OnScrollBot
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptCanOpenWindowsAutomatically(false);
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webSettings.setBlockNetworkImage(true);
+        //webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+//        }
+       // webSettings.setBlockNetworkImage(true);
         mWebView.setOnScrollBottomListener(this);
 //        mWebView.setLayerType(View.La, null);
 //        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);

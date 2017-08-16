@@ -24,8 +24,8 @@
                 android:id="@+id/header_big_img"
                 android:src="@drawable/kong_mrjz"
                 android:scaleType="fitXY"
-                android:layout_width="match_parent"
-                android:layout_height="251dp"
+                android:layout_width="375dp"
+                android:layout_height="242dp"
                 android:layout_centerHorizontal="true" />
             <ImageView
                 android:visibility="gone"
@@ -39,7 +39,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="4dp"
                 android:padding="6dp"
-                android:layout_marginTop="228dp"
+                android:layout_marginTop="210dp"
                >
                 <TextView
                     android:id="@+id/length"
