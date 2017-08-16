@@ -28,14 +28,6 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
         this.mPagerList = list;
         this.mTitleList = titleList;
         notifyDataSetChanged();
-//        if(list!=null&&titleList!=null) {
-//
-//            this.mPagerList.clear();
-//            this.mTitleList.clear();
-//            mPagerList.addAll(list);
-//            mTitleList.addAll(titleList);
-//            notifyDataSetChanged();
-//        }
     }
 
     public void addPager(Fragment fragment,String title) {
@@ -45,8 +37,12 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addPager(Fragment fragment,String title,int index) {
-        mPagerList.add(index,fragment);
-        mTitleList.add(index,title);
+        if(!mPagerList.contains(fragment)&&!fragment.isAdded()) {
+            mPagerList.add(index,fragment);
+        }
+        if(!mTitleList.contains(title)) {
+            mTitleList.add(index,title);
+        }
         notifyDataSetChanged();
     }
 
