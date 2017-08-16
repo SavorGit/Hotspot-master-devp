@@ -25,6 +25,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -634,7 +635,16 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 555:
-                AppApi.isCollection(mContext,this,content_id);
+                int code = resultCode;
+                switch (code){
+                    case 111:
+                        AppApi.isCollection(mContext,this,content_id);
+                        break;
+                    case 222:
+                        finish();
+                        break;
+                }
+
                 break;
             case 2:
 

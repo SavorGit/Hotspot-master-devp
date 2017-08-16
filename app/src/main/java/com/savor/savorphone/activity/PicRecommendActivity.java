@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -132,6 +133,8 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back:
+                Intent mIntent = new Intent();
+                this.setResult(111, mIntent);
                 finish();
                 break;
             case R.id.share:
@@ -218,6 +221,9 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
                     intent.putExtra("content_id",item.getArtid());
                     intent.putExtra("category_id",item.getCategoryId());
                     startActivity(intent);
+                    Intent mIntent = new Intent();
+                    this.setResult(222, mIntent);
+                    finish();
                     break;
                 case 3:
                 case 4:
@@ -272,5 +278,16 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(voditem.getContentURL());
         ShowMessage.showToast(mContext,"复制完毕");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            Intent mIntent = new Intent();
+            this.setResult(111, mIntent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
