@@ -198,6 +198,10 @@ public class SuperVideoPlayer extends RelativeLayout {
         mVideoPlayCallback = videoPlayCallback;
     }
 
+    public boolean isPlayFinished() {
+        return mPlayFinished;
+    }
+
     public void refreshPlayBtnState(int oritation) {
         mMediaController.refreshPlayBtnState(oritation);
     }

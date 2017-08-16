@@ -474,7 +474,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             mSuperVideoPlayer.hideController();
             mSuperVideoPlayer.setCovorVisible();
             mSuperVideoPlayer.setBottomProgressBarGone();
-           writeAppLog("end",true);
+            writeAppLog("end",true);
         }
 
         @Override
@@ -488,6 +488,10 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 mTvUpdateTime.setVisibility(View.VISIBLE);
                 mTvUpdateTime.setText("<< " + TimeUtils.getPlayTime(playTime, allTime));
             } else {
+                mTvUpdateTime.setVisibility(View.GONE);
+            }
+            boolean playFinished = mSuperVideoPlayer.isPlayFinished();
+            if(playFinished) {
                 mTvUpdateTime.setVisibility(View.GONE);
             }
         }
