@@ -480,6 +480,11 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         @Override
         public void onPlayFinish() {    //播放结束
             Log.d("video","onPlayFinish");
+            toleft_iv_right.setVisibility(View.GONE);
+            iv_right.setVisibility(View.GONE);
+            if (mSuperVideoPlayer.mCurrPageType == MediaController.PageType.EXPAND ) {
+                mSuperVideoPlayer.mMediaControl.onPageTurn();
+            }
             mFinishLayer.setVisibility(View.VISIBLE);
             headLayout.setVisibility(View.VISIBLE);
             mSuperVideoPlayer.dismissProgress();
