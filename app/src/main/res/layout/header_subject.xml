@@ -21,6 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content">
             <ImageView
+                android:layout_margin="4dp"
                 android:id="@+id/header_big_img"
                 android:src="@drawable/kong_mrjz"
                 android:scaleType="fitXY"

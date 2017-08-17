@@ -7,10 +7,15 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -64,11 +69,34 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     private GridView gview;
     //收藏状态,1:收藏，0:取消收藏
     private String state="0";
+    private final int PICK_CITY = 1;
 
 
 
     public static final int EXTRA_FROM_RECOMMEND = 0x112;
 
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case PICK_CITY:
+                    // 跳转选择城市
+                    Intent pickIntent = new Intent(mContext, HotspotMainActivity.class);
+                    Intent intent = getIntent();
+                    if(intent!=null&&("application/pdf").equals(intent.getType())) {
+                        Uri data = getIntent().getData();
+                        pickIntent.setDataAndType(data,intent.getType());
+                        pickIntent.setData(data);
+                    }
+                    Intent mIntent = new Intent();
+                    PicRecommendActivity.this.setResult(111, mIntent);
+                    //finish();
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_in_left);// 这部分代码是切换Activity时的动画，看起来就不会很生硬
+                    finish();
+                    break;
+            }
+        };
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +143,36 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         back.setOnClickListener(this);
         gview.setOnItemClickListener(this);
         share.setOnClickListener(this);
+        gview.setOnTouchListener(new View.OnTouchListener() {
+            float startX;
+            float endX;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        endX = event.getX();
+                        event.getY();
+                        WindowManager windowManager = (WindowManager) getApplicationContext()
+                                .getSystemService(Context.WINDOW_SERVICE);
+
+                        // 获取屏幕的宽度
+                        Point size = new Point();
+                        windowManager.getDefaultDisplay().getSize(size);
+                        int width = size.x;
+                        // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
+                        if ( endX - startX >= (width / 4)) {
+                            mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void getDataFromServer(){
@@ -134,8 +192,9 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.back:
                 Intent mIntent = new Intent();
-                this.setResult(111, mIntent);
+                this.setResult(222, mIntent);
                 finish();
+
                 break;
             case R.id.share:
                 share();
@@ -290,7 +349,7 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             Intent mIntent = new Intent();
-            this.setResult(111, mIntent);
+            this.setResult(222, mIntent);
             finish();
             return true;
         }

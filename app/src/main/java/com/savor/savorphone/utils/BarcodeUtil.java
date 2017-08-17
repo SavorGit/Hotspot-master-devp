@@ -105,9 +105,9 @@ public class BarcodeUtil {
 			for (int y = 0; y < heightPix; y++) {
 				for (int x = 0; x < widthPix; x++) {
 					if (bitMatrix.get(x, y)) {
-						pixels[y * widthPix + x] = 0xff789ece;
+						pixels[y * widthPix + x] = 0xff373d71;
 					} else {
-						pixels[y * widthPix + x] = 0xffffffff;
+						pixels[y * widthPix + x] = 0xfff9fafa;
 					}
 				}
 			}
@@ -157,14 +157,13 @@ public class BarcodeUtil {
 			return src;
 		}
 		// logo大小为二维码整体大小的1/5
-		float scaleFactor = srcWidth * 1.0f / 5 / logoWidth;
+		float scaleFactor = srcWidth * 1.0f / 4 / logoWidth;
 		Bitmap bitmap = Bitmap.createBitmap(srcWidth, srcHeight, Bitmap.Config.ARGB_8888);
 		try {
 			Canvas canvas = new Canvas(bitmap);
 			canvas.drawBitmap(src, 0, 0, null);
 			canvas.scale(scaleFactor, scaleFactor, srcWidth / 2, srcHeight / 2);
 			canvas.drawBitmap(logo, (srcWidth - logoWidth) / 2, (srcHeight - logoHeight) / 2, null);
-
 			canvas.save(Canvas.ALL_SAVE_FLAG);
 			canvas.restore();
 		} catch (Exception e) {
