@@ -291,6 +291,7 @@ public class MyCollectActivity extends BaseActivity implements InitViews,View.On
                 Intent intentp = new Intent(context, PictureSetActivity.class);
                 intentp.putExtra("content_id",artid);
                 intentp.putExtra("collected",collected);
+                intentp.putExtra("voditem",itemVo);
                 startActivityForResult(intentp,10);
                 break;
             case 3:

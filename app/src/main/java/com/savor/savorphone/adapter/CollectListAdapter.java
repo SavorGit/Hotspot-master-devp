@@ -80,10 +80,10 @@ public class CollectListAdapter extends BaseAdapter {
             holder.contentSmallSourceTV = (TextView) convertView.findViewById(R.id.content_small_source);
             holder.contentSmallTimeTV = (TextView) convertView.findViewById(R.id.content_small_time);
             holder.contentLengthTV = (TextView) convertView.findViewById(R.id.length);
-//            ViewGroup.LayoutParams layoutParams = holder.contentSmallImgIV.getLayoutParams();
-//            float widthInPx = DensityUtil.getWidthInPx(mContext);
-//            float height = widthInPx*SCAL;
-//            layoutParams.height = (int) height;
+            ViewGroup.LayoutParams layoutParams = holder.contentSmallImgIV.getLayoutParams();
+            float widthInPx = DensityUtil.getWidthInPx(mContext);
+            float height = widthInPx*SCAL;
+            layoutParams.height = (int) height;
             convertView.setTag(R.id.tag_holder, holder);
         } else {
             holder = (ViewHolder) convertView.getTag(R.id.tag_holder);
