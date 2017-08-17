@@ -1253,8 +1253,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 public void loadFinish() {
                     writeAppLog("start",false);
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-                    toleft_iv_right.setVisibility(View.VISIBLE);
-                    iv_right.setVisibility(View.VISIBLE);
                     scrollviewLayout.scrollTo(0,0);
                     mProgressLayout.loadSuccess();
                 }
