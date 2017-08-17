@@ -145,6 +145,9 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     private TextView mCollectedTv;
     private LinearLayout mPlayErrorLayout;
     private TextView mReloadBtn;
+    private ProgressBarView mNoOnlineLoadingView;
+    private View divider;
+    private boolean isShouldLoading = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,14 +160,17 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         setViews();
         setListeners();
         contentIsOnline();
+        display();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        isShouldLoading = false;
         setIntent(intent);
         handleIntent();
         contentIsOnline();
+        display();
     }
 
     public static void startVODVideoActivity(Activity context, CommonListItem vodBean) {
@@ -207,6 +213,8 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     }
     @Override
     public void getViews() {
+        divider = findViewById(R.id.divider);
+        mNoOnlineLoadingView = (ProgressBarView) findViewById(R.id.pb_no_online);
         mReloadBtn = (TextView) findViewById(R.id.tv_reload);
         mPlayErrorLayout = (LinearLayout) findViewById(R.id.play_error);
         mCollectedTv = (TextView) findViewById(R.id.tv_collect);
@@ -254,6 +262,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
     @Override
     public void setViews() {
+        mNoOnlineLoadingView.setVisibility(View.GONE);
         iv_right.setVisibility(View.VISIBLE);
         iv_right.setImageResource(R.drawable.fenxiang3x);
         toleft_iv_right.setVisibility(View.VISIBLE);
@@ -416,7 +425,9 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
      * 获取文章是否在线接口
      */
     private void contentIsOnline(){
-        allProgressLayuot.startLoading();
+        if(isShouldLoading) {
+            allProgressLayuot.startLoading();
+        }
         AppApi.getContentIsOnline(this,this,videoItem.getArtid());
     }
 
@@ -429,6 +440,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     OnItemClickListener recommendItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+            mNoOnlineLoadingView.setVisibility(View.GONE);
             mSuperVideoPlayer.pausePlay(true);
             mSuperVideoPlayer.postDelayed(new Runnable() {
                 @Override
@@ -490,9 +502,11 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             } else {
                 mTvUpdateTime.setVisibility(View.GONE);
             }
-            boolean playFinished = mSuperVideoPlayer.isPlayFinished();
-            if(playFinished) {
-                mTvUpdateTime.setVisibility(View.GONE);
+            if(mSuperVideoPlayer!=null) {
+                boolean playFinished = mSuperVideoPlayer.isPlayFinished();
+                if(playFinished) {
+                    mTvUpdateTime.setVisibility(View.GONE);
+                }
             }
         }
     };
@@ -1040,14 +1054,12 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof String){
                     String str = (String)obj;
                     if ("success".equals(str)){
-                        allProgressLayuot.loadSuccess();
+
                         ScreenOrientationUtil.getInstance().start(this);
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                         iv_right.setVisibility(View.VISIBLE);
                         toleft_iv_right.setVisibility(View.VISIBLE);
                         headLayout.setBackgroundResource(R.drawable.ico_player_title);
-                        display();
-
                     }
                 }
                 break;
@@ -1084,6 +1096,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 }
                 break;
             case POST_RECOMMEND_LIST_JSON:
+                allProgressLayuot.loadSuccess();
                 if(obj instanceof List<?>){
                     List<CommonListItem> listRecommend = (List<CommonListItem>)obj;
                     if (recommendListAdapter!=null){
@@ -1107,16 +1120,20 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     if (errorMessage.getCode()==19002){
-                        allProgressLayuot.loadFailure("该内容找不到了~","",R.drawable.kong_wenzhang);
+                        divider.setVisibility(View.GONE);
+                        shareLayout.setVisibility(View.GONE);
+                        mCustomWebView.setVisibility(View.GONE);
+                        mNoOnlineLoadingView.setVisibility(View.VISIBLE);
+                        mNoOnlineLoadingView.loadFailure("该内容找不到了~","",R.drawable.kong_wenzhang);
                         iv_right.setVisibility(View.GONE);
                         toleft_iv_right.setVisibility(View.GONE);
                     }else{
-                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        ScreenOrientationUtil.getInstance().stop();
                         iv_right.setVisibility(View.GONE);
                         toleft_iv_right.setVisibility(View.GONE);
                         allProgressLayuot.loadFailure();
                     }
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    ScreenOrientationUtil.getInstance().stop();
                 }
                 break;
             case POST_RECOMMEND_LIST_JSON:
