@@ -967,9 +967,11 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                         if ("0".equals(collected)){
                             collected = "1";
                             toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                            mCollectBtn.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_collected_big),null,null);
                         }else{
                             collected = "0";
                             toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
+                            mCollectBtn.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_uncollect_big),null,null);
                         }
                     }
                     toleft_iv_right.setOnClickListener(VideoPlayVODInHotelActivity.this);
