@@ -134,7 +134,14 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (Math.abs(e1.getRawX() - e2.getRawX()) > 450) {
+                WindowManager windowManager = (WindowManager) getApplicationContext()
+                        .getSystemService(Context.WINDOW_SERVICE);
+
+                // 获取屏幕的宽度
+                Point size = new Point();
+                windowManager.getDefaultDisplay().getSize(size);
+                int width = size.x;
+                if (Math.abs(e1.getRawX() - e2.getRawX()) > width/5) {
                  // System.out.println("水平方向移动距离过大");
                  return true;
                  }
