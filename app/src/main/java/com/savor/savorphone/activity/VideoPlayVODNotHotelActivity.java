@@ -262,10 +262,11 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
     @Override
     public void setViews() {
+        iv_right.setVisibility(View.GONE);
+        toleft_iv_right.setVisibility(View.GONE);
+
         mNoOnlineLoadingView.setVisibility(View.GONE);
-        iv_right.setVisibility(View.VISIBLE);
         iv_right.setImageResource(R.drawable.fenxiang3x);
-        toleft_iv_right.setVisibility(View.VISIBLE);
 
         mShareManager = ShareManager.getInstance();
         mShareListener = new ShareManager.CustomShareListener(mContext);
@@ -681,6 +682,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
                     break;
                 case MotionEvent.ACTION_UP:
+                    if(mSuperVideoPlayer.isPlayFinished())
                     break;
             }
         }

@@ -112,7 +112,12 @@ public class StopProjectionServlet extends HttpServlet{
                 iGActivity.stopPro();
             }
         }else if(projectionActivity == VideoPlayVODInHotelActivity.class) {
-            ActivitiesManager.getInstance().popSpecialActivity(projectionActivity);
+//            ActivitiesManager.getInstance().popSpecialActivity(projectionActivity);
+            Activity specialActivity = ActivitiesManager.getInstance().getSpecialActivity(VideoPlayVODInHotelActivity.class);
+            if(specialActivity!=null&& specialActivity instanceof VideoPlayVODInHotelActivity) {
+                VideoPlayVODInHotelActivity hotelActivity = (VideoPlayVODInHotelActivity) specialActivity;
+                hotelActivity.handleProExit();
+            }
             ProjectionService projectionService = SavorApplication.getInstance().projectionService;
             if(projectionService!=null) {
                 projectionService.stopQuerySeek();

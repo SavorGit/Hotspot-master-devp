@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -174,17 +175,19 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     break;
                 case PLAY_OVER:
                     stopQuerySeek();
-//                    mHandler.removeMessages(QUERY_SEEK);
+                    mFinishLayout.setVisibility(View.VISIBLE);
+                    mSeekLayout.setVisibility(View.GONE);
                     mSeekBar.setProgress(0);
                     mPlayButton.setBackgroundResource(R.drawable.d_zanting);
                     play_over = true;
                     isPlaying = false;
                     isProjecting = false;
                     signOutTV.setVisibility(View.GONE);
-//                    finish();
+                    toleft_iv_right.setVisibility(View.GONE);
+                    iv_right.setVisibility(View.GONE);
+                    mControllerLayout.setVisibility(View.GONE);
                     break;
                 case PLAY_ERROR:
-//                    mHandler.removeMessages(QUERY_SEEK);
                     stopQuerySeek();
                     mSeekBar.setProgress(0);
                     mPlayButton.setBackgroundResource(R.drawable.play_new_selector);
@@ -269,6 +272,15 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     private LinkDialog mProDialog;
     private ScrollView mContentSlv;
     private TextView mMoreVideoBtn;
+    private LinearLayout mFinishLayout;
+    /**退出投屏展示的收藏按钮*/
+    private TextView mCollectBtn;
+    /**退出投屏展示的分享按钮*/
+    private TextView mShareBtn;
+    /**退出投屏展示的重播按钮*/
+    private TextView mReplayBtn;
+    private LinearLayout mSeekLayout;
+    private RelativeLayout mControllerLayout;
 
     protected void onSaveInstanceState(Bundle outState) {
         LogUtils.e("onSaveInstanceState");
@@ -332,6 +344,12 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     }
 
     public void getViews() {
+        mControllerLayout = (RelativeLayout) findViewById(R.id.rl_controller);
+        mSeekLayout = (LinearLayout) findViewById(R.id.ll_seek);
+        mReplayBtn = (TextView) findViewById(R.id.replay);
+        mShareBtn = (TextView) findViewById(R.id.share_finish);
+        mCollectBtn = (TextView) findViewById(R.id.tv_collect);
+        mFinishLayout = (LinearLayout) findViewById(R.id.finish_layer);
         mMoreVideoBtn = (TextView) findViewById(R.id.tv_more_video);
         mContentSlv = (ScrollView) findViewById(R.id.slv_content);
         title_layout = (LinearLayout) findViewById(R.id.title_layout);
@@ -413,6 +431,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     }
 
     public void setListeners() {
+        mCollectBtn.setOnClickListener(this);
+        mShareBtn.setOnClickListener(this);
+        mReplayBtn.setOnClickListener(this);
         mMoreVideoBtn.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         toleft_iv_right.setOnClickListener(this);
@@ -512,9 +533,11 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
             case R.id.iv_left:
                 onBackPressed();
                 break;
+            case R.id.share_finish:
             case R.id.iv_right:
                 shareMethod();
                 break;
+            case R.id.tv_collect:
             case R.id.toleft_iv_right:
                 // 如果已经收藏，取消收藏,否则添加收藏。添加友盟统计
                 toleft_iv_right.setOnClickListener(null);
@@ -547,9 +570,10 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 HashMap<String,String> hashMap3 = new HashMap<>();
                 hashMap3.put(getString(R.string.menu_recommend_sina),"success");
                 RecordUtils.onEvent(mContext,"menu_recommend_sina",hashMap3);
+                break;
+            case R.id.replay:
             case R.id.play:
                 LogUtils.e("play_over = " + play_over);
-
                 if (play_over) {
                     // 点击播放按钮请求机顶盒投屏
                     force = 0;
@@ -557,21 +581,15 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 } else {
                     if (isPlaying) {    // 暂停
                         if(isNotifying) {
-                           // showToast("正在通知暂停...");
                             return;
                         }
-//                            alive = false;
                         isNotifying = true;
-                        // 停止查询进度
-//                        mHandler.removeMessages(QUERY_SEEK);
                         mProjectionService.stopQuerySeek();
                         RecordUtils.onEvent(this,getString(R.string.bunch_planting_page_pause_button));
                         // 请求机顶盒暂停播放
                         AppApi.notifyTvBoxPause(this,mSession.getTVBoxUrl(),projectionId,this);
-//                            new PlayAsyncTask(this, VideoVodTVActivity.this).execute(0);
                     } else {    // 开始
                         if(isNotifying) {
-                           // showToast("正在通知播放...");
                             return;
                         }
                         isNotifying = true;
@@ -870,11 +888,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 }
                 break;
             case POST_NOTIFY_TVBOX_STOP_JSON:
-                dismissScreenDialog();
-                isPlaying = false;
-                mHandler.sendEmptyMessage(PLAY_OVER);
-                ProjectionManager.getInstance().resetProjection();
-//                finish();
+                handleProExit();
                 break;
             case GET_QUERY_SEEK_JSON:
                 if(obj instanceof QuerySeekResponse) {
@@ -891,25 +905,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 // do noting
                 break;
             case GET_VOD_PRO_JSON:
-                isProjecting = true;
-                if(obj instanceof VodProResponse) {
-                    VodProResponse response = (VodProResponse) obj;
-                    projectionId = response.getProjectId();
-                    ProjectionManager.getInstance().setProjectId(projectionId);
-                    prepareSuccess(response);
-                    ProjectionManager.getInstance().setVideoTVProjection(VideoPlayVODInHotelActivity.class,mVodItem,isPlaying);
-                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    Ringtone r = RingtoneManager.getRingtone(SavorApplication.getInstance(), notification);
-                    r.play();
-                    if(mProjectionService!=null)
-                        mProjectionService.querySeek();
-                    // 解决当未投屏成功就点击返回键时 不能成功保存背景投屏状态
-                    Activity specialActivity = ActivitiesManager.getInstance().getSpecialActivity(HotspotMainActivity.class);
-                    if(specialActivity instanceof HotspotMainActivity) {
-                        HotspotMainActivity mainActivity = (HotspotMainActivity) specialActivity;
-                        mainActivity.refreshLinkStatus();
-                    }
-                }
+                handleProSuccess(obj);
                 break;
             case GET_NOTIFY_PAUSE_JSON:
                 isNotifying = false;
@@ -950,10 +946,12 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     collected = str;
                     if ("1".equals(collected)){
                         toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                        mCollectBtn.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_collected_big),null,null);
                         if(isClickCollection) {
                             ShowMessage.showToast(VideoPlayVODInHotelActivity.this,"收藏成功");
                         }
                     }else{
+                        mCollectBtn.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_uncollect_big),null,null);
                         toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
                         if(isClickCollection) {
                             ShowMessage.showToast(VideoPlayVODInHotelActivity.this,"取消收藏");
@@ -977,6 +975,38 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     toleft_iv_right.setOnClickListener(VideoPlayVODInHotelActivity.this);
                 }
                 break;
+        }
+    }
+
+    public void handleProExit() {
+        dismissScreenDialog();
+        isPlaying = false;
+        mHandler.sendEmptyMessage(PLAY_OVER);
+        ProjectionManager.getInstance().resetProjection();
+    }
+
+    private void handleProSuccess(Object obj) {
+        isProjecting = true;
+        mControllerLayout.setVisibility(View.VISIBLE);
+        mSeekLayout.setVisibility(View.VISIBLE);
+        toleft_iv_right.setVisibility(View.VISIBLE);
+        iv_right.setVisibility(View.VISIBLE);
+        mSeekBar.setVisibility(View.VISIBLE);
+        mFinishLayout.setVisibility(View.GONE);
+        if(obj instanceof VodProResponse) {
+            VodProResponse response = (VodProResponse) obj;
+            projectionId = response.getProjectId();
+            ProjectionManager.getInstance().setProjectId(projectionId);
+            prepareSuccess(response);
+            ProjectionManager.getInstance().setVideoTVProjection(VideoPlayVODInHotelActivity.class,mVodItem,isPlaying);
+            if(mProjectionService!=null)
+                mProjectionService.querySeek();
+            // 解决当未投屏成功就点击返回键时 不能成功保存背景投屏状态
+            Activity specialActivity = ActivitiesManager.getInstance().getSpecialActivity(HotspotMainActivity.class);
+            if(specialActivity instanceof HotspotMainActivity) {
+                HotspotMainActivity mainActivity = (HotspotMainActivity) specialActivity;
+                mainActivity.refreshLinkStatus();
+            }
         }
     }
 
@@ -1186,6 +1216,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     switch (method) {
                         case GET_VOD_PRO_JSON:
                             dismissProLoadingDialog();
+                            handleProSuccess(obj);
                             // 保存会话id
                             if(obj instanceof BaseProResponse) {
                                 VodProResponse response = (VodProResponse) obj;
