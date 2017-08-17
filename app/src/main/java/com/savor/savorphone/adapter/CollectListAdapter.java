@@ -88,7 +88,7 @@ public class CollectListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag(R.id.tag_holder);
         }
-        final CommonListItem itemVo = getItem(position);
+        CommonListItem itemVo = getItem(position);
         Glide.with(mContext)
                 .load(itemVo.getImageURL())
                 .placeholder(R.drawable.kong_mrjz)
@@ -121,6 +121,7 @@ public class CollectListAdapter extends BaseAdapter {
             case 2:
                 int colTuJi = itemVo.getColTuJi();
                 if (colTuJi > 0) {
+                    holder.contentLengthTV.setVisibility(View.VISIBLE);
                     holder.contentLengthTV.setText(colTuJi+"图");
                 }
                 break;
@@ -128,6 +129,7 @@ public class CollectListAdapter extends BaseAdapter {
             case 4:
                 String  duration = itemVo.getDuration();
                 if (!TextUtils.isEmpty(duration)) {
+                    holder.contentLengthTV.setVisibility(View.VISIBLE);
                     holder.contentLengthTV.setText(DateUtil.formatSecondsTime(duration));
                 }
                 break;

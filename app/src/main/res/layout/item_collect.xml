@@ -22,6 +22,7 @@
             android:layout_height="80dp" />
         <TextView
             android:id="@+id/length"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
