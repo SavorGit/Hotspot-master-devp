@@ -13,10 +13,12 @@ import java.util.List;
  */
 
 public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
-    private List<Fragment> mPagerList = new ArrayList<>();
-    private List<String> mTitleList = new ArrayList<>();
+    private FragmentManager mFrgmentManager;
+    private List<Fragment> mPagerList ;
+    private List<String> mTitleList ;
     public CategoryPagerAdapter(FragmentManager fm) {
         super(fm);
+        this.mFrgmentManager = fm;
     }
     public CategoryPagerAdapter(FragmentManager fm,List<Fragment> list,List<String> titleList) {
         super(fm);
@@ -37,19 +39,20 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addPager(Fragment fragment,String title,int index) {
-        if(!mPagerList.contains(fragment)&&!fragment.isAdded()) {
+
+        if(!mPagerList.contains(fragment)) {
             mPagerList.add(index,fragment);
-        }
-        if(!mTitleList.contains(title)) {
             mTitleList.add(index,title);
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public void removePager(Fragment fragment,String title) {
-        mPagerList.remove(fragment);
-        mTitleList.remove(title);
-        notifyDataSetChanged();
+        if(mPagerList.contains(fragment)) {
+            mPagerList.remove(fragment);
+            mTitleList.remove(title);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -74,4 +77,14 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
         return mTitleList.get(position);
     }
 
+//    @Override
+//    public Object instantiateItem(ViewGroup container, int position) {
+//        Fragment fragment = mPagerList.get(position);
+//        if(!fragment.isAdded()) {
+//            FragmentTransaction ft = mFrgmentManager.beginTransaction();
+//            ft.add(fragment, fragment.hashCode()+"");
+//            ft.commit();
+//        }
+//        return fragment.getView();
+//    }
 }

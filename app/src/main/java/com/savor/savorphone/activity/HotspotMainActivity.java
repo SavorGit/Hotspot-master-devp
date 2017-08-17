@@ -86,7 +86,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.savor.savorphone.activity.LinkTvActivity.EXRA_TV_BOX;
 import static com.savor.savorphone.activity.LinkTvActivity.EXTRA_TV_INFO;
 import static com.savor.savorphone.activity.RecommendActivity.EXTRA_FROM_RECOMMEND;
 
@@ -244,6 +243,11 @@ public class HotspotMainActivity extends AppCompatActivity
     private TextView mCategoryNameLabel;
     private PlayOverReceiver mPlayOverReceiver;
     private int prePosition;
+    private ViewPager mShadeViewPager;
+    private PagerSlidingTabStrip mShadeTabContainer;
+    private RelativeLayout mShadeLayout;
+    private CategoryPagerAdapter mShadePagerAdapter;
+    private RelativeLayout mContentLayout;
 
     /**
      * 退出背景投屏更新提示语
@@ -338,7 +342,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void getViews() {
-//        mBackgroudProjectLayout = (RelativeLayout) findViewById(R.id.rl_bg_projection);
+        mContentLayout = (RelativeLayout) findViewById(R.id.include);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -359,6 +363,10 @@ public class HotspotMainActivity extends AppCompatActivity
         la = (RelativeLayout) findViewById(R.id.la);
         mParentLayout = (CoordinatorLayout) findViewById(R.id.parent_layout);
         mCategoryNameLabel = (TextView) findViewById(R.id.tv_category_name);
+
+        mShadeLayout = (RelativeLayout) findViewById(R.id.shade);
+        mShadeViewPager = (ViewPager) findViewById(R.id.pager_shade);
+        mShadeTabContainer = (PagerSlidingTabStrip) findViewById(R.id.tabs_shade);
     }
 
     @Override
@@ -382,22 +390,42 @@ public class HotspotMainActivity extends AppCompatActivity
 
     private void initIndicator() {
         mProjectionFragment = ProjectionFragment.newInstance(0);
-
+        mTitleList.add("投屏");
         mTitleList.add("创富");
         mTitleList.add("生活");
         mTitleList.add("专题");
+        mFragmentList.add(mProjectionFragment);
         mFragmentList.add(WealthLifeFragment.getInstance(101));
         mFragmentList.add(WealthLifeFragment.getInstance(102));
         mFragmentList.add(SubjectFragment.getInstance());
 
         Bundle bundle = new Bundle();
         bundle.putString("title", "专题");
-        //mFragmentList.add(CategoryFragment.getInstance(0));
         mPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
         mPagerAdapter.setData(mFragmentList,mTitleList);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.post(new Runnable() {
+            @Override
+            public void run() {
+                hideProjection();
+            }
+        });
+
+        List<Fragment> fragmentList = new ArrayList<>();
+        List<String> titleList = new ArrayList<>();
+        titleList.add("创富");
+        titleList.add("生活");
+        titleList.add("专题");
+        fragmentList.add(WealthLifeFragment.getInstance(101));
+        fragmentList.add(WealthLifeFragment.getInstance(102));
+        fragmentList.add(SubjectFragment.getInstance());
+        mShadePagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
+        mShadePagerAdapter.setData(fragmentList,titleList);
+        mShadeViewPager.setAdapter(mShadePagerAdapter);
+        mShadeTabContainer.setViewPager(mShadeViewPager);
+        mShadeViewPager.setOffscreenPageLimit(0);
     }
 
     @Override
@@ -491,7 +519,14 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void checkSense() {
-        mSensePresenter.checkSense();
+        // 因为默认无投屏切换到 有投屏会报错fragment add，默认有投屏，在判断非酒店去掉投屏
+        // 这样间接解决了那个问题
+        mViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSensePresenter.checkSense();
+            }
+        },100);
     }
 
     private void getCategoryListTab(boolean isneedLoading){
@@ -630,6 +665,9 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void showProjection(boolean isLinked) {
         LogUtils.d("savor:hotel 当前为酒店环境");
+        mContentLayout.setVisibility(View.VISIBLE);
+        mShadeLayout.setVisibility(View.GONE);
+        mShadeLayout.removeAllViews();
         if(!mTitleList.contains("投屏")) {
             RecordUtils.onEvent(getApplicationContext(),R.string.home_find_tv);
             mPagerAdapter.addPager(mProjectionFragment,"投屏",0);
@@ -647,6 +685,9 @@ public class HotspotMainActivity extends AppCompatActivity
     public void hideProjection() {
         // 切换到非酒店环境 1.隐藏绑定按钮 2.隐藏点播列表
         LogUtils.d("savor:hotel 切换为非酒店环境");
+        mContentLayout.setVisibility(View.VISIBLE);
+        mShadeLayout.setVisibility(View.GONE);
+        mShadeLayout.removeAllViews();
         if(mTitleList.contains("投屏")) {
             mPagerAdapter.removePager(mProjectionFragment,"投屏");
             mTabLayout.refresh();

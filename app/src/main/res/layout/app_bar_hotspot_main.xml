@@ -39,10 +39,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!---->
+    <!--</RelativeLayout>-->
 
     <include
+        android:visibility="visible"
+        android:id="@+id/shade"
+        layout="@layout/layout_content_shade" />
+    <include
+        android:visibility="invisible"
         android:id="@+id/include"
         layout="@layout/layout_content_main" />
-
 
 </android.support.design.widget.CoordinatorLayout>

@@ -380,8 +380,8 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     public void setViews() {
         mShareListener = new ShareManager.CustomShareListener(mContext);
         title_layout.setBackgroundColor(getResources().getColor(R.color.transparent));
-        iv_right.setVisibility(View.VISIBLE);
-        toleft_iv_right.setVisibility(View.VISIBLE);
+        iv_right.setVisibility(View.GONE);
+        toleft_iv_right.setVisibility(View.GONE);
         iv_right.setImageResource(R.drawable.fenxiang3x);
         Glide.with(this).load(mVodItem.getImageURL()).centerCrop().into(picIV);
 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.savor.savorphone.activity.HotspotMainActivity"
+    tools:showIn="@layout/app_bar_hotspot_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_shade"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp" />-->
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ico_bottom_shape" />
+
+        <com.gxz.PagerSlidingTabStrip
+            android:id="@+id/tabs_shade"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:textColor="#737373"
+            android:textSize="15sp"
+            app:customTabLayout="@layout/layout_custom_tab"
+            app:pstsDividerColor="@android:color/transparent"
+            app:pstsDividerPaddingTopBottom="0dp"
+            app:pstsIndicatorColor="@color/app_red_color"
+            app:pstsIndicatorHeight="2dp"
+            app:pstsScaleZoomMax="0.1"
+            app:pstsShouldExpand="false"
+            app:pstsSmoothScrollWhenClickTab="true"
+            app:pstsTabPaddingLeftRight="12dp"
+            app:pstsTextSelectedColor="@color/app_red_color"
+            app:pstsUnderlineColor="@android:color/transparent" />
+
+        <TextView
+            android:id="@+id/tv_category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/tabs"
+            android:layout_alignTop="@id/tabs"
+            android:layout_marginRight="-16dp"
+            android:background="@drawable/bg_text_color"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="专题"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
