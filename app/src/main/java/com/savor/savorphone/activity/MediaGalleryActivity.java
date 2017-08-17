@@ -62,6 +62,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 import static com.savor.savorphone.activity.LinkTvActivity.EXRA_TV_BOX;
 import static com.savor.savorphone.activity.LinkTvActivity.EXTRA_TV_INFO;
@@ -209,6 +210,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     private CommonDialog mChangeWifiDiallog;
     /**是否是全选状态*/
     private boolean isSelectAll;
+    private Future<Void> future;
 
     private void showMedia() {
         mMediaListAdapter.setData(mMediaList);
@@ -300,7 +302,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
                     FileDescriptor fileDesCripter = pFileDesCripter.getFileDescriptor();
 //                    MediaTranscoder.getInstance().transcodeVideo(fileDesCripter, mCacheVideoPath,
 //                            MediaFormatStrategyPresets.createExportPreset960x540Strategy(), listener);
-                    MediaTranscoder.getInstance().transcodeVideo(fileDesCripter, mCacheVideoPath,
+                    future = MediaTranscoder.getInstance().transcodeVideo(fileDesCripter, mCacheVideoPath,
                             MediaFormatStrategyPresets.createAndroid720pStrategy(200 * 1000, 128 * 1000, 1), listener);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -783,6 +785,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
                             RecordUtils.onEvent(MediaGalleryActivity.this,R.string.album_toscreen_video);
                             mCurrentProType = TYPE_PRO_VIDEO;
                             mVideoInfo = info;
+                            isCancelVideoHandle = false;
                             force = 0;
                             //////////////////////////
                             if(!AppUtils.isNetworkAvailable(this)) {
@@ -800,6 +803,16 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
                                     finish();
                                     mHandler.removeMessages(PROCESS_VIDEO);
                                     mHandler.removeCallbacksAndMessages(null);
+                                }
+                            });
+                            mLoadingDialog.setOnCancelListener(new LoadingProgressDialog.OnCancelListener() {
+                                @Override
+                                public void onCancel() {
+                                    future.cancel(true);
+                                    isCancelVideoHandle = true;
+                                    mHandler.removeMessages(PROCESS_VIDEO);
+                                    mHandler.removeCallbacksAndMessages(null);
+                                    mLoadingDialog.dismiss();
                                 }
                             });
                             mLoadingDialog.show();
