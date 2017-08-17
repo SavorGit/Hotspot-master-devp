@@ -157,7 +157,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 int x1 = (int) e1.getRawX();
                 int x2 = (int) e2.getRawX();
                 // 手势向下 down
-                if ((e2.getRawY() - e1.getRawY()) >450) {
+                if ((e2.getRawY() - e1.getRawY()) >400) {
  //                   main_al.setBackgroundResource(R.color.transparent);
                     main_al.setVisibility(View.INVISIBLE);
                     Window window = getWindow();
@@ -180,7 +180,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 450 ) {
+                if ((e1.getRawY() - e2.getRawY()) > 400 ) {
  //                   main_al.setBackgroundResource(R.color.transparent);
                     main_al.setVisibility(View.INVISIBLE);
                     Window window = getWindow();
