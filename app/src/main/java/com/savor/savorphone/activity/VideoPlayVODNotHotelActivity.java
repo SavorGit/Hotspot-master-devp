@@ -1059,7 +1059,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof String){
                     String str = (String)obj;
                     if ("success".equals(str)){
-
+                        allProgressLayuot.loadSuccess();
                         ScreenOrientationUtil.getInstance().start(this);
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                         iv_right.setVisibility(View.VISIBLE);
@@ -1101,7 +1101,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 }
                 break;
             case POST_RECOMMEND_LIST_JSON:
-                allProgressLayuot.loadSuccess();
                 if(obj instanceof List<?>){
                     List<CommonListItem> listRecommend = (List<CommonListItem>)obj;
                     if (recommendListAdapter!=null){
@@ -1125,6 +1124,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     if (errorMessage.getCode()==19002){
+                        allProgressLayuot.loadSuccess();
                         divider.setVisibility(View.GONE);
                         shareLayout.setVisibility(View.GONE);
                         mCustomWebView.setVisibility(View.GONE);
