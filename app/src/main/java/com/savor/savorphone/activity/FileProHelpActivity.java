@@ -1,8 +1,6 @@
 package com.savor.savorphone.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,8 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.savor.savorphone.R;
+import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.RecordUtils;
-import com.savor.savorphone.widget.CustomWebView;
 import com.savor.savorphone.widget.DefaultWebView;
 
 /**
@@ -82,11 +80,11 @@ public class FileProHelpActivity extends BaseActivity implements View.OnClickLis
 	@Override
 	public void setViews() {
 		tv_center.setText(mContext.getString(R.string.file_pro_step));
-		String Url = "http://h5.rerdian.com/Public/html/help/helpone_ang.html";
-		//String Url = "www.baidu.com";
-		if (!TextUtils.isEmpty(Url)) {
-			mCustomWebView.loadUrl(mUrl,null);
-		}
+//		String Url = "http://h5.rerdian.com/Public/html/help/helpone_ang.html";
+//		//String Url = "www.baidu.com";
+//		if (!TextUtils.isEmpty(Url)) {
+			mCustomWebView.loadUrl(ConstantValues.H5_FILE_PRO_HELP,null);
+//		}
 	}
 
 	@Override

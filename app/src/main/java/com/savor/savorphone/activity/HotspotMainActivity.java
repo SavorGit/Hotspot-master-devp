@@ -406,12 +406,12 @@ public class HotspotMainActivity extends AppCompatActivity
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(3);
-        mViewPager.post(new Runnable() {
-            @Override
-            public void run() {
-                hideProjection();
-            }
-        });
+//        mViewPager.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                hideProjection();
+//            }
+//        });
 
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> titleList = new ArrayList<>();
@@ -521,7 +521,7 @@ public class HotspotMainActivity extends AppCompatActivity
     public void checkSense() {
         // 因为默认无投屏切换到 有投屏会报错fragment add，默认有投屏，在判断非酒店去掉投屏
         // 这样间接解决了那个问题
-        mViewPager.postDelayed(new Runnable() {
+        mShadeViewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mSensePresenter.checkSense();
