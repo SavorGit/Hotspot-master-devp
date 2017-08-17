@@ -478,13 +478,39 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
     AdapterView.OnItemClickListener recommendItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            CommonListItem item = (CommonListItem) parent.getItemAtPosition(position);
-            Intent intent = new Intent(mContext,ImageTextActivity.class);
-            intent.putExtra("item",item);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
+            CommonListItem item = (CommonListItem)parent.getItemAtPosition(position);
+            if (item!=null){
+                int type = Integer.valueOf(item.getType());
+                switch (type){
+                    case 0:
+                    case 1:
+                        item.setCategoryId(item.getCategoryId());
+                        Intent intent = new Intent(context, ImageTextActivity.class);
+                        intent.putExtra("item",item);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case 2:
+                        intent = new Intent(context, PictureSetActivity.class);
+                        intent.putExtra("voditem",item);
+                        intent.putExtra("content_id",item.getArtid());
+                        intent.putExtra("category_id",item.getCategoryId());
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case 3:
+                    case 4:
+                        intent = new Intent(context, VideoPlayVODNotHotelActivity.class);
+                        item.setCategoryId(item.getCategoryId());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.putExtra("voditem",item);
+                        startActivity(intent);
+                        finish();
+                        break;
+                }
+            }
             num = 0;
-            finish();
+//            finish();
           //  mCustomWebView.clearHistory();
           //  mCustomWebView.destroy();
         //    finish();
