@@ -217,6 +217,8 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 //            //设置状态栏颜色为透明
 //            getWindow().setStatusBarColor(Color.TRANSPARENT);
 //        }
+//        ActionBar actionBar = context.getAc
+//        actionBar.hide();
 
     }
     private void getIntentData(){
@@ -389,6 +391,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
                         RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_landscape_hide));
                     }
+                    //setTheme(R.style.Dialog_Fullscreen);
                     bottomTextLayout.setVisibility(View.GONE);
                 }
 
@@ -405,6 +408,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
             animator.start();
         }else{
+            //setTheme(R.style.AppBaseTheme);
             bottomTextLayout.setVisibility(View.VISIBLE);
             if (screenState == 0) {
                 RecordUtils.onEvent(PictureSetActivity.this,getString(R.string.page_pic_vertical_show));
@@ -427,6 +431,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
+                    //setTheme(R.style.Dialog_Fullscreen);
                     headLayout.setVisibility(View.GONE);
                 }
 
@@ -442,6 +447,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
             });
             animator.start();
         }else{
+           // setTheme(R.style.AppBaseTheme);
             headLayout.setVisibility(View.VISIBLE);
             ObjectAnimator animator = ObjectAnimator.ofFloat(headLayout, "alpha", 0f, 1f);
             animator.setDuration(0);
@@ -631,6 +637,8 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
             mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
         }
     }
+
+
 
 
     private class AnimationImp implements Animation.AnimationListener {
