@@ -46,6 +46,12 @@
             <include
                 android:id="@+id/head_layout"
                 layout="@layout/layout_head_title" />
+            <com.savor.savorphone.widget.ProgressBarView
+                android:id="@+id/pb_no_online"
+                android:layout_below="@id/head_layout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
 
         </RelativeLayout>
 
@@ -72,8 +78,8 @@
                 android:layout_height="fill_parent"
                 android:background="#F5F5F5"
                 android:orientation="vertical">
-
                 <View
+                    android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:background="@color/gray" />
