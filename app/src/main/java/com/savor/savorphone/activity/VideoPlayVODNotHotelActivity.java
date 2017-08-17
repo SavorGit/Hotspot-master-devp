@@ -445,11 +445,36 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             mSuperVideoPlayer.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    CommonListItem item = (CommonListItem) parent.getItemAtPosition(position);
-                    Intent intent = new Intent(mContext,VideoPlayVODNotHotelActivity.class);
-                    intent.putExtra("voditem",item);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
+                    CommonListItem item = (CommonListItem)parent.getItemAtPosition(position);
+                    if (item!=null){
+                        int type = Integer.valueOf(item.getType());
+                        switch (type){
+                            case 0:
+                            case 1:
+                                item.setCategoryId(item.getCategoryId());
+                                Intent intent = new Intent(VideoPlayVODNotHotelActivity.this, ImageTextActivity.class);
+                                intent.putExtra("item",item);
+                                startActivity(intent);
+                                finish();
+                                break;
+                            case 2:
+                                intent = new Intent(VideoPlayVODNotHotelActivity.this, PictureSetActivity.class);
+                                intent.putExtra("voditem",item);
+                                intent.putExtra("content_id",item.getArtid());
+                                intent.putExtra("category_id",item.getCategoryId());
+                                startActivity(intent);
+                                finish();
+                                break;
+                            case 3:
+                            case 4:
+                                intent = new Intent(VideoPlayVODNotHotelActivity.this, VideoPlayVODNotHotelActivity.class);
+                                item.setCategoryId(item.getCategoryId());
+                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                intent.putExtra("voditem",item);
+                                startActivity(intent);
+                                break;
+                        }
+                    }
                 }
             },500);
 
@@ -1059,7 +1084,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof String){
                     String str = (String)obj;
                     if ("success".equals(str)){
-
+                        allProgressLayuot.loadSuccess();
                         ScreenOrientationUtil.getInstance().start(this);
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                         iv_right.setVisibility(View.VISIBLE);
@@ -1101,7 +1126,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 }
                 break;
             case POST_RECOMMEND_LIST_JSON:
-                allProgressLayuot.loadSuccess();
                 if(obj instanceof List<?>){
                     List<CommonListItem> listRecommend = (List<CommonListItem>)obj;
                     if (recommendListAdapter!=null){
@@ -1125,6 +1149,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     if (errorMessage.getCode()==19002){
+                        allProgressLayuot.loadSuccess();
                         divider.setVisibility(View.GONE);
                         shareLayout.setVisibility(View.GONE);
                         mCustomWebView.setVisibility(View.GONE);

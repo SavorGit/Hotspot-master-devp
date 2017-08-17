@@ -181,7 +181,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                     isPlaying = false;
                     isProjecting = false;
                     signOutTV.setVisibility(View.GONE);
-                    finish();
+//                    finish();
                     break;
                 case PLAY_ERROR:
 //                    mHandler.removeMessages(QUERY_SEEK);
@@ -874,7 +874,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                 isPlaying = false;
                 mHandler.sendEmptyMessage(PLAY_OVER);
                 ProjectionManager.getInstance().resetProjection();
-                finish();
+//                finish();
                 break;
             case GET_QUERY_SEEK_JSON:
                 if(obj instanceof QuerySeekResponse) {
