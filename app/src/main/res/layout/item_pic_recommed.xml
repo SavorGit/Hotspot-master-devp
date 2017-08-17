@@ -8,7 +8,7 @@
         android:id="@+id/ic_la"
         android:layout_alignParentLeft="true"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="130dp"
         android:background="@color/color_text_list_item">
 
         <ImageView
@@ -16,7 +16,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/kong_mrjz"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="130dp"
             android:layout_alignParentLeft="true" />
         <TextView
             android:id="@+id/length"
@@ -39,7 +39,7 @@
         android:layout_below="@id/ic_la"
         android:layout_width="match_parent"
         android:background="@color/color_text_list_item"
-        android:layout_height="45dp">
+        android:layout_height="40dp">
         <TextView
             android:id="@+id/content_title"
             android:text="美元对多数主要货币汇dddddddd"
@@ -59,7 +59,7 @@
     <TextView
         android:layout_below="@id/title"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="5dp"
         android:background="@color/color_ede6de"
         />
 
