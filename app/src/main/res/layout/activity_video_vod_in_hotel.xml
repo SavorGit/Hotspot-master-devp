@@ -44,7 +44,12 @@
                 android:textColor="#ede6de"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
+            <!--播放结束布局-->
+            <include
+                android:visibility="gone"
+                android:id="@+id/finish_layer"
+                layout="@layout/include_finish_layout"
+                />
             <include
                 android:id="@+id/title_layout"
                 layout="@layout/layout_head_title" />
@@ -96,6 +101,7 @@
                         android:thumbOffset="0dip" />
                 </RelativeLayout>
             </LinearLayout>
+
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -149,6 +155,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_controller"
         android:layout_width="fill_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"

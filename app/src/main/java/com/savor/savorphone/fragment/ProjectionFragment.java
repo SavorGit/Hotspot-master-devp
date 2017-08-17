@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,9 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
                     break;
                 case ERROR_MSG:
                     String hint = (String) msg.obj;
-                    showToast(hint);
+                    if(!TextUtils.isEmpty(hint)) {
+                        showToast(hint);
+                    }
                     break;
             }
         }

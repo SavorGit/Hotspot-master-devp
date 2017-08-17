@@ -31,7 +31,7 @@
                 android:onClick="onClick"
                 android:src="@drawable/bg_video_gesture"
                 android:visibility="gone" />
-            <!--加载失败布局-->
+            <!--播放结束布局-->
             <include
                 android:visibility="gone"
                 android:id="@+id/finish_layer"

@@ -262,10 +262,16 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
     @Override
     public void setViews() {
+        if(!AppUtils.isNetworkAvailable(this)) {
+            iv_right.setVisibility(View.GONE);
+            toleft_iv_right.setVisibility(View.GONE);
+        }else {
+            iv_right.setVisibility(View.VISIBLE);
+            toleft_iv_right.setVisibility(View.VISIBLE);
+        }
+
         mNoOnlineLoadingView.setVisibility(View.GONE);
-        iv_right.setVisibility(View.VISIBLE);
         iv_right.setImageResource(R.drawable.fenxiang3x);
-        toleft_iv_right.setVisibility(View.VISIBLE);
 
         mShareManager = ShareManager.getInstance();
         mShareListener = new ShareManager.CustomShareListener(mContext);
