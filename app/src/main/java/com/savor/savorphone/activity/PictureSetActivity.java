@@ -2,6 +2,7 @@ package com.savor.savorphone.activity;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -198,6 +200,17 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
         });
+//
+//        //得到当前界面的装饰视图
+//        if(Build.VERSION.SDK_INT >= 21) {
+//            View decorView = getWindow().getDecorView();
+//            //让应用主题内容占用系统状态栏的空间,注意:下面两个参数必须一起使用 stable 牢固的
+//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//            decorView.setSystemUiVisibility(option);
+//            //设置状态栏颜色为透明
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        }
+
     }
     private void getIntentData(){
         content_id = getIntent().getStringExtra("content_id");
