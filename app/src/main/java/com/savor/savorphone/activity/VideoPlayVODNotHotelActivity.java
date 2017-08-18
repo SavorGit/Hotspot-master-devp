@@ -535,12 +535,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             } else {
                 mTvUpdateTime.setVisibility(View.GONE);
             }
-            if(mSuperVideoPlayer!=null) {
-                boolean playFinished = mSuperVideoPlayer.isPlayFinished();
-                if(playFinished) {
-                    mTvUpdateTime.setVisibility(View.GONE);
-                }
-            }
+
         }
     };
 
@@ -1160,6 +1155,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         mNoOnlineLoadingView.setVisibility(View.VISIBLE);
                         mNoOnlineLoadingView.loadFailure("该内容找不到了~","",R.drawable.kong_wenzhang);
                         iv_right.setVisibility(View.GONE);
+                        headLayout.setBackgroundResource(R.color.app_red_color);
                         toleft_iv_right.setVisibility(View.GONE);
                     }else{
                         iv_right.setVisibility(View.GONE);
