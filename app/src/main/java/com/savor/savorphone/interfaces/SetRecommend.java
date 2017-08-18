@@ -9,7 +9,7 @@ package com.savor.savorphone.interfaces;
  */
 public interface SetRecommend {
 
-	void setData(float startX,float endX);
+	void setData(float startX,float endX,float startY,float endY);
 
 
 }

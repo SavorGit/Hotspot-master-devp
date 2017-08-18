@@ -157,7 +157,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 int x1 = (int) e1.getRawX();
                 int x2 = (int) e2.getRawX();
                 // 手势向下 down
-                if ((e2.getRawY() - e1.getRawY()) >350&&Math.abs(e1.getRawX() - e2.getRawX()) <width/6) {
+                if ((e2.getRawY() - e1.getRawY()) >300&&Math.abs(e1.getRawX() - e2.getRawX()) <width/5) {
  //                   main_al.setBackgroundResource(R.color.transparent);
                     main_al.setVisibility(View.INVISIBLE);
                     Window window = getWindow();
@@ -180,7 +180,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     return true;
                 }
                 // 手势向上 up
-                if ((e1.getRawY() - e2.getRawY()) > 350 &&Math.abs(e1.getRawX() - e2.getRawX()) <width/6) {
+                if ((e1.getRawY() - e2.getRawY()) > 300 &&Math.abs(e1.getRawX() - e2.getRawX()) <width/5) {
  //                   main_al.setBackgroundResource(R.color.transparent);
                     main_al.setVisibility(View.INVISIBLE);
                     Window window = getWindow();
@@ -623,7 +623,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     }
 
     @Override
-    public void setData(float startX, float endX) {
+    public void setData(float startX, float endX ,float startY,float endY) {
         WindowManager windowManager = (WindowManager) getApplicationContext()
                 .getSystemService(Context.WINDOW_SERVICE);
 
@@ -632,7 +632,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         windowManager.getDefaultDisplay().getSize(size);
         int width = size.x;
         // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
-        if (mCurrentItem == (pictureSetBeanList.size() - 1)&& startX - endX >= width/5) {
+        if (mCurrentItem == (pictureSetBeanList.size() - 1)&& startX - endX >= width/5 &&Math.abs(startY - endY) <200) {
 
             mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
         }
