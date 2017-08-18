@@ -74,7 +74,7 @@ public class WealthLifeFragment extends BaseFragment implements ApiRequestListen
             String sort_num = (String) msg.obj;
             switch (what){
                 case HEAD_REFRESH:
-                    listItems.clear();
+                   // listItems.clear();
                 case BOTTOM_REFRESH:
                     getDataFromServer(sort_num);
                     break;
@@ -372,6 +372,9 @@ public class WealthLifeFragment extends BaseFragment implements ApiRequestListen
         }
 
         if (list!=null&&list.size()>0){
+            if (currentRefreshState == REFRESH_TYPE_TOP){
+                listItems.clear();
+            }
             listItems.addAll(list);
             if (wealthLifeAdapter!=null){
                 wealthLifeAdapter.setData(listItems);
