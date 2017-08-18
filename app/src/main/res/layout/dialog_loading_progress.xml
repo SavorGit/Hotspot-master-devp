@@ -25,7 +25,6 @@
         android:layout_below="@id/tv_percent"
         android:text="正在压缩视频..."
         android:gravity="center"
-        android:padding="5dp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:layout_width="match_parent"
