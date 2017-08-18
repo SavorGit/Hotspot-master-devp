@@ -418,6 +418,8 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             @Override
             public void loadFailure() {
                 contentIsOnline();
+                display();
+                mPlayErrorLayout.setVisibility(View.GONE);
             }
         });
     }
