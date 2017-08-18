@@ -302,7 +302,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         getDataFromServer();
         // 开始查询进度
         bindProService();
-        getTvRecommendList();
+
     }
 
     private void getTvRecommendList() {
@@ -327,6 +327,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
             isClickCollection = false;
             AppApi.isCollection(mContext,this,mVodItem.getArtid());
         }
+        getTvRecommendList();
     }
 
     public static void startOnDemandActivity(Activity context, CommonListItem vodBean,boolean isPlaying) {
@@ -541,6 +542,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
             case R.id.toleft_iv_right:
                 // 如果已经收藏，取消收藏,否则添加收藏。添加友盟统计
                 toleft_iv_right.setOnClickListener(null);
+                isClickCollection = true;
                 collect();
                 break;
             case R.id.share_weixin:
@@ -957,7 +959,6 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                             ShowMessage.showToast(VideoPlayVODInHotelActivity.this,"取消收藏");
                         }
                     }
-                    isClickCollection = true;
                 }
                 break;
             case GET_ADD_MY_COLLECTION_JSON:
