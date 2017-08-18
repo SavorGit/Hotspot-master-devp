@@ -55,15 +55,33 @@
             android:background="#F5F5F5"
             android:orientation="vertical">
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@color/gray" />
-
-            <com.savor.savorphone.widget.CustomWebView
-                android:id="@+id/webview_custom"
+            <ImageView
+                android:id="@+id/zhanwei"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="30dp"
+                android:background="@color/color_main_bg"
+                android:visibility="gone"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.savor.savorphone.widget.CustomWebView
+                    android:id="@+id/webview_custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <com.savor.savorphone.widget.ProgressBarView
+                    android:id="@+id/all_pbv_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+
 
             <include layout="@layout/layout_share_to" />
         </LinearLayout>
@@ -75,12 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-    <com.savor.savorphone.widget.ProgressBarView
-        android:id="@+id/all_pbv_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/top"
-        android:visibility="gone" />
+
 
 
 </RelativeLayout>

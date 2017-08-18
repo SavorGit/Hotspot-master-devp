@@ -88,6 +88,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
     private ImageView shareFriendsIV;
     private ImageView shareQqIV;
     private ImageView shareWeiboIV;
+    private ImageView zhanwei;
     private LinearLayout recommend_layout;
     private ShareManager mShareManager;
     private ShareManager.CustomShareListener mShareListener;
@@ -178,6 +179,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         recommend_layout = (LinearLayout)findViewById(R.id.recommend_layout);
         share_layout = (LinearLayout)findViewById(R.id.share_layout);
         share = (ImageView) findViewById(R.id.share);
+        zhanwei = (ImageView) findViewById(R.id.zhanwei);
         mProgressLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
         info = (ScrollView) findViewById(R.id.info);
         mProgressLayout.startLoading();
@@ -387,6 +389,10 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
                         allProgressLayuot.loadFailure("该内容找不到了~","",R.drawable.kong_wenzhang);
                         share.setVisibility(View.GONE);
                         toleft_iv_right.setVisibility(View.GONE);
+                        mCustomWebView.setVisibility(View.GONE);
+                        share_layout.setVisibility(View.GONE);
+                        zhanwei.setVisibility(View.VISIBLE);
+                        getData();
                     }else{
 //                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //                        ScreenOrientationUtil.getInstance().stop();
@@ -469,6 +475,9 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
             recommend_layout.setVisibility(View.VISIBLE);
             recommendListAdapter = new RecommendListAdapter(context,mList);
             recommend_listview.setAdapter(recommendListAdapter);
+            mProgressLayout.loadSuccess();
+            //allProgressLayuot.loadSuccess();
+
         }else {
             recommend_layout.setVisibility(View.GONE);
         }
