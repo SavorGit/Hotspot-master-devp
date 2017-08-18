@@ -38,11 +38,11 @@
 
             <TextView
                 android:id="@+id/bottomPageNumber"
-                android:text="1"
+                android:text="11"
+                android:paddingRight="12dp"
                 android:textSize="11sp"
                 android:textColor="@color/color_main"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="16dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
