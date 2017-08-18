@@ -470,11 +470,13 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                                 break;
                             case 3:
                             case 4:
-                                intent = new Intent(VideoPlayVODNotHotelActivity.this, VideoPlayVODNotHotelActivity.class);
-                                item.setCategoryId(item.getCategoryId());
-                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                intent.putExtra("voditem",item);
-                                startActivity(intent);
+                                VideoPlayVODNotHotelActivity.startVODVideoActivity(VideoPlayVODNotHotelActivity.this,item);
+//                                intent = new Intent(VideoPlayVODNotHotelActivity.this, VideoPlayVODNotHotelActivity.class);
+//                                item.setCategoryId(item.getCategoryId());
+////                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                                intent.putExtra("voditem",item);
+//                                startActivity(intent);
+                                finish();
                                 break;
                         }
                     }

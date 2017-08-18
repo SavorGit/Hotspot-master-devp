@@ -46,7 +46,7 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
 
             minifyEnabled false
-            zipAlignEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
