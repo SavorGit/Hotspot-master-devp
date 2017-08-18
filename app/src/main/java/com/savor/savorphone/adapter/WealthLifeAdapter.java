@@ -123,8 +123,11 @@ public class WealthLifeAdapter extends BaseAdapter{
                 String sourceName = item.getSourceName();
                 if(TextUtils.isEmpty(sourceName)) {
                     holderSmall.contentSmallSourceTV.setVisibility(View.GONE);
+                }else{
+                    holderSmall.contentSmallSourceTV.setVisibility(View.VISIBLE);
+                    holderSmall.contentSmallSourceTV.setText(item.getSourceName());
                 }
-                holderSmall.contentSmallSourceTV.setText(item.getSourceName());
+
                 holderSmall.contentSmallTimeTV.setText(item.getUpdateTime());
                 break;
             case TYPE_VIDEO:
