@@ -519,6 +519,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             mSuperVideoPlayer.hideController();
             mSuperVideoPlayer.setCovorVisible();
             mSuperVideoPlayer.setBottomProgressBarGone();
+            mTvUpdateTime.setVisibility(View.GONE);
             writeAppLog("end",true);
         }
 
