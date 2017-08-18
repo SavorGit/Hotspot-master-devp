@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/color_app_bg"
+    android:paddingBottom="30dp"
     android:orientation="vertical" >
     <TextView 
         android:id="@+id/tv_load_hint"
