@@ -149,7 +149,7 @@ public class ShareManager {
         mShareAction = new ShareAction(activity).setDisplayList(
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
                 SHARE_MEDIA.SINA,
-                SHARE_MEDIA.WEIXIN_FAVORITE).addButton("umeng_sharebutton_custom",
+                SHARE_MEDIA.WEIXIN_FAVORITE).addButton("umeng_socialize_copy_btn_str",
                 "umeng_sharebutton_custom",
                 "umeng_socialize_link",
                 "umeng_socialize_link")

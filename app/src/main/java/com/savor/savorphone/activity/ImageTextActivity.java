@@ -547,7 +547,7 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void copyLink() {
         ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-        cmb.setText(item.getContentURL());
+        cmb.setText(ConstantValues.addH5ShareParams(item.getContentURL()));
         ShowMessage.showToast(mContext,"复制完毕");
     }
 

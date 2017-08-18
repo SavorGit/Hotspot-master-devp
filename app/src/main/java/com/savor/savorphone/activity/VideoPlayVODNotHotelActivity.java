@@ -329,7 +329,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
     @Override
     public void copyLink() {
         ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-        cmb.setText(videoItem.getContentURL());
+        cmb.setText(ConstantValues.addH5ShareParams(videoItem.getContentURL()));
         ShowMessage.showToast(mContext,"复制完毕");
     }
 
