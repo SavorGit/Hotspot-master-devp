@@ -535,7 +535,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             } else {
                 mTvUpdateTime.setVisibility(View.GONE);
             }
-            
+
         }
     };
 
