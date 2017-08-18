@@ -535,12 +535,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
             } else {
                 mTvUpdateTime.setVisibility(View.GONE);
             }
-            if(mSuperVideoPlayer!=null) {
-                boolean playFinished = mSuperVideoPlayer.isPlayFinished();
-                if(playFinished) {
-                    mTvUpdateTime.setVisibility(View.GONE);
-                }
-            }
+            
         }
     };
 
