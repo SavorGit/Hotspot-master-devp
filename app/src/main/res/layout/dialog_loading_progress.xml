@@ -20,7 +20,8 @@
 
     <TextView
         android:id="@+id/tv_loading_hint"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="30dp"
         android:layout_below="@id/tv_percent"
         android:text="正在压缩视频..."
         android:gravity="center"
@@ -32,6 +33,16 @@
         android:textSize="16sp"
         />
 
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_cancel"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:layout_below="@id/tv_loading_hint"
+        android:layout_centerHorizontal="true"
+        android:layout_width="60dp"
+        android:layout_height="28dp" />
 
 
 </RelativeLayout>

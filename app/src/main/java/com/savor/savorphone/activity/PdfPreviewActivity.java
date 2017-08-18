@@ -479,7 +479,7 @@ public class PdfPreviewActivity extends BaseProActivity implements OnPageScrollL
                 isFirst = false;
                 getScreenShot();
             }
-        },100);
+        },isFirst?1000:100);
     }
 
     private void savePdfhistory(File file) {
@@ -657,10 +657,11 @@ public class PdfPreviewActivity extends BaseProActivity implements OnPageScrollL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == EXTRA_TV_INFO){
-            if(data!=null) {
-                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-                mBindTvPresenter.handleBindCodeResult(boxInfo);
-            }
+            initBindcodeResult();
+//            if(data!=null) {
+//                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
+//                mBindTvPresenter.handleBindCodeResult(boxInfo);
+//            }
         }else if(resultCode == EXTRA_TV_INFO){
             if(data!=null) {
                 TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);

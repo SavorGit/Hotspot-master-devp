@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.savor.savorphone.R;
@@ -14,12 +15,15 @@ import com.savor.savorphone.R;
  * Created by hezd on 2016/12/26.
  */
 
-public class LoadingProgressDialog extends Dialog  {
+public class LoadingProgressDialog extends Dialog implements View.OnClickListener {
 
 
     private final Activity mContext;
     private TextView mPercentTv;
     private OnBackKeyDownListener mOnBackKeyDownListener;
+    private TextView mCancelBtn;
+    private OnCancelListener mCancelListener;
+
     public LoadingProgressDialog(Activity context) {
         super(context, R.style.loading_progress_bar);
         this.mContext = context;
@@ -33,6 +37,8 @@ public class LoadingProgressDialog extends Dialog  {
         setContentView(R.layout.dialog_loading_progress);
         setCancelable(false);
         mPercentTv = (TextView) findViewById(R.id.tv_percent);
+        mCancelBtn = (TextView) findViewById(R.id.tv_cancel);
+        mCancelBtn.setOnClickListener(this);
     }
 
     public void updatePercent(String percent) {
@@ -48,6 +54,25 @@ public class LoadingProgressDialog extends Dialog  {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_cancel:
+                if(mCancelListener !=null) {
+                    mCancelListener.onCancel();
+                }
+                break;
+        }
+    }
+
+    public interface OnCancelListener {
+        void onCancel();
+    }
+
+    public void setOnCancelListener (OnCancelListener listener){
+        this.mCancelListener = listener;
     }
 
     public interface OnBackKeyDownListener {

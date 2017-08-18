@@ -380,8 +380,8 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     public void setViews() {
         mShareListener = new ShareManager.CustomShareListener(mContext);
         title_layout.setBackgroundColor(getResources().getColor(R.color.transparent));
-        iv_right.setVisibility(View.VISIBLE);
-        toleft_iv_right.setVisibility(View.VISIBLE);
+        iv_right.setVisibility(View.GONE);
+        toleft_iv_right.setVisibility(View.GONE);
         iv_right.setImageResource(R.drawable.fenxiang3x);
         Glide.with(this).load(mVodItem.getImageURL()).centerCrop().into(picIV);
 
@@ -967,9 +967,11 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
                         if ("0".equals(collected)){
                             collected = "1";
                             toleft_iv_right.setBackgroundResource(R.drawable.yishoucang3x);
+                            mCollectBtn.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_collected_big),null,null);
                         }else{
                             collected = "0";
                             toleft_iv_right.setBackgroundResource(R.drawable.shoucang3x);
+                            mCollectBtn.setCompoundDrawablesWithIntrinsicBounds(null,getResources().getDrawable(R.drawable.icon_uncollect_big),null,null);
                         }
                     }
                     toleft_iv_right.setOnClickListener(VideoPlayVODInHotelActivity.this);
