@@ -1160,6 +1160,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         mNoOnlineLoadingView.setVisibility(View.VISIBLE);
                         mNoOnlineLoadingView.loadFailure("该内容找不到了~","",R.drawable.kong_wenzhang);
                         iv_right.setVisibility(View.GONE);
+                        headLayout.setBackgroundResource(R.color.app_red_color);
                         toleft_iv_right.setVisibility(View.GONE);
                     }else{
                         iv_right.setVisibility(View.GONE);
