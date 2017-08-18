@@ -165,7 +165,7 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
                         windowManager.getDefaultDisplay().getSize(size);
                         int width = size.x;
                         // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
-                        if ( endX - startX >= (width / 4)) {
+                        if ( endX - startX >= (width /5)) {
                             mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
                         }
                         break;
