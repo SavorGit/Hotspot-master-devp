@@ -471,11 +471,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                             case 3:
                             case 4:
                                 VideoPlayVODNotHotelActivity.startVODVideoActivity(VideoPlayVODNotHotelActivity.this,item);
-//                                intent = new Intent(VideoPlayVODNotHotelActivity.this, VideoPlayVODNotHotelActivity.class);
-//                                item.setCategoryId(item.getCategoryId());
-////                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                intent.putExtra("voditem",item);
-//                                startActivity(intent);
                                 finish();
                                 break;
                         }

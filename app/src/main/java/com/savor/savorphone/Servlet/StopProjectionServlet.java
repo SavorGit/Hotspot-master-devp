@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.common.api.utils.LogUtils;
+import com.common.api.utils.ShowMessage;
 import com.google.gson.Gson;
 import com.savor.savorphone.R;
 import com.savor.savorphone.SavorApplication;
@@ -47,7 +48,7 @@ public class StopProjectionServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-
+        /** 1.抢投 2.正常退出*/
         String type = req.getParameter("type");
         String tipMsg = req.getParameter("tipMsg");
 
@@ -87,14 +88,7 @@ public class StopProjectionServlet extends HttpServlet{
                         return;
                     }
                     RecordUtils.onEvent(activity,activity.getString(R.string.competitioned_hint));
-                    dialog = new CommonDialog(activity, content, new CommonDialog.OnConfirmListener() {
-                        @Override
-                        public void onConfirm() {
-                            dialog.cancel();
-                            dialog = null;
-                        }
-                    });
-                    dialog.show();
+                    ShowMessage.showToast(activity,content);
                 }
             });
         }
