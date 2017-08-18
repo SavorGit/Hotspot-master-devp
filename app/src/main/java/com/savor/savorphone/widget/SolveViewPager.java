@@ -38,6 +38,7 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         float startX1 = 0;
         float endX1;
+        float endY1;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mode = 1;
@@ -55,9 +56,10 @@ public class SolveViewPager extends ViewPager implements OnChildMovingListener {
                 int Y = startY;
                 endX1 = ev.getX();
                 ev.getY();
+                endY1 =  ev.getY();
                 mode = 0;
                 if (isRight == false) {
-                     obj.setData(startX,endX1);
+                     obj.setData(startX,endX1,startY,endY1);
                 }
 
 
