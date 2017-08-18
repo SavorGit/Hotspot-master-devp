@@ -381,7 +381,14 @@ public class WealthLifeFragment extends BaseFragment implements ApiRequestListen
             }
             int haveNext = 0;
             haveNext =  listResult.getNextpage();
-            pullToRefreshListView.onLoadComplete(haveNext==1);
+            if (haveNext == 0) {
+                pullToRefreshListView.onLoadComplete(false,true);
+            }else {
+                pullToRefreshListView.onLoadComplete(true,false);
+            }
+           // pullToRefreshListView.onLoadComplete(haveNext==1);
+        }else {
+            pullToRefreshListView.onLoadComplete(false,true);
         }
     }
 
