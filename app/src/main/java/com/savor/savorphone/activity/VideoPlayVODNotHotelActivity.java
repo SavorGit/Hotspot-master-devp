@@ -155,7 +155,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         setContentView(R.layout.activity_video_vod_not_hotel);
         handleIntent();
 
-        ScreenOrientationUtil.getInstance().start(this);
+//        ScreenOrientationUtil.getInstance().start(this);
         getViews();
         setViews();
         setListeners();
@@ -679,7 +679,6 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
 
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(mSuperVideoPlayer.isPlayFinished())
                     break;
             }
         }
@@ -1148,6 +1147,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     if (errorMessage.getCode()==19002){
+                        mSuperVideoPlayer.setVisibility(View.GONE);
                         allProgressLayuot.loadSuccess();
                         divider.setVisibility(View.GONE);
                         shareLayout.setVisibility(View.GONE);
@@ -1162,8 +1162,8 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                         toleft_iv_right.setVisibility(View.GONE);
                         allProgressLayuot.loadFailure();
                     }
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     ScreenOrientationUtil.getInstance().stop();
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
                 break;
             case POST_RECOMMEND_LIST_JSON:
@@ -1250,7 +1250,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 @Override
                 public void loadFinish() {
                     writeAppLog("start",false);
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                     scrollviewLayout.scrollTo(0,0);
                     mProgressLayout.loadSuccess();
                 }

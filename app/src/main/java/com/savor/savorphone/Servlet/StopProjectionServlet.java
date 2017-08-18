@@ -83,20 +83,18 @@ public class StopProjectionServlet extends HttpServlet{
                 public void run() {
 
                     Activity activity = ActivitiesManager.getInstance().getCurrentActivity();
-                    if(!(activity instanceof VideoPlayVODInHotelActivity)) {
-                        if (dialog!=null&&dialog.isShowing()){
-                            return;
-                        }
-                        RecordUtils.onEvent(activity,activity.getString(R.string.competitioned_hint));
-                        dialog = new CommonDialog(activity, content, new CommonDialog.OnConfirmListener() {
-                            @Override
-                            public void onConfirm() {
-                                dialog.cancel();
-                                dialog = null;
-                            }
-                        });
-                        dialog.show();
+                    if (dialog!=null&&dialog.isShowing()){
+                        return;
                     }
+                    RecordUtils.onEvent(activity,activity.getString(R.string.competitioned_hint));
+                    dialog = new CommonDialog(activity, content, new CommonDialog.OnConfirmListener() {
+                        @Override
+                        public void onConfirm() {
+                            dialog.cancel();
+                            dialog = null;
+                        }
+                    });
+                    dialog.show();
                 }
             });
         }
