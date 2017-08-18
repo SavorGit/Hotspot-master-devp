@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.common.api.utils.DensityUtil;
 import com.savor.savorphone.R;
 
 /**
@@ -39,6 +42,26 @@ public class LoadingProgressDialog extends Dialog implements View.OnClickListene
         mPercentTv = (TextView) findViewById(R.id.tv_percent);
         mCancelBtn = (TextView) findViewById(R.id.tv_cancel);
         mCancelBtn.setOnClickListener(this);
+
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.gravity= Gravity.CENTER;
+        layoutParams.width= WindowManager.LayoutParams.MATCH_PARENT;
+        int screenHeight = DensityUtil.getScreenHeight(mContext);
+        int statusBarHeight = getStatusBarHeight();
+        layoutParams.height= screenHeight-statusBarHeight;
+
+        getWindow().setAttributes(layoutParams);
+        getWindow().getDecorView().setPadding(0, 0, 0, 0);
+
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = mContext.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     public void updatePercent(String percent) {
