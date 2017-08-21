@@ -158,49 +158,57 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 int x2 = (int) e2.getRawX();
                 // 手势向下 down
                 if ((e2.getRawY() - e1.getRawY()) >350&&Math.abs(e1.getRawX() - e2.getRawX()) <width/5) {
- //                   main_al.setBackgroundResource(R.color.transparent);
-                    main_al.setVisibility(View.INVISIBLE);
-                    Window window = getWindow();
-                    WindowManager.LayoutParams lp = getWindow().getAttributes();
-                    window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
-                            WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                    lp.alpha = 0.3f;
-                    getWindow().setAttributes(lp);
-                    Animation animation = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_up_out);
-                    animation.setAnimationListener(new PictureSetActivity.AnimationImp() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            super.onAnimationEnd(animation);
 
-                            finish();
-                        }
-                    });
-                    main_al.startAnimation(animation);
+
+ //                   main_al.setBackgroundResource(R.color.transparent);
+                    if (screenState == 0) {
+                        main_al.setVisibility(View.INVISIBLE);
+                        Window window = getWindow();
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
+                                WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        lp.alpha = 0.3f;
+                        getWindow().setAttributes(lp);
+                        Animation animation = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_up_out);
+                        animation.setAnimationListener(new PictureSetActivity.AnimationImp() {
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                super.onAnimationEnd(animation);
+
+                                finish();
+                            }
+                        });
+                        main_al.startAnimation(animation);
+                    }
+
 
                     return true;
                 }
                 // 手势向上 up
                 if ((e1.getRawY() - e2.getRawY()) > 350 &&Math.abs(e1.getRawX() - e2.getRawX()) <width/5) {
  //                   main_al.setBackgroundResource(R.color.transparent);
-                    main_al.setVisibility(View.INVISIBLE);
-                    Window window = getWindow();
-                    WindowManager.LayoutParams lp = getWindow().getAttributes();
-                    window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
-                            WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                    lp.alpha = 0.3f;
-                    getWindow().setAttributes(lp);
+                    if (screenState == 0) {
+                        main_al.setVisibility(View.INVISIBLE);
+                        Window window = getWindow();
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
+                                WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        lp.alpha = 0.3f;
+                        getWindow().setAttributes(lp);
 
 
-                    Animation animation1 = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_down_out);
-                    animation1.setAnimationListener(new PictureSetActivity.AnimationImp() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            super.onAnimationEnd(animation);
-                            finish();
+                        Animation animation1 = AnimationUtils.loadAnimation(PictureSetActivity.this, R.anim.slide_down_out);
+                        animation1.setAnimationListener(new PictureSetActivity.AnimationImp() {
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                super.onAnimationEnd(animation);
+                                finish();
 
-                        }
-                    });
-                    main_al.startAnimation(animation1);
+                            }
+                        });
+                        main_al.startAnimation(animation1);
+                    }
+
 
                     return true;
                 }
