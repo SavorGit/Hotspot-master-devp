@@ -1122,6 +1122,9 @@ public class HotspotMainActivity extends AppCompatActivity
     public void onError(AppApi.Action method, Object obj) {
 
         switch (method) {
+            case POST_SPECIAL_NAME_JSON:
+                mCategoryNameLabel.setVisibility(View.INVISIBLE);
+                break;
             case POST_UPGRADE_JSON:
                 if(obj instanceof ResponseErrorMessage) {
                     ResponseErrorMessage message = (ResponseErrorMessage) obj;

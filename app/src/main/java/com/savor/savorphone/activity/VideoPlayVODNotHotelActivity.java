@@ -173,6 +173,22 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         display();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(videoItem!=null) {
+            outState.putSerializable("videoItem",videoItem);
+            outState.putSerializable("c_id",category_id);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        videoItem = (CommonListItem) savedInstanceState.getSerializable("videoItem");
+        category_id = savedInstanceState.getString("c_id");
+    }
+
     public static void startVODVideoActivity(Activity context, CommonListItem vodBean) {
         Intent vodIntent = new Intent(context, VideoPlayVODNotHotelActivity.class);
         vodIntent.putExtra("voditem", vodBean);

@@ -60,7 +60,6 @@
             app:pstsUnderlineColor="@android:color/transparent" />
 
         <TextView
-            android:id="@+id/tv_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/tabs"
@@ -73,7 +72,7 @@
             android:text="专题"
             android:textColor="@android:color/white"
             android:textSize="10sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
     </RelativeLayout>
 
 
