@@ -248,6 +248,7 @@ public class HotspotMainActivity extends AppCompatActivity
     private RelativeLayout mShadeLayout;
     private CategoryPagerAdapter mShadePagerAdapter;
     private RelativeLayout mContentLayout;
+    private View mShadeLayer;
 
     /**
      * 退出背景投屏更新提示语
@@ -342,6 +343,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void getViews() {
+        mShadeLayer = findViewById(R.id.shade_layer);
         mContentLayout = (RelativeLayout) findViewById(R.id.include);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -430,6 +432,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void setListeners() {
+        mShadeLayer.setOnClickListener(this);
 //        mBackgroudProjectLayout.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);

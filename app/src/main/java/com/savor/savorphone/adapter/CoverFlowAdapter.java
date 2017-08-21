@@ -103,6 +103,8 @@ public class CoverFlowAdapter implements ICoverFlowAdapter {
                 Glide.with(context)
                         .load(channelBean.getImageURL())
                         .asBitmap()
+                        .placeholder(R.drawable.kong_mrjz)
+                        .dontAnimate()
                         .centerCrop()
                         .into(new MyBitmapImageViewTarget(holder.ivChannelImg));
                 holder.bottomPageNumber.setText((position+1)+"");

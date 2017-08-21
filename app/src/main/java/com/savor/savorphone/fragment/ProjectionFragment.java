@@ -497,7 +497,12 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void run() {
                     mCoverflowView.gotoPreviousNoAnimator();
-                    mLoadingView.loadSuccess();
+                    mCoverflowView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLoadingView.loadSuccess();
+                        }
+                    },500);
                 }
             });
         }
