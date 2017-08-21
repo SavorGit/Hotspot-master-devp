@@ -141,10 +141,10 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                 Point size = new Point();
                 windowManager.getDefaultDisplay().getSize(size);
                 int width = size.x;
-                if (Math.abs(e1.getRawX() - e2.getRawX()) > width/5) {
-                 // System.out.println("水平方向移动距离过大");
-                 return true;
-                 }
+//                if (Math.abs(e1.getRawX() - e2.getRawX()) > width/5) {
+//                 // System.out.println("水平方向移动距离过大");
+//                 return true;
+//                 }
 
                 if (Math.abs(e1.getRawX() - e2.getRawX()) > Math.abs(e1.getRawY() - e2.getRawY())) {//左右滑动
                     return true;
