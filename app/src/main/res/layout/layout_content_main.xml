@@ -40,6 +40,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ico_bottom_shape" />
+        <View
+            android:id="@+id/shade_layer"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
         <com.gxz.PagerSlidingTabStrip
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
