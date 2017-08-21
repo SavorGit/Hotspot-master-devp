@@ -17,7 +17,7 @@
         <RelativeLayout
             android:id="@+id/code_la"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="420dp"
             >
             <ImageView
                 android:layout_alignParentTop="true"
