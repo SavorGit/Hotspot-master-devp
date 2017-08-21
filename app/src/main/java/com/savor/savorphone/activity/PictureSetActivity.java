@@ -180,8 +180,6 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                         });
                         main_al.startAnimation(animation);
                     }
-
-
                     return true;
                 }
                 // 手势向上 up
