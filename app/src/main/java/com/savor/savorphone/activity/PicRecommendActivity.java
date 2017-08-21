@@ -12,10 +12,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -70,6 +74,7 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     //收藏状态,1:收藏，0:取消收藏
     private String state="0";
     private final int PICK_CITY = 1;
+    private GestureDetector mGestureDetector;
 
 
 
@@ -107,6 +112,47 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         setViews();
         setListeners();
         getDataFromServer();
+        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                WindowManager windowManager = (WindowManager) getApplicationContext()
+                        .getSystemService(Context.WINDOW_SERVICE);
+
+                // 获取屏幕的宽度
+                Point size = new Point();
+                windowManager.getDefaultDisplay().getSize(size);
+                int width = size.x;
+                if (e2.getRawX() - e1.getRawX() > width/5) {
+                    // System.out.println("水平方向移动距离过大");
+                    mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
+                    return true;
+                }
+
+                if (Math.abs(e1.getRawX() - e2.getRawX()) > Math.abs(e1.getRawY() - e2.getRawY())) {//左右滑动
+                    return true;
+                }
+                if (Math.abs(velocityY) < 230|| Math.abs(velocityX)<230) {
+                    // System.out.println("手指移动的太慢了");
+                    return true;
+                }
+
+                int x1 = (int) e1.getRawX();
+                int x2 = (int) e2.getRawX();
+                // 手势向下 down
+                if ((e2.getRawY() - e1.getRawY()) >350) {
+
+
+                    return true;
+                }
+                // 手势向上 up
+                if ((e1.getRawY() - e2.getRawY()) > 350) {
+
+                    return true;
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
     }
 
     private void getIntentData(){
@@ -138,41 +184,47 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        //  Toast.makeText(PictureSetActivity.this, "touch", Toast.LENGTH_SHORT).show();
+        return super.dispatchTouchEvent(event);
+    }
+    @Override
     public void setListeners() {
         toleft_iv_right.setOnClickListener(this);
         back.setOnClickListener(this);
         gview.setOnItemClickListener(this);
         share.setOnClickListener(this);
-        gview.setOnTouchListener(new View.OnTouchListener() {
-            float startX;
-            float endX;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        startX = event.getX();
-                        event.getY();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        endX = event.getX();
-                        event.getY();
-                        WindowManager windowManager = (WindowManager) getApplicationContext()
-                                .getSystemService(Context.WINDOW_SERVICE);
-
-                        // 获取屏幕的宽度
-                        Point size = new Point();
-                        windowManager.getDefaultDisplay().getSize(size);
-                        int width = size.x;
-                        // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
-                        if ( endX - startX >= (width /5)) {
-                            mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
-                        }
-                        break;
-                }
-                return false;
-            }
-        });
+//        gview.setOnTouchListener(new View.OnTouchListener() {
+//            float startX;
+//            float endX;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        startX = event.getX();
+//                        event.getY();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        endX = event.getX();
+//                        event.getY();
+//                        WindowManager windowManager = (WindowManager) getApplicationContext()
+//                                .getSystemService(Context.WINDOW_SERVICE);
+//
+//                        // 获取屏幕的宽度
+//                        Point size = new Point();
+//                        windowManager.getDefaultDisplay().getSize(size);
+//                        int width = size.x;
+//                        // 首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
+//                        if ( endX - startX >= (width /5)) {
+//                            mHandler.sendEmptyMessage(PICK_CITY);// 进入主页
+//                        }
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void getDataFromServer(){
