@@ -285,6 +285,15 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         LogUtils.e("onSaveInstanceState");
         onSaveInstanceStateOver = true;
+        outState.putSerializable("videoItem",mVodItem);
+        outState.putBoolean("isPlaying",isPlaying);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mVodItem = (CommonListItem) savedInstanceState.getSerializable("videoItem");
+        isPlaying = savedInstanceState.getBoolean("isPlaying");
     }
 
     @Override
