@@ -116,7 +116,9 @@ public class PdfPreviewActivity extends BaseProActivity implements OnPageScrollL
                     break;
                 case ERROR_MSG:
                     String erromsg = (String) msg.obj;
-                    ShowMessage.showToast(PdfPreviewActivity.this,erromsg);
+                    if(!TextUtils.isEmpty(erromsg)) {
+                        showToast(erromsg);
+                    }
                     stopPdfPro();
                     break;
                 case COMPRESS_PIC:
