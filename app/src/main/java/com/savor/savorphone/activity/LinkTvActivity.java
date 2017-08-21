@@ -46,6 +46,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
     private TextView link_status;
     private TextView relink;
     public static final int EXTRA_TV_INFO = 0x111;
+    public static final int EXTRA_BIND_CANCLE = 0x112;
     /**校验三位数字接口错误数*/
     private int verifyCodeErrorCount;
     private String erroMsg;
@@ -363,7 +364,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-//        setResult(EXTRA_TV_INFO);
+        setResult(EXTRA_BIND_CANCLE);
         super.onBackPressed();
     }
 

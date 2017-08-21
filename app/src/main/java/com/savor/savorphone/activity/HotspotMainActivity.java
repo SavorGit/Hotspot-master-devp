@@ -86,6 +86,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.savor.savorphone.activity.LinkTvActivity.EXTRA_BIND_CANCLE;
 import static com.savor.savorphone.activity.LinkTvActivity.EXTRA_TV_INFO;
 import static com.savor.savorphone.activity.RecommendActivity.EXTRA_FROM_RECOMMEND;
 
@@ -808,6 +809,8 @@ public class HotspotMainActivity extends AppCompatActivity
             }
             mBackFromInternal = true;
         }else if(resultCode == FROM_APP_BACK) {
+            mBackFromInternal = true;
+        }else if(resultCode == EXTRA_BIND_CANCLE) {
             mBackFromInternal = true;
         }
     }
