@@ -46,12 +46,6 @@
             <include
                 android:id="@+id/head_layout"
                 layout="@layout/layout_head_title" />
-            <com.savor.savorphone.widget.ProgressBarView
-                android:id="@+id/pb_no_online"
-                android:layout_below="@id/head_layout"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
 
         </RelativeLayout>
 
@@ -83,7 +77,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:background="@color/gray" />
-
+                <com.savor.savorphone.widget.ProgressBarView
+                    android:id="@+id/pb_no_online"
+                    android:layout_below="@id/head_layout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
                 <com.savor.savorphone.widget.CustomWebView
                     android:id="@+id/webview_custom"
                     android:layout_width="match_parent"
