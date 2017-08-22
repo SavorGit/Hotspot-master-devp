@@ -88,7 +88,7 @@ public class MediaCatogoryAdapter extends BaseAdapter {
         Map<String, List<MediaInfo>> listMap = mAllList.get(position);
         String name = (String) listMap.keySet().toArray()[0];
         List<MediaInfo> imageList = listMap.get(name);
-        if(imageList!=null&&imageList.get(0)!=null) {
+        if(imageList!=null&&imageList.size()>0&&imageList.get(0)!=null) {
             Glide.with(context).
                     load(imageList.get(0).getAssetpath()).
                     centerCrop().
