@@ -270,9 +270,7 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 
 	@Override
 	public void startLinkTv() {
-		Intent intent = new Intent(getContext(),LinkTvActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		this.startActivityForResult(intent,0);
+
 	}
 
 	@Override
