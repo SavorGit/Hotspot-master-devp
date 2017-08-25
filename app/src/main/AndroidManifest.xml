@@ -63,7 +63,7 @@
 
         <meta-data
             android:name="app_debug"
-            android:value="0" />
+            android:value="1" />
         <!-- 百度定位开始 -->
         <service
             android:name="com.baidu.location.f"

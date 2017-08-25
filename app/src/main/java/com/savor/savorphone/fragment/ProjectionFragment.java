@@ -315,10 +315,8 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
         return "ProjectionFragment";
     }
 
-    public static ProjectionFragment newInstance(int id) {
+    public static ProjectionFragment newInstance() {
         ProjectionFragment fragment = new ProjectionFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 

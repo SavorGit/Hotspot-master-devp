@@ -392,7 +392,7 @@ public class HotspotMainActivity extends AppCompatActivity
     }
 
     private void initIndicator() {
-        mProjectionFragment = ProjectionFragment.newInstance(0);
+        mProjectionFragment = ProjectionFragment.newInstance();
         mTitleList.add("投屏");
         mTitleList.add("创富");
         mTitleList.add("生活");
@@ -476,7 +476,7 @@ public class HotspotMainActivity extends AppCompatActivity
                 }
                 if(mTitleList !=null&& mTitleList.size()>position) {
                     String cname = mTitleList.get(position);
-                    HashMap<String,String> hashMap = new HashMap<String, String>();
+                    HashMap<String,String> hashMap = new HashMap<>();
                     hashMap.put(getString(R.string.home_sliding_category),cname);
                     RecordUtils.onEvent(HotspotMainActivity.this,getString(R.string.home_sliding_category),hashMap);
                 }
@@ -525,12 +525,12 @@ public class HotspotMainActivity extends AppCompatActivity
     public void checkSense() {
         // 因为默认无投屏切换到 有投屏会报错fragment add，默认有投屏，在判断非酒店去掉投屏
         // 这样间接解决了那个问题
-        mShadeViewPager.postDelayed(new Runnable() {
+        mViewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mSensePresenter.checkSense();
             }
-        },100);
+        },500);
     }
 
     private void getCategoryListTab(boolean isneedLoading){
@@ -675,6 +675,13 @@ public class HotspotMainActivity extends AppCompatActivity
         if(!mTitleList.contains("投屏")) {
             RecordUtils.onEvent(getApplicationContext(),R.string.home_find_tv);
             mPagerAdapter.addPager(mProjectionFragment,"投屏",0);
+//            mTabLayout.refresh();
+//            mViewPager.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mViewPager.setCurrentItem(0);
+//                }
+//            },500);
             mViewPager.setCurrentItem(0);
             mViewPager.postDelayed(new Runnable() {
                 @Override
@@ -916,14 +923,40 @@ public class HotspotMainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-        if(mBindTvPresenter==null) {
-            mBindTvPresenter = new BindTvPresenter(this,this,this,this);
-        }
-        mBindTvPresenter.getSmallPlatformUrl(true);
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putSerializable("session",mSession);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+//        mSession = (Session) savedInstanceState.getSerializable("session");
+        mViewPager.removeAllViewsInLayout();
+        mFragmentList.clear();
+        mTitleList.clear();
+        initIndicator();
+        mTabLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mTabLayout.refresh();
+            }
+        },1000);
+
+        checkSense();
         LogUtils.d("savor:onRestore");
     }
+
+//    @Override
+//    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+//        super.onRestoreInstanceState(savedInstanceState, persistentState);
+//        mSession = sav
+////        if(mBindTvPresenter==null) {
+////            mBindTvPresenter = new BindTvPresenter(this,this,this,this);
+////        }
+////        mBindTvPresenter.getSmallPlatformUrl(true);
+////        LogUtils.d("savor:onRestore");
+//    }
 
 
     @Override
@@ -1021,24 +1054,7 @@ public class HotspotMainActivity extends AppCompatActivity
                 }
                 break;
             case POST_NOTIFY_TVBOX_STOP_JSON:
-//                if(mBackgroudProjectLayout.getVisibility()==View.VISIBLE)
-//                    SavorAnimUtil.hideProjectionImage(HotspotMainActivity.this,mBackgroudProjectLayout);
                 ProjectionManager.getInstance().resetProjection();
-                break;
-            case GET_CATEGORY_JSON:
-//                isRequesting = false;
-//                //               hideLoadingLayout();
-////                mProgressLayout.loadSuccess();
-//                mFragmentList.clear();
-//                mTitleList.clear();
-//                mViewPager.removeAllViews();
-//                    if (obj instanceof List) {
-//                        mContents = (List)obj;
-//                        if(mContents!=null&&mContents.size()>0)
-//                            cachCategoryData(mContents);
-//                        handleCategoryData(mContents);
-//                    }
-
                 break;
             case POST_UPGRADE_JSON:
                 if (obj instanceof UpgradeInfo) {
