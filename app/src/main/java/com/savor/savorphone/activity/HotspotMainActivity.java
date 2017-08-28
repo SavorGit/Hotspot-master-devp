@@ -53,6 +53,7 @@ import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.core.Session;
 import com.savor.savorphone.fragment.ProjectionFragment;
+import com.savor.savorphone.fragment.SpecialFragment;
 import com.savor.savorphone.fragment.SubjectFragment;
 import com.savor.savorphone.fragment.WealthLifeFragment;
 import com.savor.savorphone.interfaces.IHotspotSenseView;
@@ -400,7 +401,7 @@ public class HotspotMainActivity extends AppCompatActivity
         mFragmentList.add(mProjectionFragment);
         mFragmentList.add(WealthLifeFragment.getInstance(101));
         mFragmentList.add(WealthLifeFragment.getInstance(102));
-        mFragmentList.add(SubjectFragment.getInstance());
+        mFragmentList.add(SpecialFragment.newInstance());
 
         Bundle bundle = new Bundle();
         bundle.putString("title", "专题");
@@ -409,12 +410,6 @@ public class HotspotMainActivity extends AppCompatActivity
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(3);
-//        mViewPager.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                hideProjection();
-//            }
-//        });
 
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> titleList = new ArrayList<>();
@@ -423,7 +418,7 @@ public class HotspotMainActivity extends AppCompatActivity
         titleList.add("专题");
         fragmentList.add(WealthLifeFragment.getInstance(101));
         fragmentList.add(WealthLifeFragment.getInstance(102));
-        fragmentList.add(SubjectFragment.getInstance());
+        fragmentList.add(SpecialFragment.newInstance());
         mShadePagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
         mShadePagerAdapter.setData(fragmentList,titleList);
         mShadeViewPager.setAdapter(mShadePagerAdapter);
@@ -434,7 +429,6 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void setListeners() {
         mShadeLayer.setOnClickListener(this);
-//        mBackgroudProjectLayout.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);
         mFeedbackLayout.setOnClickListener(this);
@@ -446,7 +440,6 @@ public class HotspotMainActivity extends AppCompatActivity
         recommend_la.setOnClickListener(this);
         logo_la.setOnClickListener(this);
         la.setOnClickListener(this);
-//        mProgressLayout.setProgressBarViewClickListener(this);
         mTabLayout.setOnPagerTitleItemClickListener(new PagerSlidingTabStrip.OnPagerTitleItemClickListener() {
             @Override
             public void onSingleClickItem(int position) {
@@ -540,19 +533,6 @@ public class HotspotMainActivity extends AppCompatActivity
        AppApi.getCategoryList(mContext,this);
     }
 
-    private void initCategoryCache() {
-        String savorCachDir = AppUtils.getSavorCachDir(this);
-        String path = savorCachDir + CAGEGORY_FILE_NAME;
-        List<CategoryItemVo> list = com.common.api.utils.FileUtils.readObject(this, path, List.class);
-        handleCategoryData(list);
-    }
-
-    private boolean isHasCacheData() {
-        String categoryCachePath = AppUtils.getSavorCachDir(this)+CAGEGORY_FILE_NAME;
-        File file = new File(categoryCachePath);
-        return file.exists();
-    }
-
     @Override
     public void initSenseState() {
         mSensePresenter.regitsterSmallPlatformReciever();
@@ -572,14 +552,10 @@ public class HotspotMainActivity extends AppCompatActivity
     }
 
     @Override
-    public void showLoadingLayout() {
-
-    }
+    public void showLoadingLayout() {}
 
     @Override
-    public void hideLoadingLayout() {
-
-    }
+    public void hideLoadingLayout() {}
 
     @Override
     public void onBackPressed() {
@@ -603,41 +579,31 @@ public class HotspotMainActivity extends AppCompatActivity
                // closeDrawerLayout();
                 break;
             case R.id.rl_feedback:
-               // showToast(view,"意见反馈");
                 RecordUtils.onEvent(this,getString(R.string.menu_feedback));
                 IntentUtil.openActivity(this,FeedbackActivity.class);
-              //  closeDrawerLayout();
                 break;
             case R.id.rl_clear_cache:
-              //  showToast(view,"清除缓存");
                 RecordUtils.onEvent(this,getString(R.string.menu_clear_cache));
                 DialogUtil.showClearCacheDialog(this,size);
-                //closeDrawerLayout();
                 break;
             case R.id.rl_help:
-              //  showToast(view,"帮助");
                 RecordUtils.onEvent(this,getString(R.string.menu_help));
                 IntentUtil.openActivity(this,HelpActivity.class);
-               // closeDrawerLayout();
                 break;
             case R.id.rl_checkup:
-                //showToast(view,"检查更新");
                 ismuteUp = false;
                 upgrade();
-               // closeDrawerLayout();
                 break;
             case R.id.recommend_la:
                 RecordUtils.onEvent(this,getString(R.string.menu_recommend));
                 Intent recoIntent = new Intent(this,RecommendActivity.class);
                 startActivityForResult(recoIntent,0);
-//                IntentUtil.openActivity(this,RecommendActivity.class);
                 break;
 
             case R.id.rl_map:
                 RecordUtils.onEvent(this,getString(R.string.menu_hotel_map_list));
                 Intent mapIntent = new Intent(this,HotelMapListActivity.class);
                 startActivity(mapIntent);
-//                IntentUtil.openActivity(this,RecommendActivity.class);
                 break;
 
             case R.id.rl_favourable:
@@ -648,8 +614,6 @@ public class HotspotMainActivity extends AppCompatActivity
                 }else {
                     ShowMessage.showToast(HotspotMainActivity.this,"请在酒店中使用此功能");
                 }
-
-//                IntentUtil.openActivity(this,RecommendActivity.class);
                 break;
 
 
@@ -675,13 +639,6 @@ public class HotspotMainActivity extends AppCompatActivity
         if(!mTitleList.contains("投屏")) {
             RecordUtils.onEvent(getApplicationContext(),R.string.home_find_tv);
             mPagerAdapter.addPager(mProjectionFragment,"投屏",0);
-//            mTabLayout.refresh();
-//            mViewPager.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mViewPager.setCurrentItem(0);
-//                }
-//            },500);
             mViewPager.setCurrentItem(0);
             mViewPager.postDelayed(new Runnable() {
                 @Override
@@ -803,10 +760,6 @@ public class HotspotMainActivity extends AppCompatActivity
         if(resultCode == EXTRA_FROM_RECOMMEND) {
             mBackFromInternal = true;
         }else if(resultCode == EXTRA_TV_INFO){
-//            if(data!=null) {
-//                TvBoxInfo boxInfo = (TvBoxInfo) data.getSerializableExtra(EXRA_TV_BOX);
-//                mBindTvPresenter.handleBindCodeResult(boxInfo);
-//            }
             mBackFromInternal = true;
         } else if (resultCode == SCAN_QR) {
             if(data!=null) {
@@ -848,7 +801,6 @@ public class HotspotMainActivity extends AppCompatActivity
     protected void onRestart() {
         super.onRestart();
         ismuteUp = true;
-//        isNeedShowFoundHint = true;
         // 判断如果为绑定并且当前ssid与缓存机顶盒ssid相同提示绑定成功
         if(!mSession.isBindTv()) {
             TvBoxInfo tvBoxInfo = mSession.getTvboxInfo();
@@ -925,13 +877,11 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putSerializable("session",mSession);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-//        mSession = (Session) savedInstanceState.getSerializable("session");
         mViewPager.removeAllViewsInLayout();
         mFragmentList.clear();
         mTitleList.clear();
@@ -946,18 +896,6 @@ public class HotspotMainActivity extends AppCompatActivity
         checkSense();
         LogUtils.d("savor:onRestore");
     }
-
-//    @Override
-//    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-//        super.onRestoreInstanceState(savedInstanceState, persistentState);
-//        mSession = sav
-////        if(mBindTvPresenter==null) {
-////            mBindTvPresenter = new BindTvPresenter(this,this,this,this);
-////        }
-////        mBindTvPresenter.getSmallPlatformUrl(true);
-////        LogUtils.d("savor:onRestore");
-//    }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -994,14 +932,10 @@ public class HotspotMainActivity extends AppCompatActivity
         intent.putExtra("path",mSession.getCompressPath());
         startService(intent);
 
-//        AppUtils.clearSpecificCacheFile(this,mSession.getCompressPath());
-
         Intent stopProjectoinIntent = new Intent(this,StopProjectionService.class);
         getApplicationContext().startService(stopProjectoinIntent);
 
         Process.killProcess(android.os.Process.myPid());
-//        finish();
-
     }
 
     @Override
@@ -1038,7 +972,6 @@ public class HotspotMainActivity extends AppCompatActivity
     int msg = 0;
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
-//        mProgressLayout.loadSuccess();
         switch (method) {
             case POST_SPECIAL_NAME_JSON:
                 if( obj instanceof SpecialNameResult) {
@@ -1092,7 +1025,6 @@ public class HotspotMainActivity extends AppCompatActivity
                     }
                     //比较本地文件版本是否与服务器文件一致，如果一致则启动安装
                     if (md5Value!=null&&md5Value.equals(upGradeInfo.getMd5())){
-                        //ShowMessage.showToast(this, f.getAbsolutePath());
                         if (manager!=null){
                             manager.cancel(NOTIFY_DOWNLOAD_FILE);
                         }
@@ -1114,35 +1046,8 @@ public class HotspotMainActivity extends AppCompatActivity
         }
     }
 
-    private void handleCategoryData(List<CategoryItemVo> mContents) {
-//        if (mContents != null && mContents.size()>0) {
-//            //mAdapter.setData(mContents,true);
-//            if(mSession.getHotelid()>0) {
-////                if(!mFragmentList.contains(mHotSpotFragment)&&!mHotSpotFragment.isAdded()) {
-//                mFragmentList.add(mHotSpotFragment);
-//                mTitleList.add("点播");
-////                }
-//            }
-//            mTitleList.add("热点");
-//
-//            mFragmentList.add(mRedianFragment);
-//            for(int i = 0; i< mContents.size(); i++) {
-//                mTitleList.add(mContents.get(i).getName());
-//                mFragmentList.add(CategoryFragment.getInstance(mContents.get(i).getId()));
-//            }
-//            mPagerAdapter.setData(mFragmentList,mTitleList);
-//            mTabLayout.setViewPager(mViewPager);
-//        }
-    }
-
-    private void cachCategoryData(List<CategoryItemVo> mContents) {
-        String categoryfile = AppUtils.getSavorCachDir(this)+CAGEGORY_FILE_NAME;
-        com.common.api.utils.FileUtils.saveObject(this,categoryfile,mContents);
-    }
-
     @Override
     public void onError(AppApi.Action method, Object obj) {
-
         switch (method) {
             case POST_SPECIAL_NAME_JSON:
                 mCategoryNameLabel.setVisibility(View.INVISIBLE);
@@ -1156,18 +1061,11 @@ public class HotspotMainActivity extends AppCompatActivity
                         if (!TextUtils.isEmpty(msg)){
                             showToast(msg);
                         }
-
                     }
-
                 }
                 break;
             case GET_CATEGORY_JSON:
                 isRequesting = false;
-                if(mTitleList !=null&& mTitleList.size()>0) {
-//                    mProgressLayout.loadSuccess();
-                }else {
-//                    mProgressLayout.loadFailure(getString(R.string.network_disable_click));
-                }
                 break;
 
         }
@@ -1195,10 +1093,6 @@ public class HotspotMainActivity extends AppCompatActivity
                 hashMap.put(getString(R.string.home_update),"ensure");
                 RecordUtils.onEvent(this,getString(R.string.home_update),hashMap);
                 String[] content = upGradeInfo.getRemark();
-//                if (content != null && !"".equals(content)) {
-//                    content = upGradeInfo.getRemark()
-//                            .replace("|", "\n");
-//                }
                 if (upGradeInfo.getUpdate_type() == 1) {
                     mUpgradeDialog = new UpgradeDialog(
                             mContext,
@@ -1252,13 +1146,10 @@ public class HotspotMainActivity extends AppCompatActivity
     private View.OnClickListener cancelListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//			mMDialog.dismiss();
             mUpgradeDialog.dismiss();
         }
     };
     protected void downLoadApk(String apkUrl) {
-        //TODO 测试，记得去掉
-//		apkUrl = "http://test.ailemy.com/mobile/download/aileBuy.apk";
         if (!mSession.isApkDownloading()){
             mSession.setApkDownloading(true);
             // 下载apk包
@@ -1288,28 +1179,17 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void loadDataEmpty() {
-//        mProgressLayout.startLoading();
         getCategoryListTab(true);
     }
 
     @Override
     public void loadFailureNoNet() {
-//        mProgressLayout.setVisibility(View.GONE);
         getCategoryListTab(true);
     }
 
     @Override
     public void loadFailure() {
-//        mProgressLayout.startLoading();
         getCategoryListTab(true);
-    }
-
-    private String getTopActivityName(Context context) {
-        ActivityManager manager = ((ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE));
-        //getRunningTasks() is deprecated since API Level 21 (Android 5.0)
-        List localList = manager.getRunningTasks(1);
-        ActivityManager.RunningTaskInfo localRunningTaskInfo = (ActivityManager.RunningTaskInfo)localList.get(0);
-        return localRunningTaskInfo.topActivity.getClassName();
     }
 
     public void stopSlide() {
