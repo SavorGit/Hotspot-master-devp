@@ -15,12 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:id="@+id/iv_special_pic"
             android:src="@drawable/kong_mrjz"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_special_title"
             android:gravity="center_vertical"
             android:textSize="22sp"
             android:text="神仙打架：安邦 PK 财新 谁能笑到最后"

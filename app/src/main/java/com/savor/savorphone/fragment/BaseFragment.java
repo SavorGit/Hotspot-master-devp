@@ -159,7 +159,9 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 	/**
 	 * fragment name
 	 */
-	public abstract String getFragmentName();
+	public String getFragmentName() {
+		return getClass().getSimpleName();
+	}
 
 	
 	@Override
