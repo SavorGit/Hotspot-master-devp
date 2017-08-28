@@ -3,6 +3,8 @@ package com.savor.savorphone.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.common.api.utils.DensityUtil;
 import com.common.api.widget.ScrollListView;
 import com.savor.savorphone.R;
+import com.savor.savorphone.adapter.SpecialListAdapter;
 
 /**
  * 专题组详情页
@@ -23,7 +26,8 @@ public class SpecialFragment extends BaseFragment {
     private ImageView mSpeicalIv;
     private TextView mSpecialTitleTv;
     private TextView mSpecialDesTv;
-    private ScrollListView mSpecialListView;
+    private RecyclerView mSpecialListView;
+    private SpecialListAdapter mSpecialListAdapter;
 
     public SpecialFragment() {
     }
@@ -62,7 +66,7 @@ public class SpecialFragment extends BaseFragment {
         mSpeicalIv = (ImageView) view.findViewById(R.id.iv_special_pic);
         mSpecialTitleTv = (TextView) view.findViewById(R.id.tv_special_title);
         mSpecialDesTv = (TextView) view.findViewById(R.id.tv_special_desc);
-        mSpecialListView = (ScrollListView) view.findViewById(R.id.slv_special_item);
+        mSpecialListView = (RecyclerView) view.findViewById(R.id.rlv_special_item);
     }
 
     @Override
@@ -71,6 +75,11 @@ public class SpecialFragment extends BaseFragment {
         float height = screenWidth * IMAGE_SCALE;
         ViewGroup.LayoutParams layoutParams = mSpeicalIv.getLayoutParams();
         layoutParams.height = (int) height;
+
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+        mSpecialListView.setLayoutManager(manager);
+        mSpecialListAdapter = new SpecialListAdapter(mContext);
+        mSpecialListView.setAdapter(mSpecialListAdapter);
     }
 
     @Override
