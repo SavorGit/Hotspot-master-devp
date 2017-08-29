@@ -19,7 +19,7 @@ import com.savor.savorphone.adapter.SpecialListAdapter;
 /**
  * 专题组详情页
  */
-public class SpecialFragment extends BaseFragment {
+public class SpecialFragment extends BaseFragment implements View.OnClickListener {
     public static final float IMAGE_SCALE = 484/750f;
     private Context mContext;
     private static final String TAG = "SpecialFragment";
@@ -28,6 +28,7 @@ public class SpecialFragment extends BaseFragment {
     private TextView mSpecialDesTv;
     private RecyclerView mSpecialListView;
     private SpecialListAdapter mSpecialListAdapter;
+    private TextView mSpecialListTv;
 
     public SpecialFragment() {
     }
@@ -63,6 +64,7 @@ public class SpecialFragment extends BaseFragment {
     }
 
     public void initViews(View view) {
+        mSpecialListTv = (TextView) view.findViewById(R.id.tv_look_special_list);
         mSpeicalIv = (ImageView) view.findViewById(R.id.iv_special_pic);
         mSpecialTitleTv = (TextView) view.findViewById(R.id.tv_special_title);
         mSpecialDesTv = (TextView) view.findViewById(R.id.tv_special_desc);
@@ -84,6 +86,15 @@ public class SpecialFragment extends BaseFragment {
 
     @Override
     public void setListeners() {
+        mSpecialListTv.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_look_special_list:
+
+                break;
+        }
     }
 }

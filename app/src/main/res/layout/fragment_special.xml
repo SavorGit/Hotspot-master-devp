@@ -48,8 +48,19 @@
         <android.support.v7.widget.RecyclerView
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="25dp"
             android:id="@+id/rlv_special_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_look_special_list"
+            android:layout_marginBottom="25dp"
+            android:textColor="@color/color_main"
+            android:textSize="15sp"
+            android:text="查看历史专题"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_special_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView>
