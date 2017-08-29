@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.savor.savorphone.R;
 import com.savor.savorphone.activity.HotspotMainActivity;
+import com.savor.savorphone.activity.LinkTvActivity;
 import com.savor.savorphone.activity.LocalVideoProAcitvity;
 import com.savor.savorphone.activity.MediaGalleryActivity;
 import com.savor.savorphone.activity.PdfListActivity;
@@ -314,10 +315,8 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
         return "ProjectionFragment";
     }
 
-    public static ProjectionFragment newInstance(int id) {
+    public static ProjectionFragment newInstance() {
         ProjectionFragment fragment = new ProjectionFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -522,8 +521,11 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void startLinkTv() {
-        super.startLinkTv();
-
+        if(isAdded()) {
+            Intent intent = new Intent(getActivity(),LinkTvActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            this.startActivityForResult(intent,0);
+        }
     }
 
     /**

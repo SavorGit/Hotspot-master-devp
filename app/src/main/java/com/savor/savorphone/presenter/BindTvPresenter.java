@@ -583,9 +583,11 @@ public class BindTvPresenter extends BasePresenter implements ApiRequestListener
         this.isNeedRefresh = isNeedRefresh;
         mFirstRequest = false;
         // 组播获取小平台地址
+        mHandler.removeMessages(CLOSE_SSDP_SERVICE);
+        mHandler.sendEmptyMessageDelayed(CLOSE_SSDP_SERVICE,10*1000);
         Intent intent = new Intent(mContext, SSDPService.class);
         mContext.startService(intent);
-        mHandler.sendEmptyMessageDelayed(CLOSE_SSDP_SERVICE,10*1000);
+
 
         //  判断是否获取到小平台地址，如果没有获取到请求云平台（小平台是局域网）获取小平台ip
         //请求接口

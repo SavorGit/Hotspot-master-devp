@@ -653,12 +653,13 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                     int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
                     int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
                     float scale = screenWidth*1.0f/screenHeight;
+                    float currentPercentX = Math.abs(moveX)/screenWidth;
                     float movePercentX = Math.abs(offsetX) / screenWidth;
                     float movePercentY = Math.abs(offsetY) / screenHeight;
                     LogUtils.e("movePercentX=" + movePercentX + ",movePercentX=" + movePercentX);
                     // 在屏幕上横向滑动时修改视频播放进度，纵向滑动时修改系统音量
                     float offset = Math.abs(offsetX) - Math.abs(offsetY);
-                    handleGesture(offsetX, offsetY, scale, movePercentX, movePercentY, offset);
+                    handleGesture(offsetX, offsetY, scale, movePercentX, movePercentY, offset,currentPercentX);
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
@@ -682,13 +683,14 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                     int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
                     float scale = screenWidth*1.0f/screenHeight;
                     int range = DensityUtil.dip2px(mContext, 200);
+                    float currentPercentX = Math.abs(moveX) / screenWidth;
                     float movePercentX = Math.abs(offsetX) / screenWidth;
                     float movePercentY = Math.abs(offsetY) / range;
                     LogUtils.e("movePercentX=" + movePercentX + ",movePercentX=" + movePercentX);
                     // 在屏幕上横向滑动时修改视频播放进度，纵向滑动时修改系统音量
                     float offset = Math.abs(offsetX) - Math.abs(offsetY);
                     if(moveY>0&&moveY<=range) {
-                        handleGesture(offsetX, offsetY, scale, movePercentX, movePercentY, offset);
+                        handleGesture(offsetX, offsetY, scale, movePercentX, movePercentY, offset,currentPercentX);
                     }
 
                     break;
@@ -708,7 +710,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
      * @param movePercentY
      * @param offset
      */
-    private void handleGesture(float offsetX, float offsetY, float scale, float movePercentX, float movePercentY, float offset) {
+    private void handleGesture(float offsetX, float offsetY, float scale, float movePercentX, float movePercentY, float offset,float currentPercentX) {
         if (offset > 100) {
             if (offsetX > 0) {  //快进
                 //修改播放进度
@@ -724,15 +726,38 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
                 mSuperVideoPlayer.updateSeekProgress(TIME_GONE, movePercentX / 100);
             }
         } else if (offset < -100*scale) {
-            // 修改音量
-            if (offsetY > 0 && movePercentY > 0.3) {  //减小音量
-                RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
-                lowerVoice();
-            } else if (offsetY < 0 && movePercentY > 0.3) {   //增加音量
-                RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
-                raiseVoice();
+            if(currentPercentX>0.5f) {
+                // 修改音量
+                if (offsetY > 0 && movePercentY > 0.3) {  //减小音量
+                    RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
+                    lowerVoice();
+                } else if (offsetY < 0 && movePercentY > 0.3) {   //增加音量
+                    RecordUtils.onEvent(this,getString(R.string.details_page_mediation_volume));
+                    raiseVoice();
+                }
+            }else {
+                // 修改亮度
+                // 修改音量
+                if (offsetY > 0 && movePercentY > 0.3) {  //降低亮度
+                    setLight(this,movePercentY*-1f);
+                }else if (offsetY < 0 && movePercentY > 0.3) {
+                    setLight(this,movePercentY);
+                }
             }
         }
+    }
+
+    private void setLight(Activity context, float percent) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        float temp = lp.screenBrightness+percent;
+        if(temp>1) {
+            temp = 1;
+        }
+        if(temp<0) {
+            temp = 0;
+        }
+        lp.screenBrightness = temp;
+        context.getWindow().setAttributes(lp);
     }
 
     /**

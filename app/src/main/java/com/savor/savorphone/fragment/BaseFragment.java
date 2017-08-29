@@ -159,7 +159,9 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 	/**
 	 * fragment name
 	 */
-	public abstract String getFragmentName();
+	public String getFragmentName() {
+		return getClass().getSimpleName();
+	}
 
 	
 	@Override
@@ -270,9 +272,7 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 
 	@Override
 	public void startLinkTv() {
-		Intent intent = new Intent(getActivity(),LinkTvActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		this.startActivityForResult(intent,0);
+
 	}
 
 	@Override

@@ -213,5 +213,8 @@
     <string name="album_toscreen_video_link">album_toscreen_video_link</string>
     <string name="the_pic_deleted">该图片不存在</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

@@ -153,6 +153,7 @@ public class SSDPService extends IntentService {
     }
 
     private void startReceive() {
+        LogUtils.d("savor:ssdp 开始发现ssdp");
         WifiManager wm = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
         multicastLock = wm.createMulticastLock("multicastLock");
         multicastLock.setReferenceCounted(false);

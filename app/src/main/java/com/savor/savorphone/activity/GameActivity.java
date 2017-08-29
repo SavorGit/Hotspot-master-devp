@@ -382,6 +382,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(mServiceConn!=null) {
+            unbindService(mServiceConn);
+        }
         resetEggAnimation();
         unRegisterListener();
         if(mediaPlayer!=null) {

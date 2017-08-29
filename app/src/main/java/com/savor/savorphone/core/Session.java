@@ -55,6 +55,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ import java.util.List;
  * @author Administrator
  */
 @SuppressLint("WorldReadableFiles")
-public class Session {
+public class Session implements Serializable{
     private final static String TAG = "Session";
     /**是否开启调试模式，调试模式连接海强机顶盒*/
     public static final boolean isDev = false;

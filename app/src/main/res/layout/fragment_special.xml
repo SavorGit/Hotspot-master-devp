@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/pts_special_detail"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    ptr:ptrAnimationStyle = "scale"
+    ptr:ptrDrawableStart="@drawable/progress_loading_small"
+    android:fastScrollEnabled="false"
+    android:scrollbars="none"
+    >
+    <LinearLayout
+        android:background="@color/color_text_list_item"
+        android:paddingBottom="30dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_special_pic"
+            android:src="@drawable/kong_mrjz"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        <TextView
+            android:id="@+id/tv_special_title"
+            android:gravity="center_vertical"
+            android:textSize="22sp"
+            android:text="神仙打架：安邦 PK 财新 谁能笑到最后"
+            android:textColor="@color/color_text_black"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:paddingBottom="25dp"
+            android:id="@+id/tv_special_desc"
+            android:text="朋友圈大家都在猜，财新的报道是不是意味着安邦要接受调查了？这场国内最权威财经媒体与总资产19710亿的全球化保险公司的较量，简直如神仙打架一般热闹，请火速围观。"
+            android:lineSpacingExtra="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/color_575757"
+            android:paddingTop="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/rlv_special_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView>

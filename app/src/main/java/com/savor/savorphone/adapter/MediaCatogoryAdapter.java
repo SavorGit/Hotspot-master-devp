@@ -88,7 +88,7 @@ public class MediaCatogoryAdapter extends BaseAdapter {
         Map<String, List<MediaInfo>> listMap = mAllList.get(position);
         String name = (String) listMap.keySet().toArray()[0];
         List<MediaInfo> imageList = listMap.get(name);
-        if(imageList!=null&&imageList.get(0)!=null) {
+        if(imageList!=null&&imageList.size()>0&&imageList.get(0)!=null) {
             Glide.with(context).
                     load(imageList.get(0).getAssetpath()).
                     centerCrop().
@@ -96,6 +96,14 @@ public class MediaCatogoryAdapter extends BaseAdapter {
                     dontAnimate().
                     into(holder.placeHolderIv);
             holder.countTv.setText(imageList.size()+"");
+        }else {
+            Glide.with(context).
+                    load(R.drawable.kong_mrjz).
+                    centerCrop().
+                    placeholder(R.drawable.kong_mrjz).
+                    dontAnimate().
+                    into(holder.placeHolderIv);
+            holder.countTv.setText("0");
         }
         holder.nameTv.setText(name);
 

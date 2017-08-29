@@ -303,7 +303,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 //                    MediaTranscoder.getInstance().transcodeVideo(fileDesCripter, mCacheVideoPath,
 //                            MediaFormatStrategyPresets.createExportPreset960x540Strategy(), listener);
                     future = MediaTranscoder.getInstance().transcodeVideo(fileDesCripter, mCacheVideoPath,
-                            MediaFormatStrategyPresets.createAndroid720pStrategy(200 * 1000, 128 * 1000, 1), listener);
+                            MediaFormatStrategyPresets.createAndroid720pStrategy(8000 * 1000, 128 * 1000, 1), listener);
                 } catch (Exception e) {
                     e.printStackTrace();
                     handleFileCopy(mVideoInfo, srcFile, type, compressPath);
