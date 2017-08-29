@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/base_main_bg_color"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="#f6f2ed"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@color/color_main" />
+
+            <TextView
+                android:id="@+id/tv_special_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="安邦事件"
+                android:textColor="@color/color_main"
+                android:textSize="19sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="15dp">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kong_mrjz" />
+
+            <TextView
+                android:id="@+id/tv_little_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_3e000000"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="神仙打架：安邦 PK 财新 谁能笑到最后"
+                android:textColor="@color/white"
+                android:textSize="19sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_special_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingExtra="5dp"
+            android:maxLines="3"
+            android:text="朋友圈大家都在猜，财经新的报道，是不是意味着安邦要接受检查了？这场国内最权威的财经媒体与总资产1970亿的全球化公司的较量，简称这场国内最权威的财经媒体与总资产1970"
+            android:textColor="@color/color_575757"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

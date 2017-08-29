@@ -6,11 +6,13 @@ import android.widget.ImageView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.savorphone.R;
+import com.savor.savorphone.adapter.SpecialListAdapter;
 
 public class SpecialListActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView mBackBtn;
     private PullToRefreshListView mSpecialListView;
+    private SpecialListAdapter mSpecialListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,8 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setViews() {
-
+        mSpecialListAdapter = new SpecialListAdapter(this);
+        mSpecialListView.setAdapter(mSpecialListAdapter);
     }
 
     @Override

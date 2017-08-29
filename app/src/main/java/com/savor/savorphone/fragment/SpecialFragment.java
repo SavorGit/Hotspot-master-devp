@@ -1,6 +1,7 @@
 package com.savor.savorphone.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
 import com.savor.savorphone.R;
+import com.savor.savorphone.activity.SpecialListActivity;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
 
 /**
@@ -92,7 +94,8 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_look_special_list:
-
+                Intent intent = new Intent(mContext,SpecialListActivity.class);
+                startActivity(intent);
                 break;
         }
     }
