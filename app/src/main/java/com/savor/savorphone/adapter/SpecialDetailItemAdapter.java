@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.savor.savorphone.R;
 
 /**
- *
+ * 专题组详情页 内容列表适配器
  * 当前类型距离下一个元素类型的间距：
      大标题：
      图片
@@ -35,14 +35,14 @@ import com.savor.savorphone.R;
  * Created by hezd on 2017/8/28.
  */
 
-public class SpecialListAdapter extends RecyclerView.Adapter {
+public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     public static final int TYPE_IMAGE = 0x1;
     public static final int TYPE_TEXT = 0x2;
     public static final int TYPE_IMAGE_TEXT = 0x3;
     public static final int TYPE_TITLE = 0x4;
     private final Context mContext;
 
-    public SpecialListAdapter (Context context) {
+    public SpecialDetailItemAdapter(Context context) {
         this.mContext = context;
     }
 

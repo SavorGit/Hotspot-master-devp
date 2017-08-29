@@ -145,16 +145,13 @@
         <activity
             android:name=".activity.PictureSetActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Dialog_Fullscreen"
-            android:screenOrientation="sensor" />
+            android:screenOrientation="sensor"
+            android:theme="@style/Dialog_Fullscreen" />
         <activity
             android:name=".activity.ImageCollectionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/AppPicTheme"
-            android:screenOrientation="sensor" />
-
-
-
+            android:screenOrientation="sensor"
+            android:theme="@style/AppPicTheme" />
         <activity
             android:name=".activity.FeedbackActivity"
             android:configChanges="orientation|screenSize"
@@ -185,8 +182,6 @@
             android:name=".activity.PicRecommendActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".activity.GameActivity"
             android:configChanges="orientation|screenSize"
@@ -338,9 +333,10 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.BaseProActivity" />
-        <activity android:name=".activity.VodListActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".activity.VodListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SpecialListActivity"></activity>
     </application>
 
 </manifest>

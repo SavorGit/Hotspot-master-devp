@@ -12,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
-import com.common.api.widget.ScrollListView;
 import com.savor.savorphone.R;
-import com.savor.savorphone.adapter.SpecialListAdapter;
+import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
 
 /**
  * 专题组详情页
@@ -27,7 +26,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     private TextView mSpecialTitleTv;
     private TextView mSpecialDesTv;
     private RecyclerView mSpecialListView;
-    private SpecialListAdapter mSpecialListAdapter;
+    private SpecialDetailItemAdapter mSpecialDetailItemAdapter;
     private TextView mSpecialListTv;
 
     public SpecialFragment() {
@@ -80,8 +79,8 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
         mSpecialListView.setLayoutManager(manager);
-        mSpecialListAdapter = new SpecialListAdapter(mContext);
-        mSpecialListView.setAdapter(mSpecialListAdapter);
+        mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
+        mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
     }
 
     @Override
