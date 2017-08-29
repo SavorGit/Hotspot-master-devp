@@ -153,7 +153,6 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
                     // System.out.println("手指移动的太慢了");
                     return true;
                 }
-
                 int x1 = (int) e1.getRawX();
                 int x2 = (int) e2.getRawX();
                 // 手势向下 down
