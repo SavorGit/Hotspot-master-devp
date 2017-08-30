@@ -148,6 +148,9 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
                     String title = specialDetail.getTitle();
                     mSpecialTitleTv.setText(title);
 
+                    String desc = specialDetail.getDesc();
+                    mSpecialDesTv.setText(desc);
+
                     List<SpecialDetail.SpecialDetailTypeBean> list = specialDetail.getList();
                     if(list!=null&&list.size()>0) {
                         mSpecialDetailItemAdapter.setData(list);
