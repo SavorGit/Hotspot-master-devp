@@ -158,6 +158,8 @@ public class AppApi {
         POST_SPECIAL_NAME_JSON,
         /**电视推荐*/
         POST_TV_RECOMMEND_JSON,
+        /**专题组详情*/
+        POST_SPECIAL_DETAIL_JSON,
     }
 
     /**
@@ -229,6 +231,7 @@ public class AppApi {
             put(Action.POST_AWARD_RECORD_JSON,formatPhpUrl("APP3/Activity/geteggAwardRecord"));
             put(Action.POST_SPECIAL_NAME_JSON,formatPhpUrl("APP3/Special/getSpecialName"));
             put(Action.POST_TV_RECOMMEND_JSON,formatPhpUrl("APP3/Recommend/getTvPlayRecommend"));
+            put(Action.POST_SPECIAL_DETAIL_JSON,formatPhpUrl("APP3/Special/specialGroupDetail"));
         }
     };
 
@@ -924,6 +927,18 @@ public class AppApi {
         params.put("articleId", articleId);
         params.put("sort_num", sort_num);
         new AppServiceOk(context,Action.POST_TV_RECOMMEND_JSON,listener,params).post();
+    }
+
+    /**
+     * 获取专题组详情
+     * @param context
+     * @param listener
+     * @param id
+     */
+    public static void getSpecialDetail(Context context,ApiRequestListener listener,String id) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("id", id);
+        new AppServiceOk(context,Action.POST_SPECIAL_DETAIL_JSON,listener,params).post();
     }
 
     // 超时（网络）异常
