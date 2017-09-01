@@ -107,13 +107,13 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
         mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
 
-//        SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
-//        if(specialDetail!=null) {
-//            initSpecialDetailViews(specialDetail);
-//            isHasCache = true;
-//        }else {
-//            isHasCache = false;
-//        }
+        SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
+        if(specialDetail!=null) {
+            initSpecialDetailViews(specialDetail);
+            isHasCache = true;
+        }else {
+            isHasCache = false;
+        }
     }
 
     @Override
@@ -157,7 +157,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
                 if(obj instanceof SpecialDetail) {
                     SpecialDetail specialDetail = (SpecialDetail) obj;
                     initSpecialDetailViews(specialDetail);
-//                    SavorCacheUtil.getInstance().cacheSpecialDetail(mContext,specialDetail);
+                    SavorCacheUtil.getInstance().cacheSpecialDetail(mContext,specialDetail);
                 }
                 break;
         }
