@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ll_parent_layout"
     android:background="@color/color_eee8e0">
     <LinearLayout
         android:orientation="horizontal"

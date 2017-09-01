@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +49,7 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     public static final int TYPE_TITLE = 4;
     private final Context mContext;
     private List<SpecialDetail.SpecialDetailTypeBean> data;
+    private OnSpecialItemClickListener mOnItemClickListener;
 
     public SpecialDetailItemAdapter(Context context) {
         this.mContext = context;
@@ -59,10 +61,10 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         if(viewType == TYPE_IMAGE) {
             ImageHolder imageHolder = new ImageHolder(View.inflate(mContext, R.layout.item_special_image,null));
-            return new ImageHolder(View.inflate(mContext, R.layout.item_special_image,null));
+            return imageHolder;
         }else if(viewType == TYPE_TEXT) {
             return new TextHolder(View.inflate(mContext,R.layout.item_special_text,null));
         }else if(viewType == TYPE_IMAGE_TEXT) {
@@ -74,9 +76,9 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         // 在这里进行初始化
-        SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean = data.get(position);
+        final SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean = data.get(position);
         if(holder instanceof ImageHolder){// 图片
             ImageHolder imageHolder = (ImageHolder) holder;
             String img_url = specialDetailTypeBean.getImg_url();
@@ -91,6 +93,15 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             if(itemCount>1&&position<itemCount-1) {
                 handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
+
+            imageHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnItemClickListener!=null) {
+                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
+                    }
+                }
+            });
         }else if(holder instanceof TextHolder) {// 简介
             TextHolder textHolder = (TextHolder) holder;
             String desc = specialDetailTypeBean.getStext();
@@ -106,6 +117,15 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
                 handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
 
+            textHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnItemClickListener!=null) {
+                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
+                    }
+                }
+            });
+
         }else if(holder instanceof TitleHolder) {// 标题
             TitleHolder titleHolder = (TitleHolder) holder;
             String stitle = specialDetailTypeBean.getStitle();
@@ -120,6 +140,15 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             if(itemCount>1&&position<itemCount-1) {
                 handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
+
+            titleHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnItemClickListener!=null) {
+                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
+                    }
+                }
+            });
 
         }else if(holder instanceof ImageTextHolder) {// 文章
             ImageTextHolder imageTextHolder = (ImageTextHolder) holder;
@@ -142,6 +171,15 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             if(itemCount>1&&position<itemCount-1) {
                 handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
+
+            imageTextHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnItemClickListener!=null) {
+                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
+                    }
+                }
+            });
         }
     }
 
@@ -238,10 +276,12 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     public class ImageHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public View dividerView;
+        public LinearLayout parentLayout;
         public ImageHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.iv_image);
             dividerView = itemView.findViewById(R.id.divider_line);
+            parentLayout = (LinearLayout) itemView.findViewById(R.id.ll_parent_layout);
         }
     }
 
@@ -251,8 +291,10 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     public class TextHolder extends RecyclerView.ViewHolder {
         public TextView descTv;
         public View dividerView;
+        public LinearLayout parentLayout;
         public TextHolder(View itemView) {
             super(itemView);
+            parentLayout = (LinearLayout) itemView.findViewById(R.id.ll_parent_layout);
             descTv = (TextView) itemView.findViewById(R.id.tv_text);
             dividerView = itemView.findViewById(R.id.divider_line);
         }
@@ -267,6 +309,7 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
         public TextView content_small_source;
         public TextView content_small_time;
         public View dividerView;
+        public LinearLayout parentLayout;
         public ImageTextHolder(View itemView) {
             super(itemView);
             content_small_img = (ImageView) itemView.findViewById(R.id.content_small_img);
@@ -274,6 +317,7 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             content_small_source = (TextView) itemView.findViewById(R.id.content_small_source);
             content_small_time = (TextView) itemView.findViewById(R.id.content_small_time);
             dividerView = itemView.findViewById(R.id.divider_line);
+            parentLayout = (LinearLayout) itemView.findViewById(R.id.ll_parent_layout);
         }
     }
 
@@ -283,10 +327,21 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
     public class TitleHolder extends RecyclerView.ViewHolder {
         public TextView titleView;
         public View divider;
+        public LinearLayout parentLayout;
         public TitleHolder(View itemView) {
             super(itemView);
             titleView = (TextView) itemView.findViewById(R.id.tv_title);
             divider = itemView.findViewById(R.id.divider_line);
+            parentLayout = (LinearLayout) itemView.findViewById(R.id.ll_parent_layout);
         }
+    }
+
+    public void setOnSpecialItemClickListener(OnSpecialItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+
+    public interface OnSpecialItemClickListener {
+        void onSpecialItemClick(int viewType, SpecialDetail.SpecialDetailTypeBean bean);
     }
 }

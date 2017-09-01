@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.common.api.utils.DensityUtil;
+import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView;
 import com.savor.savorphone.R;
@@ -32,7 +33,7 @@ import java.util.List;
 /**
  * 专题组详情页
  */
-public class SpecialFragment extends BaseFragment implements View.OnClickListener, ProgressBarView.ProgressBarViewClickListener ,PullToRefreshBase.OnRefreshListener{
+public class SpecialFragment extends BaseFragment implements View.OnClickListener, ProgressBarView.ProgressBarViewClickListener ,PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener {
     public static final float IMAGE_SCALE = 484/750f;
     private Context mContext;
     private static final String TAG = "SpecialFragment";
@@ -128,6 +129,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         mRefreshScrollView.setOnRefreshListener(this);
         mLoadingPb.setProgressBarViewClickListener(this);
         mSpecialListTv.setOnClickListener(this);
+        mSpecialDetailItemAdapter.setOnSpecialItemClickListener(this);
     }
 
     @Override
@@ -257,5 +259,12 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
         isHasCache = specialDetail == null?false:true;
         getData();
+    }
+
+    @Override
+    public void onSpecialItemClick(int viewType, SpecialDetail.SpecialDetailTypeBean bean) {
+        if(viewType == SpecialDetailItemAdapter.TYPE_IMAGE_TEXT) {
+            ShowMessage.showToast(mContext,"点击文章内容\r\n"+bean.getTitle());
+        }
     }
 }
