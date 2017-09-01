@@ -27,6 +27,7 @@ public class CommonDialog extends Dialog implements View.OnClickListener {
     private TextView mCancelBtn;
     //private View mDividerView;
     private String confirm;
+    private String title;
     private boolean iscolor = false;
 
     public CommonDialog(Context context,String content) {
@@ -42,13 +43,21 @@ public class CommonDialog extends Dialog implements View.OnClickListener {
 
     }
 
+    public CommonDialog(Context context, String title,String content,OnConfirmListener confirmListener,OnCancelListener cancelListener,String confirm) {
+        super(context, R.style.loading_dialog);
+        this.mContent = content;
+        this.mConfirmListener = confirmListener;
+        this.mCancelListener = cancelListener;
+        this.title = title;
+        this.confirm = confirm;
+    }
+
     public CommonDialog(Context context, String content,OnConfirmListener confirmListener,OnCancelListener cancelListener,String confirm) {
         super(context, R.style.loading_dialog);
         this.mContent = content;
         this.mConfirmListener = confirmListener;
         this.mCancelListener = cancelListener;
         this.confirm = confirm;
-
     }
     public CommonDialog(Context context, String content,OnConfirmListener confirmListener,OnCancelListener cancelListener,String confirm,boolean iscolor) {
         super(context, R.style.loading_dialog);
@@ -92,6 +101,12 @@ public class CommonDialog extends Dialog implements View.OnClickListener {
         }
     }
 
+    public void setTitle(String title) {
+        if(!TextUtils.isEmpty(title)&&ts!=null) {
+            ts.setText(title);
+        }
+    }
+
     private void setViews() {
         if(!TextUtils.isEmpty(mContent))
             mContentTv.setText(mContent);
@@ -113,6 +128,10 @@ public class CommonDialog extends Dialog implements View.OnClickListener {
             mCancelBtn.setVisibility(View.VISIBLE);
         }else {
             mCancelBtn.setVisibility(View.GONE);
+        }
+
+        if(!TextUtils.isEmpty(title)) {
+            ts.setText(title);
         }
     }
 

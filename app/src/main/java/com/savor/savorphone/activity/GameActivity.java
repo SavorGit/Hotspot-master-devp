@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.AssetFileDescriptor;
 import android.hardware.Sensor;
@@ -12,6 +13,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +40,7 @@ import com.savor.savorphone.bean.VodProResponse;
 import com.savor.savorphone.core.ApiRequestListener;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
+import com.savor.savorphone.receiver.NetworkConnectChangedReceiver;
 import com.savor.savorphone.service.ProjectionService;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.LotteryFileUtil;
@@ -54,7 +58,6 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.savor.savorphone.activity.LinkTvActivity.EXRA_TV_BOX;
 import static com.savor.savorphone.activity.LinkTvActivity.EXTRA_TV_INFO;
 
 /**
@@ -72,8 +75,8 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
     private String resultInfo;
     private String resultTitle;
     private String url;
-    private static final int SENSOR_SHAKE = 16;
-    private static final int EXIT_PRO = 0x1;
+    private static final int SENSOR_SHAKE = 106;
+    private static final int EXIT_PRO = 0x10;
     private long mSeconds = 4;
     private Timer mTimer;
     private TimerTask mTask;
@@ -113,6 +116,26 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                 case EXIT_PRO:
                     finish();
                     break;
+                case WifiManager.WIFI_STATE_ENABLED:
+                    break;
+                case WifiManager.WIFI_STATE_DISABLED:
+                    mNetWorkSettingsDialog = new CommonDialog(GameActivity.this,"请链接包间wifi","连接后可查看当前酒楼是否有优惠活动"
+                            , new CommonDialog.OnConfirmListener() {
+                        @Override
+                        public void onConfirm() {
+                            Intent intent = new Intent();
+                            intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
+                            startActivity(intent);
+                            finish();
+                        }
+                    }, new CommonDialog.OnCancelListener() {
+                        @Override
+                        public void onCancel() {
+                            finish();
+                        }
+                    },"去连接");
+                    mNetWorkSettingsDialog.show();
+                    break;
             }
         }
     };
@@ -123,7 +146,8 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
      * 当投屏时遇到大屏正在投屏中，抢投传1，代表确认抢投，默认传0
      */
     private int force=0;
-    private CommonDialog mChangeWifiDiallog;
+    private CommonDialog mNetWorkSettingsDialog;
+    private NetworkConnectChangedReceiver mChangedReceiver;
 
     /**播放锤子动画*/
     private void playHammerAnimation() {
@@ -220,6 +244,17 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
         playBGM();
         playEggAnimation();
         bindProService();
+        initNetWorkReceiver();
+    }
+
+    private void initNetWorkReceiver() {
+        if(mChangedReceiver==null)
+            mChangedReceiver = new NetworkConnectChangedReceiver(mHandler);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mContext.registerReceiver(mChangedReceiver, filter);
     }
 
     private void bindProService() {
@@ -393,6 +428,11 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
             mediaPlayer = null;
         }
         notifyBoxStop();
+        if(mHandler!=null) {
+            mHandler.removeMessages(WifiManager.WIFI_STATE_ENABLED);
+            mHandler.removeCallbacksAndMessages(null);
+        }
+        mContext.unregisterReceiver(mChangedReceiver);
     }
 
     private void notifyBoxStop() {
