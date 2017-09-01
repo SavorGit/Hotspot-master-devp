@@ -3,6 +3,7 @@ package com.savor.savorphone.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.savor.savorphone.activity.SpecialListActivity;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
 import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
+import com.savor.savorphone.core.ResponseErrorMessage;
+import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.widget.ProgressBarView;
 
@@ -43,6 +46,9 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     private PullToRefreshScrollView mRefreshScrollView;
     /**是否有专题组详情缓存数据*/
     private boolean isHasCache;
+    private TextView refreshDataHintTV;
+
+    private Handler handler = new Handler();
 
     public SpecialFragment() {
     }
@@ -86,6 +92,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     }
 
     public void initViews(View view) {
+        refreshDataHintTV = (TextView) view.findViewById(R.id.tv_refresh_data_hint);
         mRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pts_special_detail);
         mLoadingPb = (ProgressBarView) view.findViewById(R.id.pbv_loading);
         mSpecialListTv = (TextView) view.findViewById(R.id.tv_look_special_list);
@@ -148,15 +155,28 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         getData();
     }
 
+    private void showRefreshHintAnimation(final String hint) {
+        refreshDataHintTV.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshDataHintTV.setText(hint);
+                SavorAnimUtil.startListRefreshHintAnimation(refreshDataHintTV);
+            }
+        },500);
+    }
+
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_SPECIAL_DETAIL_JSON:
-                mRefreshScrollView.onRefreshComplete();
+                setPtrSuccessComplete();
                 mLoadingPb.loadSuccess();
                 if(obj instanceof SpecialDetail) {
                     SpecialDetail specialDetail = (SpecialDetail) obj;
                     initSpecialDetailViews(specialDetail);
+                    if(isAdded()){
+                        showRefreshHintAnimation("更新成功");
+                    }
                     SavorCacheUtil.getInstance().cacheSpecialDetail(mContext,specialDetail);
                 }
                 break;
@@ -180,13 +200,54 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         if(list!=null&&list.size()>0) {
             mSpecialDetailItemAdapter.setData(list);
         }
+        mSpecialListView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSpecialListView.setFocusable(false);
+                mSpecialListView.setFocusableInTouchMode(false);
+                mRefreshScrollView.getRefreshableView().requestFocus();
+                mRefreshScrollView.getRefreshableView().setFocusable(true);
+                mRefreshScrollView.getRefreshableView().scrollTo(0,0);
+            }
+        },50);
+    }
+
+    private Runnable ptrRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            mRefreshScrollView.onRefreshComplete();
+        }
+    };
+
+    private void setPtrSuccessComplete() {
+        if (handler == null) {
+            handler = new Handler();
+        }
+        handler.postDelayed(ptrRunnable, 1000);
     }
 
     @Override
     public void onError(AppApi.Action method, Object statusCode) {
         switch (method) {
             case POST_SPECIAL_DETAIL_JSON:
-                mLoadingPb.loadFailure();
+                mRefreshScrollView.onRefreshComplete();
+                SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
+                if(specialDetail == null) {
+                    mLoadingPb.loadFailure();
+                }
+                if(isAdded()){
+                    if (statusCode instanceof ResponseErrorMessage){
+                        ResponseErrorMessage errorMessage = (ResponseErrorMessage)statusCode;
+                        String code = String.valueOf(errorMessage.getCode());
+                        if (AppApi.ERROR_TIMEOUT.equals(code)){
+                            showRefreshHintAnimation("数据加载超时");
+                        }else if (AppApi.ERROR_NETWORK_FAILED.equals(code)){
+                            showRefreshHintAnimation("无法连接到网络,请检查网络设置");
+                        }
+                    }
+
+                }
                 break;
         }
     }
