@@ -52,6 +52,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     private TextView refreshDataHintTV;
 
     private Handler handler = new Handler();
+    private SpecialDetail specialDetail;
 
     public SpecialFragment() {
     }
@@ -139,6 +140,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.tv_look_special_list:
                 Intent intent = new Intent(mContext,SpecialListActivity.class);
+                intent.putExtra("id",specialDetail.getId());
                 startActivity(intent);
                 break;
         }
@@ -176,12 +178,12 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
                 setPtrSuccessComplete();
                 mLoadingPb.loadSuccess();
                 if(obj instanceof SpecialDetail) {
-                    SpecialDetail specialDetail = (SpecialDetail) obj;
+                    specialDetail = (SpecialDetail) obj;
                     initSpecialDetailViews(specialDetail);
                     if(isAdded()){
                         showRefreshHintAnimation("更新成功");
                     }
-                    SavorCacheUtil.getInstance().cacheSpecialDetail(mContext,specialDetail);
+                    SavorCacheUtil.getInstance().cacheSpecialDetail(mContext, specialDetail);
                 }
                 break;
         }

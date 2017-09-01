@@ -36,6 +36,7 @@ import com.savor.savorphone.bean.PictureSetBean;
 import com.savor.savorphone.bean.SmallPlatformByGetIp;
 import com.savor.savorphone.bean.SmashEgg;
 import com.savor.savorphone.bean.SpecialDetail;
+import com.savor.savorphone.bean.SpecialList;
 import com.savor.savorphone.bean.SpecialNameResult;
 import com.savor.savorphone.bean.StartUpSettingsBean;
 import com.savor.savorphone.bean.LastTopList;
@@ -523,7 +524,7 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_SPECIAL_LIST_JSON:
-                result = gson.fromJson(info, new TypeToken<CommonListResult>() {
+                result = gson.fromJson(info, new TypeToken<SpecialList>() {
                 }.getType());
                 break;
             case POST_CONTENT_IS_ONLINE_JSON:

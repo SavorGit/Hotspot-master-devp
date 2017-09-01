@@ -147,8 +147,6 @@ public class AppApi {
         /**图集接口**/
         POST_PICTURE_SET_JSON,
         /**获取专题列表**/
-        POST_SPECIAL_LIST_JSON,
-        /**获取专题列表**/
         POST_RECOMMEND_LIST_JSON,
         /**获取投屏点播列表*/
         POST_DEMAND_LIST_JSON,
@@ -160,6 +158,8 @@ public class AppApi {
         POST_TV_RECOMMEND_JSON,
         /**专题组详情*/
         POST_SPECIAL_DETAIL_JSON,
+        /**专题组列表*/
+        POST_SPECIAL_LIST_JSON,
     }
 
     /**
@@ -225,13 +225,13 @@ public class AppApi {
             put(Action.POST_WEALTH_LIFE_LIST_JSON,formatPhpUrl("APP3/Content/getLastCategoryList"));
             put(Action.POST_CONTENT_IS_ONLINE_JSON,formatPhpUrl("APP3/Content/isOnlie"));
             put(Action.POST_PICTURE_SET_JSON,formatPhpUrl("APP3/Content/picDetail"));
-            put(Action.POST_SPECIAL_LIST_JSON,formatPhpUrl("APP3/Special/getSpecialList"));
             put(Action.POST_RECOMMEND_LIST_JSON,formatPhpUrl("APP3/Recommend/getRecommendInfo"));
             put(Action.POST_DEMAND_LIST_JSON,formatPhpUrl("APP3/Content/demandList"));
             put(Action.POST_AWARD_RECORD_JSON,formatPhpUrl("APP3/Activity/geteggAwardRecord"));
             put(Action.POST_SPECIAL_NAME_JSON,formatPhpUrl("APP3/Special/getSpecialName"));
             put(Action.POST_TV_RECOMMEND_JSON,formatPhpUrl("APP3/Recommend/getTvPlayRecommend"));
             put(Action.POST_SPECIAL_DETAIL_JSON,formatPhpUrl("APP3/Special/specialGroupDetail"));
+            put(Action.POST_SPECIAL_LIST_JSON,formatPhpUrl("APP3/Special/specialGroupList"));
         }
     };
 
@@ -887,11 +887,12 @@ public class AppApi {
 
 
     /**获取专题列表*/
-    public static void getSpecialList(Context context,String sort_num,ApiRequestListener listener) {
+    public static void getSpecialList(Context context,String id,ApiRequestListener listener) {
         final HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("sort_num", sort_num);
+        params.put("id", id);
         new AppServiceOk(context,Action.POST_SPECIAL_LIST_JSON,listener,params).post();
     }
+
     /**获取专题列表*/
     public static void getRecommendInfo(Context context,String articleId,ApiRequestListener listener) {
         final HashMap<String, Object> params = new HashMap<String, Object>();

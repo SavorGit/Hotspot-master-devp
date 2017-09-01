@@ -336,7 +336,9 @@
         <activity
             android:name=".activity.VodListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SpecialListActivity"></activity>
+        <activity android:name=".activity.SpecialListActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>
