@@ -20,7 +20,9 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView;
 import com.savor.savorphone.R;
 import com.savor.savorphone.activity.SpecialListActivity;
+import com.savor.savorphone.activity.SubjectActivity;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
+import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
@@ -264,7 +266,16 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onSpecialItemClick(int viewType, SpecialDetail.SpecialDetailTypeBean bean) {
         if(viewType == SpecialDetailItemAdapter.TYPE_IMAGE_TEXT) {
-            ShowMessage.showToast(mContext,"点击文章内容\r\n"+bean.getTitle());
+            CommonListItem item = new CommonListItem();
+            item.setArtid(bean.getArtid());
+            item.setTitle(bean.getTitle());
+            item.setContentURL(bean.getContentURL());
+            item.setImageURL(bean.getImageURL());
+            Intent intent = new Intent();
+            intent.putExtra("type","subject");
+            intent.putExtra("item",item);
+            intent.setClass(mContext,SubjectActivity.class);
+            startActivity(intent);
         }
     }
 }
