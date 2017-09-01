@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.savor.savorphone.SavorApplication;
 import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialDetail;
+import com.savor.savorphone.bean.SpecialList;
 
 import java.io.File;
 import java.util.List;
@@ -153,6 +154,40 @@ public class SavorCacheUtil {
         }
         try {
             return FileUtils.readObject(context,lifePath,SpecialDetail.class);
+        }catch (Exception e) {
+            file.delete();
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 缓存专题组详情数据
+     * @param context
+     */
+    public void cacheSpecialList(Context context, SpecialList specialList) {
+        String lifePath = getListCachePath(context)+File.separator+"specialList.data";
+        File file = new File(lifePath);
+        if(file.exists())
+            file.delete();
+        if(specialList!=null) {
+            FileUtils.saveObject(context,lifePath,specialList);
+        }
+    }
+
+    /**
+     * 获取专题组详情缓存
+     * @param context
+     * @return
+     */
+    public SpecialList getSpecialList(Context context) {
+        String lifePath = getListCachePath(context)+File.separator+"specialList.data";
+        File file = new File(lifePath);
+        if(!file.exists()) {
+            return null;
+        }
+        try {
+            return FileUtils.readObject(context,lifePath,SpecialList.class);
         }catch (Exception e) {
             file.delete();
             e.printStackTrace();

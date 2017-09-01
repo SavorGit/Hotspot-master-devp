@@ -14,10 +14,12 @@ import com.savor.savorphone.adapter.SpecialListAdapter;
 import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialList;
 import com.savor.savorphone.core.AppApi;
+import com.savor.savorphone.utils.SavorCacheUtil;
+import com.savor.savorphone.widget.ProgressBarView;
 
 import java.util.List;
 
-public class SpecialListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshListView.NetworkUnavailableOnClick {
+public class SpecialListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshListView.NetworkUnavailableOnClick, ProgressBarView.ProgressBarViewClickListener {
     private int currentRefreshState;
     public static final int REFRESH_TYPE_TOP = 1;
     public static final int REFRESH_TYPE_BOTTOM = 2;
@@ -26,8 +28,6 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     private ImageView mBackBtn;
     private PullToRefreshListView mSpecialListView;
     private SpecialListAdapter mSpecialListAdapter;
-    /**专题组id*/
-    private String mId;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -42,13 +42,13 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
             }
         }
     };
+    private ProgressBarView mLoadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_special_list);
 
-        handleIntent();
         getViews();
         setViews();
         setListeners();
@@ -56,12 +56,9 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         getData("");
     }
 
-    private void handleIntent() {
-        Intent intent = getIntent();
-        mId = intent.getStringExtra("id");
-    }
-
     private void getData(String id) {
+        currentRefreshState = REFRESH_TYPE_TOP;
+        mLoadingLayout.startLoading();
         AppApi.getSpecialList(this,id,this);
     }
 
@@ -69,12 +66,20 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     public void getViews() {
         mSpecialListView = (PullToRefreshListView) findViewById(R.id.ptl_special_list);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
+        mLoadingLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
     }
 
     @Override
     public void setViews() {
         mSpecialListAdapter = new SpecialListAdapter(this);
         mSpecialListView.setAdapter(mSpecialListAdapter);
+        SpecialList specialList = SavorCacheUtil.getInstance().getSpecialList(this);
+        if(specialList!=null) {
+            List<SpecialList.SpecialListItem> list = specialList.getList();
+            if(list!=null&&list.size()>0) {
+                mSpecialListAdapter.setData(list);
+            }
+        }
     }
 
     @Override
@@ -82,6 +87,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         mBackBtn.setOnClickListener(this);
         mSpecialListView.setOnRefreshListener(onRefreshListener);
         mSpecialListView.setNetworkUnavailableOnClick(this);
+        mLoadingLayout.setProgressBarViewClickListener(this);
     }
 
 
@@ -144,12 +150,14 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         switch (method) {
             case POST_SPECIAL_LIST_JSON:
                 setPtrSuccessComplete();
+                mLoadingLayout.loadSuccess();
                 if(obj instanceof SpecialList) {
                     SpecialList specialList = (SpecialList) obj;
                     List<SpecialList.SpecialListItem> list = specialList.getList();
                     int nextpage = specialList.getNextpage();
                     if(currentRefreshState == REFRESH_TYPE_TOP) {
                         mSpecialListAdapter.setData(list);
+                        SavorCacheUtil.getInstance().cacheSpecialList(this,specialList);
                     }else {
                         mSpecialListAdapter.addData(list);
                     }
@@ -163,7 +171,24 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     public void onError(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_SPECIAL_LIST_JSON:
-                mSpecialListView.onLoadCompleteNetworkUnavailable(true);
+                if(currentRefreshState == REFRESH_TYPE_BOTTOM) {
+                    mSpecialListView.onLoadCompleteNetworkUnavailable(true);
+                }else {
+                    int count = mSpecialListAdapter.getCount();
+                    switch (currentRefreshState) {
+                        case REFRESH_TYPE_BOTTOM:
+                            mSpecialListView.onLoadCompleteNetworkUnavailable(true);
+                            break;
+                        default:
+                            if(count == 0) {
+                                mLoadingLayout.loadFailure();
+                            }else {
+                                mSpecialListView.onLoadComplete(true);
+                                mLoadingLayout.loadSuccess();
+                            }
+                            break;
+                    }
+                }
                 break;
         }
     }
@@ -172,5 +197,20 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     public void bottomOnClick() {
         mSpecialListView.onLoadComplete(true);
         bottomRefresh();
+    }
+
+    @Override
+    public void loadDataEmpty() {
+
+    }
+
+    @Override
+    public void loadFailureNoNet() {
+
+    }
+
+    @Override
+    public void loadFailure() {
+        getData("");
     }
 }

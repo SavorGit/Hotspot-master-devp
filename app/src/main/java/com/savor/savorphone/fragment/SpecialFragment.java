@@ -140,7 +140,6 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.tv_look_special_list:
                 Intent intent = new Intent(mContext,SpecialListActivity.class);
-                intent.putExtra("id",specialDetail.getId());
                 startActivity(intent);
                 break;
         }
