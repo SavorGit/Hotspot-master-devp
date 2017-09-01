@@ -89,29 +89,7 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             ViewGroup.LayoutParams layoutParams = imageHolder.dividerView.getLayoutParams();
             int itemCount = getItemCount();
             if(itemCount>1&&position<itemCount-1) {
-                int height = 0;
-                SpecialDetail.SpecialDetailTypeBean nextItem = data.get(position + 1);
-                int sgtype = nextItem.getSgtype();
-               /* 图片
-                1、图片：10px
-                2、文字：30px
-                3、文章：40px
-                4、小标题：50px*/
-               switch (sgtype) {
-                   case TYPE_IMAGE:
-                       height = DensityUtil.dip2px(mContext,5);
-                       break;
-                   case TYPE_TEXT:
-                       height = DensityUtil.dip2px(mContext,15);
-                       break;
-                   case TYPE_IMAGE_TEXT:
-                       height = DensityUtil.dip2px(mContext,20);
-                       break;
-                   case TYPE_TITLE:
-                       height = DensityUtil.dip2px(mContext,25);
-                       break;
-               }
-               layoutParams.height = height;
+                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
         }else if(holder instanceof TextHolder) {// 简介
             TextHolder textHolder = (TextHolder) holder;
@@ -125,24 +103,7 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             ViewGroup.LayoutParams layoutParams = textHolder.dividerView.getLayoutParams();
             int itemCount = getItemCount();
             if(itemCount>1&&position<itemCount-1) {
-                int height = 0;
-                SpecialDetail.SpecialDetailTypeBean nextItem = data.get(position + 1);
-                int sgtype = nextItem.getSgtype();
-                switch (sgtype) {
-                    case TYPE_IMAGE:
-                        height = DensityUtil.dip2px(mContext,15);
-                        break;
-                    case TYPE_TEXT:
-                        height = DensityUtil.dip2px(mContext,25);
-                        break;
-                    case TYPE_IMAGE_TEXT:
-                        height = DensityUtil.dip2px(mContext,25);
-                        break;
-                    case TYPE_TITLE:
-                        height = DensityUtil.dip2px(mContext,25);
-                        break;
-                }
-                layoutParams.height = height;
+                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
 
         }else if(holder instanceof TitleHolder) {// 标题
@@ -157,24 +118,7 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             ViewGroup.LayoutParams layoutParams = titleHolder.divider.getLayoutParams();
             int itemCount = getItemCount();
             if(itemCount>1&&position<itemCount-1) {
-                int height = 0;
-                SpecialDetail.SpecialDetailTypeBean nextItem = data.get(position + 1);
-                int sgtype = nextItem.getSgtype();
-                switch (sgtype) {
-                    case TYPE_IMAGE:
-                        height = DensityUtil.dip2px(mContext,20);
-                        break;
-                    case TYPE_TEXT:
-                        height = DensityUtil.dip2px(mContext,20);
-                        break;
-                    case TYPE_IMAGE_TEXT:
-                        height = DensityUtil.dip2px(mContext,20);
-                        break;
-                    case TYPE_TITLE:
-                        height = DensityUtil.dip2px(mContext,25);
-                        break;
-                }
-                layoutParams.height = height;
+                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
 
         }else if(holder instanceof ImageTextHolder) {// 文章
@@ -196,28 +140,85 @@ public class SpecialDetailItemAdapter extends RecyclerView.Adapter {
             ViewGroup.LayoutParams layoutParams = imageTextHolder.dividerView.getLayoutParams();
             int itemCount = getItemCount();
             if(itemCount>1&&position<itemCount-1) {
-                int height = 0;
-                SpecialDetail.SpecialDetailTypeBean nextItem = data.get(position + 1);
-                int sgtype = nextItem.getSgtype();
-                switch (sgtype) {
-                    case TYPE_IMAGE:
-                        height = DensityUtil.dip2px(mContext,20);
-                        break;
-                    case TYPE_TEXT:
-                        height = DensityUtil.dip2px(mContext,25);
-                        break;
-                    case TYPE_IMAGE_TEXT:
-                        height = DensityUtil.dip2px(mContext,5);
-                        break;
-                    case TYPE_TITLE:
-                        height = DensityUtil.dip2px(mContext,25);
-                        break;
-                }
-                layoutParams.height = height;
+                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
             }
+        }
+    }
 
+    private void handleDividerHeight(int position, SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean, ViewGroup.LayoutParams layoutParams) {
+        int currentType = specialDetailTypeBean.getSgtype();
+
+        int height = 0;
+        SpecialDetail.SpecialDetailTypeBean nextItem = data.get(position + 1);
+        int sgtype = nextItem.getSgtype();
+        if(currentType == TYPE_IMAGE) {
+            /* 图片
+            1、图片：10px
+            2、文字：30px
+            3、文章：40px
+            4、小标题：50px*/
+            switch (sgtype) {
+                case TYPE_IMAGE:
+                    height = DensityUtil.dip2px(mContext,5);
+                    break;
+                case TYPE_TEXT:
+                    height = DensityUtil.dip2px(mContext,15);
+                    break;
+                case TYPE_IMAGE_TEXT:
+                    height = DensityUtil.dip2px(mContext,20);
+                    break;
+                case TYPE_TITLE:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+            }
+        }else if(currentType == TYPE_TEXT) {
+            switch (sgtype) {
+                case TYPE_IMAGE:
+                    height = DensityUtil.dip2px(mContext,15);
+                    break;
+                case TYPE_TEXT:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+                case TYPE_IMAGE_TEXT:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+                case TYPE_TITLE:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+            }
+        }else if(currentType == TYPE_TITLE) {
+            switch (sgtype) {
+                case TYPE_IMAGE:
+                    height = DensityUtil.dip2px(mContext,20);
+                    break;
+                case TYPE_TEXT:
+                    height = DensityUtil.dip2px(mContext,20);
+                    break;
+                case TYPE_IMAGE_TEXT:
+                    height = DensityUtil.dip2px(mContext,20);
+                    break;
+                case TYPE_TITLE:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+            }
+        }else if(currentType == TYPE_IMAGE_TEXT) {
+            switch (sgtype) {
+                case TYPE_IMAGE:
+                    height = DensityUtil.dip2px(mContext,20);
+                    break;
+                case TYPE_TEXT:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+                case TYPE_IMAGE_TEXT:
+                    height = DensityUtil.dip2px(mContext,5);
+                    break;
+                case TYPE_TITLE:
+                    height = DensityUtil.dip2px(mContext,25);
+                    break;
+            }
         }
 
+        layoutParams.height = height;
     }
 
     @Override

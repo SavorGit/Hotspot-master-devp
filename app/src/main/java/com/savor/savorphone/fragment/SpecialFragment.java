@@ -10,16 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.common.api.utils.DensityUtil;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView;
 import com.savor.savorphone.R;
 import com.savor.savorphone.activity.SpecialListActivity;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
 import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
+import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.widget.ProgressBarView;
 
 import java.util.List;
@@ -27,7 +29,7 @@ import java.util.List;
 /**
  * 专题组详情页
  */
-public class SpecialFragment extends BaseFragment implements View.OnClickListener, ProgressBarView.ProgressBarViewClickListener {
+public class SpecialFragment extends BaseFragment implements View.OnClickListener, ProgressBarView.ProgressBarViewClickListener ,PullToRefreshBase.OnRefreshListener{
     public static final float IMAGE_SCALE = 484/750f;
     private Context mContext;
     private static final String TAG = "SpecialFragment";
@@ -38,6 +40,9 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     private SpecialDetailItemAdapter mSpecialDetailItemAdapter;
     private TextView mSpecialListTv;
     private ProgressBarView mLoadingPb;
+    private PullToRefreshScrollView mRefreshScrollView;
+    /**是否有专题组详情缓存数据*/
+    private boolean isHasCache;
 
     public SpecialFragment() {
     }
@@ -74,11 +79,14 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void getData() {
-        mLoadingPb.startLoading();
+        if(!isHasCache) {
+            mLoadingPb.startLoading();
+        }
         AppApi.getSpecialDetail(mContext,this,"");
     }
 
     public void initViews(View view) {
+        mRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pts_special_detail);
         mLoadingPb = (ProgressBarView) view.findViewById(R.id.pbv_loading);
         mSpecialListTv = (TextView) view.findViewById(R.id.tv_look_special_list);
         mSpeicalIv = (ImageView) view.findViewById(R.id.iv_special_pic);
@@ -98,10 +106,19 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         mSpecialListView.setLayoutManager(manager);
         mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
         mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
+
+//        SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
+//        if(specialDetail!=null) {
+//            initSpecialDetailViews(specialDetail);
+//            isHasCache = true;
+//        }else {
+//            isHasCache = false;
+//        }
     }
 
     @Override
     public void setListeners() {
+        mRefreshScrollView.setOnRefreshListener(this);
         mLoadingPb.setProgressBarViewClickListener(this);
         mSpecialListTv.setOnClickListener(this);
     }
@@ -135,28 +152,33 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_SPECIAL_DETAIL_JSON:
+                mRefreshScrollView.onRefreshComplete();
                 mLoadingPb.loadSuccess();
                 if(obj instanceof SpecialDetail) {
                     SpecialDetail specialDetail = (SpecialDetail) obj;
-
-                    String img_url = specialDetail.getImg_url();
-                    Glide.with(mContext)
-                            .load(img_url)
-                            .placeholder(R.drawable.kong_mrjz)
-                            .dontAnimate().into(mSpeicalIv);
-
-                    String title = specialDetail.getTitle();
-                    mSpecialTitleTv.setText(title);
-
-                    String desc = specialDetail.getDesc();
-                    mSpecialDesTv.setText(desc);
-
-                    List<SpecialDetail.SpecialDetailTypeBean> list = specialDetail.getList();
-                    if(list!=null&&list.size()>0) {
-                        mSpecialDetailItemAdapter.setData(list);
-                    }
+                    initSpecialDetailViews(specialDetail);
+//                    SavorCacheUtil.getInstance().cacheSpecialDetail(mContext,specialDetail);
                 }
                 break;
+        }
+    }
+
+    private void initSpecialDetailViews(SpecialDetail specialDetail) {
+        String img_url = specialDetail.getImg_url();
+        Glide.with(mContext)
+                .load(img_url)
+                .placeholder(R.drawable.kong_mrjz)
+                .dontAnimate().into(mSpeicalIv);
+
+        String title = specialDetail.getTitle();
+        mSpecialTitleTv.setText(title);
+
+        String desc = specialDetail.getDesc();
+        mSpecialDesTv.setText(desc);
+
+        List<SpecialDetail.SpecialDetailTypeBean> list = specialDetail.getList();
+        if(list!=null&&list.size()>0) {
+            mSpecialDetailItemAdapter.setData(list);
         }
     }
 
@@ -169,4 +191,10 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onRefresh(PullToRefreshBase refreshView) {
+        SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
+        isHasCache = specialDetail == null?false:true;
+        getData();
+    }
 }

@@ -428,7 +428,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void setListeners() {
-        mShadeLayer.setOnClickListener(this);
+//        mShadeLayer.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);
         mFeedbackLayout.setOnClickListener(this);
@@ -886,14 +886,14 @@ public class HotspotMainActivity extends AppCompatActivity
         mFragmentList.clear();
         mTitleList.clear();
         initIndicator();
-        mTabLayout.postDelayed(new Runnable() {
+        mViewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mTabLayout.refresh();
             }
         },1000);
 
-        checkSense();
+//        checkSense();
         LogUtils.d("savor:onRestore");
     }
 

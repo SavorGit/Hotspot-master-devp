@@ -6,6 +6,7 @@ import com.common.api.utils.FileUtils;
 import com.google.gson.reflect.TypeToken;
 import com.savor.savorphone.SavorApplication;
 import com.savor.savorphone.bean.CommonListItem;
+import com.savor.savorphone.bean.SpecialDetail;
 
 import java.io.File;
 import java.util.List;
@@ -96,10 +97,11 @@ public class SavorCacheUtil {
     }
 
     /**
-     * 缓存专题数据
+     * 缓存专题数据（已过时，请使用cacheSpecialDetail替代）
      * @param context
      * @param data
      */
+    @Deprecated
     public void cacheSpecialData(Context context,List<CommonListItem> data) {
         String lifePath = getListCachePath(context)+File.separator+"special.data";
         if(data!=null&&data.size()>0) {
@@ -108,10 +110,11 @@ public class SavorCacheUtil {
     }
 
     /**
-     * 获取专题缓存数据
+     * 获取专题缓存数据(已过时，最新版本请使用getSpecialDetail替代
      * @param context
      * @return
      */
+    @Deprecated
     public List<CommonListItem> getSpecialData(Context context) {
         String lifePath = getListCachePath(context)+File.separator+"special.data";
         File file = new File(lifePath);
@@ -120,5 +123,40 @@ public class SavorCacheUtil {
         }
         List<CommonListItem> data = (List<CommonListItem>) FileUtils.readObject(context,lifePath,new TypeToken<List<CommonListItem>>(){}.getType().getClass());
         return data;
+    }
+
+    /**
+     * 缓存专题组详情数据
+     * @param context
+     * @param specialDetail
+     */
+    public void cacheSpecialDetail(Context context, SpecialDetail specialDetail) {
+        String lifePath = getListCachePath(context)+File.separator+"special.data";
+        File file = new File(lifePath);
+        if(file.exists())
+            file.delete();
+        if(specialDetail!=null) {
+            FileUtils.saveObject(context,lifePath,specialDetail);
+        }
+    }
+
+    /**
+     * 获取专题组详情缓存
+     * @param context
+     * @return
+     */
+    public SpecialDetail getSpecialDetail(Context context) {
+        String lifePath = getListCachePath(context)+File.separator+"special.data";
+        File file = new File(lifePath);
+        if(!file.exists()) {
+            return null;
+        }
+        try {
+            return FileUtils.readObject(context,lifePath,SpecialDetail.class);
+        }catch (Exception e) {
+            file.delete();
+            e.printStackTrace();
+        }
+        return null;
     }
 }
