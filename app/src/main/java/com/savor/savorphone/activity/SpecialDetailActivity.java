@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +29,7 @@ import java.util.List;
 /**
  * 专题组详情
  */
-public class SpecialDetailActivity extends BaseActivity implements ProgressBarView.ProgressBarViewClickListener, PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener {
+public class SpecialDetailActivity extends BaseActivity implements ProgressBarView.ProgressBarViewClickListener, PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener, View.OnClickListener {
     public static final float IMAGE_SCALE = 484 / 750f;
     private TextView refreshDataHintTV;
     private ScrollView mScrollView;
@@ -41,6 +42,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     private Handler handler = new Handler();
     private SpecialDetail specialDetail;
     private String mSpecialId;
+    private ImageView mBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void getViews() {
+        mBackBtn = (ImageView) findViewById(R.id.iv_left);
         refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
         mScrollView = (ScrollView) findViewById(R.id.sv_content);
         mLoadingPb = (ProgressBarView) findViewById(R.id.pbv_loading);
@@ -95,6 +98,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void setListeners() {
+        mBackBtn.setOnClickListener(this);
         mLoadingPb.setProgressBarViewClickListener(this);
         mSpecialDetailItemAdapter.setOnSpecialItemClickListener(this);
     }
@@ -171,6 +175,15 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
         switch (method) {
             case POST_SPECIAL_DETAIL_JSON:
                 mLoadingPb.loadFailure();
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_left:
+                finish();
                 break;
         }
     }
