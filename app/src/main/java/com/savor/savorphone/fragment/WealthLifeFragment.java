@@ -20,6 +20,7 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshLi
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.savorphone.R;
 import com.savor.savorphone.SavorApplication;
+import com.savor.savorphone.activity.ImageShowActivity;
 import com.savor.savorphone.activity.ImageTextActivity;
 import com.savor.savorphone.activity.PictureSetActivity;
 import com.savor.savorphone.activity.VideoPlayVODNotHotelActivity;
@@ -198,6 +199,9 @@ public class WealthLifeFragment extends BaseFragment implements ApiRequestListen
                         startActivity(intent);
                         break;
                     case 2:
+
+
+                        //intent = new Intent(context, ImageShowActivity.class);
                         intent = new Intent(context, PictureSetActivity.class);
                         intent.putExtra("voditem",item);
                         intent.putExtra("content_id",item.getArtid());
