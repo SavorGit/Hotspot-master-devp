@@ -27,9 +27,11 @@ public class WealthLifeAdapter extends BaseAdapter{
     private List<CommonListItem> list = new ArrayList<>();
     //为三种布局定义一个标识
     // item view的类型总数。
-    private final int VIEW_TYPE_COUNT = 2;
+    private final int VIEW_TYPE_COUNT = 3;
     /**图文*/
     private final int TYPE_TEXT_IMAGE = 0;
+    /**图文*/
+    private final int TYPE_TEXT_IMAGE_BIG = 4;
     /**视频*/
     private final int TYPE_VIDEO = 1;
     public WealthLifeAdapter(Context mcontext,List<CommonListItem> listItems){
@@ -69,10 +71,16 @@ public class WealthLifeAdapter extends BaseAdapter{
         }
         CommonListItem item = list.get(position);
         int type = Integer.valueOf(item.getType());
+        String imgStyle = item.getImgStyle();
         switch (type){
             case 0:
             case 1:
-                viewType = TYPE_TEXT_IMAGE;
+                if ("2".equals(imgStyle)) {
+                    viewType =TYPE_TEXT_IMAGE_BIG;
+                }else {
+                    viewType = TYPE_TEXT_IMAGE;
+                }
+
                 break;
             case 2:
             case 3:
@@ -174,6 +182,50 @@ public class WealthLifeAdapter extends BaseAdapter{
                     holderBig.contentBigCornerTV.setPadding(pading10,pading25,pading10,pading25);
                     holderBig.contentBigCornerTV.setText(time);
                 }
+                Glide.with(context)
+                        .load(item.getLogo())
+                        .placeholder(R.drawable.kong_mrjz)
+                        .error(R.drawable.kong_mrjz)
+                        .centerCrop()
+                        .crossFade()
+                        .into(holderBig.contentBigSourceIconTV);
+                holderBig.contentBigSourceNameTV.setText(item.getSourceName());
+                holderBig.contentBigSourceTimeTV.setText(item.getUpdateTime()+"");
+                break;
+            case TYPE_TEXT_IMAGE_BIG:
+                if (convertView==null){
+                    holderBig = new ViewHolderBig();
+                    convertView = View.inflate(context,R.layout.item_wealth_life_big,null);
+                    holderBig.contentBigTitleTV = (TextView) convertView.findViewById(R.id.content_big_title);
+                    holderBig.contentBigImgIV = (ImageView) convertView.findViewById(R.id.content_big_img);
+                    holderBig.contentBigStartTV = (ImageView) convertView.findViewById(R.id.content_big_start);
+                    holderBig.contentBigCornerTV = (TextView) convertView.findViewById(R.id.content_big_corner);
+                    holderBig.contentBigSourceIconTV = (ImageView) convertView.findViewById(R.id.content_big_source_icon);
+                    holderBig.contentBigSourceNameTV = (TextView) convertView.findViewById(R.id.content_big_source_name);
+                    holderBig.contentBigSourceTimeTV = (TextView) convertView.findViewById(R.id.content_big_source_time);
+                    convertView.setTag(holderBig);
+                }else{
+                    holderBig = (ViewHolderBig) convertView.getTag();
+                }
+                holderBig.contentBigTitleTV.setText(item.getTitle());
+                ViewGroup.LayoutParams layoutParamsB = holderBig.contentBigImgIV.getLayoutParams();
+                int widthb = DensityUtil.getScreenWidth(context)-DensityUtil.dip2px(context,30f);
+                int heightb = (int)(widthb/(1242f/802f));
+                layoutParamsB.width = widthb;
+                layoutParamsB.height = heightb;
+                Glide.with(context)
+                        .load(item.getImageURL())
+                        .placeholder(R.drawable.kong_mrjz)
+                        .error(R.drawable.kong_mrjz)
+                        .centerCrop()
+                        .crossFade()
+                        .into(holderBig.contentBigImgIV);
+
+                    int pading = DensityUtil.dip2px(context,5);
+                    int pading25 = DensityUtil.dip2px(context,2.5f);
+                    holderBig.contentBigStartTV.setVisibility(View.GONE);
+                    holderBig.contentBigCornerTV.setVisibility(View.GONE);
+
                 Glide.with(context)
                         .load(item.getLogo())
                         .placeholder(R.drawable.kong_mrjz)
