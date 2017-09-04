@@ -1,6 +1,5 @@
 package com.savor.savorphone.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +11,6 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.savorphone.R;
 import com.savor.savorphone.adapter.SpecialListAdapter;
-import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialList;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
