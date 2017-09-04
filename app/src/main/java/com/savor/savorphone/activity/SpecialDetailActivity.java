@@ -1,5 +1,7 @@
 package com.savor.savorphone.activity;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,12 +16,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.common.api.utils.DensityUtil;
+import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.savor.savorphone.R;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
 import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
+import com.savor.savorphone.interfaces.CopyCallBack;
 import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.utils.ShareManager;
@@ -30,7 +34,7 @@ import java.util.List;
 /**
  * 专题组详情
  */
-public class SpecialDetailActivity extends BaseActivity implements ProgressBarView.ProgressBarViewClickListener, PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener, View.OnClickListener {
+public class SpecialDetailActivity extends BaseActivity implements ProgressBarView.ProgressBarViewClickListener, PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener, View.OnClickListener, CopyCallBack {
     public static final float IMAGE_SCALE = 484 / 750f;
     private TextView refreshDataHintTV;
     private ScrollView mScrollView;
@@ -191,12 +195,19 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
         switch (v.getId()) {
             case R.id.iv_right:
                 if(specialDetail!=null) {
-//                    ShareManager.getInstance().share(this,specialDetail.getTitle(),specialDetail.getImg_url(),specialDetail.get);
+                    ShareManager.getInstance().share(this,specialDetail.getName(),specialDetail.getTitle(),specialDetail.getImg_url(),"www.baidu.com",this);
                 }
                 break;
             case R.id.iv_left:
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void copyLink() {
+//        ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+//        cmb.setText(voditem.getContentURL());
+//        ShowMessage.showToast(mContext,"复制完毕");
     }
 }

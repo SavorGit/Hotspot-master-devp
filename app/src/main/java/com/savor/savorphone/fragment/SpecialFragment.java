@@ -28,6 +28,7 @@ import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
+import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.widget.ProgressBarView;
 
 import java.util.List;
@@ -277,6 +278,16 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
             intent.putExtra("item",item);
             intent.setClass(mContext,SubjectActivity.class);
             startActivity(intent);
+        }
+    }
+
+    public void share() {
+        if(isAdded()) {
+            if(specialDetail!=null) {
+                ShareManager.getInstance().share(getActivity(),specialDetail.getName(),specialDetail.getTitle(),specialDetail.getImg_url(),"www.baidu.com",null);
+            }else {
+                ShowMessage.showToast(getActivity(),"无法获取专题组信息");
+            }
         }
     }
 }

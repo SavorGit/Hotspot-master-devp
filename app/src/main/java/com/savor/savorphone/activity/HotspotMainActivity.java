@@ -73,6 +73,7 @@ import com.savor.savorphone.utils.ImageCacheUtils;
 import com.savor.savorphone.utils.IntentUtil;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.STIDUtil;
+import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.utils.WifiUtil;
 import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
@@ -252,6 +253,7 @@ public class HotspotMainActivity extends AppCompatActivity
     private RelativeLayout mContentLayout;
     private View mShadeLayer;
     private ImageView mShareBtn;
+    private SpecialFragment mSpecialFragment;
 
     /**
      * 退出背景投屏更新提示语
@@ -396,6 +398,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     private void initIndicator() {
         mProjectionFragment = ProjectionFragment.newInstance();
+        mSpecialFragment = SpecialFragment.newInstance();
         mTitleList.add("投屏");
         mTitleList.add("创富");
         mTitleList.add("生活");
@@ -403,7 +406,7 @@ public class HotspotMainActivity extends AppCompatActivity
         mFragmentList.add(mProjectionFragment);
         mFragmentList.add(WealthLifeFragment.getInstance(101));
         mFragmentList.add(WealthLifeFragment.getInstance(102));
-        mFragmentList.add(SpecialFragment.newInstance());
+        mFragmentList.add(mSpecialFragment);
 
         Bundle bundle = new Bundle();
         bundle.putString("title", "专题");
@@ -580,7 +583,7 @@ public class HotspotMainActivity extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_share:
-
+                mSpecialFragment.share();
                 break;
             case R.id.iv_menu:
                 closeDrawerLayout();
