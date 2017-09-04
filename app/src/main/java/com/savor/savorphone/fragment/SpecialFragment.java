@@ -180,7 +180,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
                     specialDetail = (SpecialDetail) obj;
                     initSpecialDetailViews(specialDetail);
                     if(isAdded()){
-                        showRefreshHintAnimation("更新成功");
+                        showRefreshHintAnimation(getString(R.string.refresh_success));
                     }
                     SavorCacheUtil.getInstance().cacheSpecialDetail(mContext, specialDetail);
                 }

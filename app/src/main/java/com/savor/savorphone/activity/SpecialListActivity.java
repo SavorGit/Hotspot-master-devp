@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
@@ -14,6 +15,8 @@ import com.savor.savorphone.adapter.SpecialListAdapter;
 import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialList;
 import com.savor.savorphone.core.AppApi;
+import com.savor.savorphone.core.ResponseErrorMessage;
+import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.widget.ProgressBarView;
 
@@ -43,6 +46,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         }
     };
     private ProgressBarView mLoadingLayout;
+    private TextView refreshDataHintTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +61,15 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void getData(String id) {
-        currentRefreshState = REFRESH_TYPE_TOP;
-        mLoadingLayout.startLoading();
+        if(mSpecialListAdapter.getCount()==0) {
+            mLoadingLayout.startLoading();
+        }
         AppApi.getSpecialList(this,id,this);
     }
 
     @Override
     public void getViews() {
+        refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
         mSpecialListView = (PullToRefreshListView) findViewById(R.id.ptl_special_list);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mLoadingLayout = (ProgressBarView) findViewById(R.id.pbv_loading);
@@ -88,6 +94,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         mSpecialListView.setOnRefreshListener(onRefreshListener);
         mSpecialListView.setNetworkUnavailableOnClick(this);
         mLoadingLayout.setProgressBarViewClickListener(this);
+        mSpecialListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
     }
 
 
@@ -145,6 +152,16 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    private void showRefreshHintAnimation(final String hint) {
+        refreshDataHintTV.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshDataHintTV.setText(hint);
+                SavorAnimUtil.startListRefreshHintAnimation(refreshDataHintTV);
+            }
+        },500);
+    }
+
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
@@ -158,6 +175,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
                     if(currentRefreshState == REFRESH_TYPE_TOP) {
                         mSpecialListAdapter.setData(list);
                         SavorCacheUtil.getInstance().cacheSpecialList(this,specialList);
+                        showRefreshHintAnimation(getString(R.string.refresh_success));
                     }else {
                         mSpecialListAdapter.addData(list);
                     }
@@ -171,24 +189,34 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     public void onError(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_SPECIAL_LIST_JSON:
-                if(currentRefreshState == REFRESH_TYPE_BOTTOM) {
-                    mSpecialListView.onLoadCompleteNetworkUnavailable(true);
-                }else {
-                    int count = mSpecialListAdapter.getCount();
-                    switch (currentRefreshState) {
-                        case REFRESH_TYPE_BOTTOM:
-                            mSpecialListView.onLoadCompleteNetworkUnavailable(true);
-                            break;
-                        default:
-                            if(count == 0) {
-                                mLoadingLayout.loadFailure();
-                            }else {
-                                mSpecialListView.onLoadComplete(true);
-                                mLoadingLayout.loadSuccess();
-                            }
-                            break;
+                setPtrSuccessComplete();
+                if (obj instanceof ResponseErrorMessage){
+                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+                    String statusCode = String.valueOf(errorMessage.getCode());
+                    if(currentRefreshState == REFRESH_TYPE_TOP) {
+                        if (AppApi.ERROR_TIMEOUT.equals(statusCode)){
+                            showRefreshHintAnimation("数据加载超时");
+                        }else if (AppApi.ERROR_NETWORK_FAILED.equals(statusCode)){
+                            showRefreshHintAnimation("无法连接到网络,请检查网络设置");
+                        }
                     }
                 }
+
+                int count = mSpecialListAdapter.getCount();
+                switch (currentRefreshState) {
+                    case REFRESH_TYPE_BOTTOM:
+                        mSpecialListView.onLoadCompleteNetworkUnavailable(true);
+                        break;
+                    default:
+                        if(count == 0) {
+                            mLoadingLayout.loadFailure();
+                        }else {
+                            mSpecialListView.onLoadComplete(true);
+                            mLoadingLayout.loadSuccess();
+                        }
+                        break;
+                }
+
                 break;
         }
     }
