@@ -1,9 +1,11 @@
 package com.savor.savorphone.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,7 @@ import com.savor.savorphone.widget.ProgressBarView;
 
 import java.util.List;
 
-public class SpecialListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshListView.NetworkUnavailableOnClick, ProgressBarView.ProgressBarViewClickListener {
+public class SpecialListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshListView.NetworkUnavailableOnClick, ProgressBarView.ProgressBarViewClickListener, AdapterView.OnItemClickListener {
     private int currentRefreshState;
     public static final int REFRESH_TYPE_TOP = 1;
     public static final int REFRESH_TYPE_BOTTOM = 2;
@@ -93,6 +95,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         mSpecialListView.setNetworkUnavailableOnClick(this);
         mLoadingLayout.setProgressBarViewClickListener(this);
         mSpecialListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
+        mSpecialListView.setOnItemClickListener(this);
     }
 
 
@@ -238,5 +241,14 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void loadFailure() {
         getData("");
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SpecialList.SpecialListItem item = (SpecialList.SpecialListItem) parent.getItemAtPosition(position);
+        String specialId = item.getId();
+        Intent intent = new Intent(this,SpecialDetailActivity.class);
+        intent.putExtra("id",specialId);
+        startActivity(intent);
     }
 }

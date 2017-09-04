@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_text_list_item"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+
+        <include layout="@layout/layout_head_title" />
+
+        <ScrollView
+            android:id="@+id/sv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/include_special_detail" />
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+
+    <com.savor.savorphone.widget.ProgressBarView
+        android:id="@+id/pbv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</FrameLayout>
