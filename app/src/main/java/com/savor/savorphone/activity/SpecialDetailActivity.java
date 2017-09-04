@@ -22,6 +22,7 @@ import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
+import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.widget.ProgressBarView;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     private SpecialDetail specialDetail;
     private String mSpecialId;
     private ImageView mBackBtn;
+    private ImageView mShareBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void getViews() {
+        mShareBtn = (ImageView) findViewById(R.id.iv_right);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
         mScrollView = (ScrollView) findViewById(R.id.sv_content);
@@ -94,10 +97,14 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mSpecialListView.getLayoutParams();
         params.setMargins(DensityUtil.dip2px(this,15),0,DensityUtil.dip2px(this,15),0);
 
+        mShareBtn.setVisibility(View.VISIBLE);
+        mShareBtn.setImageResource(R.drawable.fenxiang3x);
+        mShareBtn.setOnClickListener(this);
     }
 
     @Override
     public void setListeners() {
+        mShareBtn.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mLoadingPb.setProgressBarViewClickListener(this);
         mSpecialDetailItemAdapter.setOnSpecialItemClickListener(this);
@@ -182,6 +189,11 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_right:
+                if(specialDetail!=null) {
+//                    ShareManager.getInstance().share(this,specialDetail.getTitle(),specialDetail.getImg_url(),specialDetail.get);
+                }
+                break;
             case R.id.iv_left:
                 finish();
                 break;

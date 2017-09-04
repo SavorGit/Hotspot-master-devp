@@ -251,6 +251,7 @@ public class HotspotMainActivity extends AppCompatActivity
     private CategoryPagerAdapter mShadePagerAdapter;
     private RelativeLayout mContentLayout;
     private View mShadeLayer;
+    private ImageView mShareBtn;
 
     /**
      * 退出背景投屏更新提示语
@@ -348,6 +349,7 @@ public class HotspotMainActivity extends AppCompatActivity
         mShadeLayer = findViewById(R.id.shade_layer);
         mContentLayout = (RelativeLayout) findViewById(R.id.include);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mShareBtn = (ImageView) mToolBar.findViewById(R.id.iv_share);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -429,6 +431,7 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void setListeners() {
 //        mShadeLayer.setOnClickListener(this);
+        mShareBtn.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);
         mFeedbackLayout.setOnClickListener(this);
@@ -472,6 +475,13 @@ public class HotspotMainActivity extends AppCompatActivity
                     HashMap<String,String> hashMap = new HashMap<>();
                     hashMap.put(getString(R.string.home_sliding_category),cname);
                     RecordUtils.onEvent(HotspotMainActivity.this,getString(R.string.home_sliding_category),hashMap);
+                }
+
+                Fragment fragment = mFragmentList.get(position);
+                if(fragment instanceof SpecialFragment) {
+                    mShareBtn.setVisibility(View.VISIBLE);
+                }else {
+                    mShareBtn.setVisibility(View.GONE);
                 }
             }
 
@@ -569,6 +579,9 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_share:
+
+                break;
             case R.id.iv_menu:
                 closeDrawerLayout();
                 break;
