@@ -56,118 +56,14 @@ public class CommonListItem implements Serializable {
 
     private boolean isMute=false;
 
-    @Override
-    public String toString() {
-        return "CommonListItem{" +
-                "id='" + id + '\'' +
-                ", artid='" + artid + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                ", state='" + state + '\'' +
-                ", category='" + category + '\'' +
-                ", categoryId='" + categoryId + '\'' +
-                ", title='" + title + '\'' +
-                ", type=" + type +
-                ", acreateTime='" + acreateTime + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", contentURL='" + contentURL + '\'' +
-                ", indexImageUrl='" + indexImageUrl + '\'' +
-                ", videoURL='" + videoURL + '\'' +
-                ", mediaId='" + mediaId + '\'' +
-                ", duration='" + duration + '\'' +
-                ", canplay=" + canplay +
-                ", sourceName='" + sourceName + '\'' +
-                ", name='" + name + '\'' +
-                ", logo='" + logo + '\'' +
-                ", sort_num='" + sort_num + '\'' +
-                ", colid='" + colid + '\'' +
-                ", ucreateTime=" + ucreateTime +
-                ", colTuJi=" + colTuJi +
-                ", order_tag='" + order_tag + '\'' +
-                ", collected=" + collected +
-                ", shareTitle='" + shareTitle + '\'' +
-                ", isMute=" + isMute +
-                '}';
+    private String imgStyle;
+
+    public String getImgStyle() {
+        return imgStyle;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CommonListItem item = (CommonListItem) o;
-
-        if (type != item.type) return false;
-        if (canplay != item.canplay) return false;
-        if (ucreateTime != item.ucreateTime) return false;
-        if (colTuJi != item.colTuJi) return false;
-        if (collected != item.collected) return false;
-        if (isMute != item.isMute) return false;
-        if (id != null ? !id.equals(item.id) : item.id != null) return false;
-        if (artid != null ? !artid.equals(item.artid) : item.artid != null) return false;
-        if (updateTime != null ? !updateTime.equals(item.updateTime) : item.updateTime != null)
-            return false;
-        if (state != null ? !state.equals(item.state) : item.state != null) return false;
-        if (category != null ? !category.equals(item.category) : item.category != null)
-            return false;
-        if (categoryId != null ? !categoryId.equals(item.categoryId) : item.categoryId != null)
-            return false;
-        if (title != null ? !title.equals(item.title) : item.title != null) return false;
-        if (acreateTime != null ? !acreateTime.equals(item.acreateTime) : item.acreateTime != null)
-            return false;
-        if (imageURL != null ? !imageURL.equals(item.imageURL) : item.imageURL != null)
-            return false;
-        if (contentURL != null ? !contentURL.equals(item.contentURL) : item.contentURL != null)
-            return false;
-        if (indexImageUrl != null ? !indexImageUrl.equals(item.indexImageUrl) : item.indexImageUrl != null)
-            return false;
-        if (videoURL != null ? !videoURL.equals(item.videoURL) : item.videoURL != null)
-            return false;
-        if (mediaId != null ? !mediaId.equals(item.mediaId) : item.mediaId != null) return false;
-        if (duration != null ? !duration.equals(item.duration) : item.duration != null)
-            return false;
-        if (sourceName != null ? !sourceName.equals(item.sourceName) : item.sourceName != null)
-            return false;
-        if (name != null ? !name.equals(item.name) : item.name != null) return false;
-        if (logo != null ? !logo.equals(item.logo) : item.logo != null) return false;
-        if (sort_num != null ? !sort_num.equals(item.sort_num) : item.sort_num != null)
-            return false;
-        if (colid != null ? !colid.equals(item.colid) : item.colid != null) return false;
-        if (order_tag != null ? !order_tag.equals(item.order_tag) : item.order_tag != null)
-            return false;
-        return shareTitle != null ? shareTitle.equals(item.shareTitle) : item.shareTitle == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (artid != null ? artid.hashCode() : 0);
-        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (category != null ? category.hashCode() : 0);
-        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + type;
-        result = 31 * result + (acreateTime != null ? acreateTime.hashCode() : 0);
-        result = 31 * result + (imageURL != null ? imageURL.hashCode() : 0);
-        result = 31 * result + (contentURL != null ? contentURL.hashCode() : 0);
-        result = 31 * result + (indexImageUrl != null ? indexImageUrl.hashCode() : 0);
-        result = 31 * result + (videoURL != null ? videoURL.hashCode() : 0);
-        result = 31 * result + (mediaId != null ? mediaId.hashCode() : 0);
-        result = 31 * result + (duration != null ? duration.hashCode() : 0);
-        result = 31 * result + canplay;
-        result = 31 * result + (sourceName != null ? sourceName.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (logo != null ? logo.hashCode() : 0);
-        result = 31 * result + (sort_num != null ? sort_num.hashCode() : 0);
-        result = 31 * result + (colid != null ? colid.hashCode() : 0);
-        result = 31 * result + (int) (ucreateTime ^ (ucreateTime >>> 32));
-        result = 31 * result + colTuJi;
-        result = 31 * result + (order_tag != null ? order_tag.hashCode() : 0);
-        result = 31 * result + collected;
-        result = 31 * result + (shareTitle != null ? shareTitle.hashCode() : 0);
-        result = 31 * result + (isMute ? 1 : 0);
-        return result;
+    public void setImgStyle(String imgStyle) {
+        this.imgStyle = imgStyle;
     }
 
     public String getId() {
@@ -384,5 +280,123 @@ public class CommonListItem implements Serializable {
 
     public void setMute(boolean mute) {
         isMute = mute;
+    }
+
+    @Override
+    public String toString() {
+        return "CommonListItem{" +
+                "id='" + id + '\'' +
+                ", artid='" + artid + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", state='" + state + '\'' +
+                ", category='" + category + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", title='" + title + '\'' +
+                ", type=" + type +
+                ", acreateTime='" + acreateTime + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", contentURL='" + contentURL + '\'' +
+                ", indexImageUrl='" + indexImageUrl + '\'' +
+                ", videoURL='" + videoURL + '\'' +
+                ", mediaId='" + mediaId + '\'' +
+                ", duration='" + duration + '\'' +
+                ", canplay=" + canplay +
+                ", sourceName='" + sourceName + '\'' +
+                ", name='" + name + '\'' +
+                ", logo='" + logo + '\'' +
+                ", sort_num='" + sort_num + '\'' +
+                ", colid='" + colid + '\'' +
+                ", ucreateTime=" + ucreateTime +
+                ", colTuJi=" + colTuJi +
+                ", order_tag='" + order_tag + '\'' +
+                ", collected=" + collected +
+                ", shareTitle='" + shareTitle + '\'' +
+                ", isMute=" + isMute +
+                ", imgStyle='" + imgStyle + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CommonListItem)) return false;
+
+        CommonListItem that = (CommonListItem) o;
+
+        if (type != that.type) return false;
+        if (canplay != that.canplay) return false;
+        if (ucreateTime != that.ucreateTime) return false;
+        if (colTuJi != that.colTuJi) return false;
+        if (collected != that.collected) return false;
+        if (isMute != that.isMute) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (artid != null ? !artid.equals(that.artid) : that.artid != null) return false;
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null)
+            return false;
+        if (state != null ? !state.equals(that.state) : that.state != null) return false;
+        if (category != null ? !category.equals(that.category) : that.category != null)
+            return false;
+        if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null)
+            return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (acreateTime != null ? !acreateTime.equals(that.acreateTime) : that.acreateTime != null)
+            return false;
+        if (imageURL != null ? !imageURL.equals(that.imageURL) : that.imageURL != null)
+            return false;
+        if (contentURL != null ? !contentURL.equals(that.contentURL) : that.contentURL != null)
+            return false;
+        if (indexImageUrl != null ? !indexImageUrl.equals(that.indexImageUrl) : that.indexImageUrl != null)
+            return false;
+        if (videoURL != null ? !videoURL.equals(that.videoURL) : that.videoURL != null)
+            return false;
+        if (mediaId != null ? !mediaId.equals(that.mediaId) : that.mediaId != null) return false;
+        if (duration != null ? !duration.equals(that.duration) : that.duration != null)
+            return false;
+        if (sourceName != null ? !sourceName.equals(that.sourceName) : that.sourceName != null)
+            return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (logo != null ? !logo.equals(that.logo) : that.logo != null) return false;
+        if (sort_num != null ? !sort_num.equals(that.sort_num) : that.sort_num != null)
+            return false;
+        if (colid != null ? !colid.equals(that.colid) : that.colid != null) return false;
+        if (order_tag != null ? !order_tag.equals(that.order_tag) : that.order_tag != null)
+            return false;
+        if (shareTitle != null ? !shareTitle.equals(that.shareTitle) : that.shareTitle != null)
+            return false;
+        return imgStyle != null ? imgStyle.equals(that.imgStyle) : that.imgStyle == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (artid != null ? artid.hashCode() : 0);
+        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + type;
+        result = 31 * result + (acreateTime != null ? acreateTime.hashCode() : 0);
+        result = 31 * result + (imageURL != null ? imageURL.hashCode() : 0);
+        result = 31 * result + (contentURL != null ? contentURL.hashCode() : 0);
+        result = 31 * result + (indexImageUrl != null ? indexImageUrl.hashCode() : 0);
+        result = 31 * result + (videoURL != null ? videoURL.hashCode() : 0);
+        result = 31 * result + (mediaId != null ? mediaId.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        result = 31 * result + canplay;
+        result = 31 * result + (sourceName != null ? sourceName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (logo != null ? logo.hashCode() : 0);
+        result = 31 * result + (sort_num != null ? sort_num.hashCode() : 0);
+        result = 31 * result + (colid != null ? colid.hashCode() : 0);
+        result = 31 * result + (int) (ucreateTime ^ (ucreateTime >>> 32));
+        result = 31 * result + colTuJi;
+        result = 31 * result + (order_tag != null ? order_tag.hashCode() : 0);
+        result = 31 * result + collected;
+        result = 31 * result + (shareTitle != null ? shareTitle.hashCode() : 0);
+        result = 31 * result + (isMute ? 1 : 0);
+        result = 31 * result + (imgStyle != null ? imgStyle.hashCode() : 0);
+        return result;
     }
 }
