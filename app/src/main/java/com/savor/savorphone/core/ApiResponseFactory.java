@@ -35,6 +35,8 @@ import com.savor.savorphone.bean.HotelMapBean;
 import com.savor.savorphone.bean.PictureSetBean;
 import com.savor.savorphone.bean.SmallPlatformByGetIp;
 import com.savor.savorphone.bean.SmashEgg;
+import com.savor.savorphone.bean.SpecialDetail;
+import com.savor.savorphone.bean.SpecialList;
 import com.savor.savorphone.bean.SpecialNameResult;
 import com.savor.savorphone.bean.StartUpSettingsBean;
 import com.savor.savorphone.bean.LastTopList;
@@ -416,7 +418,6 @@ public class ApiResponseFactory {
             case POST_LAST_TOPICLIST_JSON:
                 result = gson.fromJson(info, new TypeToken<LastTopList>() {
                 }.getType());
-
                 break;
             case POST_TEMP_STATISTICS_JSON:
                 result = info;
@@ -523,7 +524,7 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_SPECIAL_LIST_JSON:
-                result = gson.fromJson(info, new TypeToken<CommonListResult>() {
+                result = gson.fromJson(info, new TypeToken<SpecialList>() {
                 }.getType());
                 break;
             case POST_CONTENT_IS_ONLINE_JSON:
@@ -559,6 +560,9 @@ public class ApiResponseFactory {
             case POST_TV_RECOMMEND_JSON:
                 result = gson.fromJson(info,new TypeToken<List<CommonListItem>>(){
                 }.getType());
+                break;
+            case POST_SPECIAL_DETAIL_JSON:
+                result = gson.fromJson(info,new TypeToken<SpecialDetail>(){}.getType());
                 break;
             default:
                 break;

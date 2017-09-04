@@ -25,7 +25,7 @@ public class ConstantValues {
     /**预发布环境桶名*/
     public static final String BUCKET_PRODUCT = "redian-development";
     /**oss桶名称*/
-    public static final String BUCKET_NAME = BUCKET_RELESE;
+    public static final String BUCKET_NAME = BUCKET_PRODUCT;
 
     public static final String APP_KEY = "savor4321abcd1234";
     /**测试环境H5帮助页地址**/

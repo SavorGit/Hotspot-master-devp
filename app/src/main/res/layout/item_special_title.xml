@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ll_parent_layout"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/tv_title"
         android:text="《财经周刊》思念三次出击安邦"
         android:textSize="16sp"
         android:textColor="@color/color_f0922c3e"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <include
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
         layout="@layout/layout_divider_line"
         />
 </LinearLayout>

@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ll_parent_layout"
     android:orientation="vertical">
     <TextView
-        android:lineSpacingExtra="10dp"
+        android:lineSpacingExtra="5dp"
         android:text="2015年，财经周刊特别报道《权利猎手郭文贵》，郭文贵层扳倒刘志华，夺回盘古大观现在逃亡海外。2015年，财经周刊特别报道《权利猎手郭文贵》，郭文贵层扳倒刘志华，夺回盘古大观现在逃亡海外。"
         android:textColor="@color/color_575757"
         android:textSize="15sp"
