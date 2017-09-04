@@ -16,7 +16,9 @@ import com.savor.savorphone.bean.PictureSetBean;
 import com.savor.savorphone.interfaces.OnChildMovingListener;
 import com.savor.savorphone.utils.MulitPointTouchListener;
 import com.savor.savorphone.widget.MatrixImageView;
+import com.savor.savorphone.widget.PhotoSetView;
 import com.savor.savorphone.widget.PhotoView;
+import com.savor.savorphone.widget.imageshow.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.List;

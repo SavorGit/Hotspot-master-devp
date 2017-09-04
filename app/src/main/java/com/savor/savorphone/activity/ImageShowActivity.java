@@ -45,15 +45,15 @@ public class ImageShowActivity extends BaseActivity implements ApiRequestListene
     private CommonListItem voditem;
     //文章ID
     private String content_id;
-    private List<PictureSetBean> pictureSetBeanList = new ArrayList<>();
+    private List<PictureSetBean> pictureSetBeanList = new ArrayList<PictureSetBean>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details_imageshow);
-		initView();
         getIntentData();
-		initViewPager();
+		initView();
+
         getDataFromServer();
 	}
 
@@ -80,32 +80,33 @@ public class ImageShowActivity extends BaseActivity implements ApiRequestListene
 		image_pager = (ImageShowViewPager) findViewById(R.id.image_pager);
 		page_number = (TextView) findViewById(R.id.page_number);
 		download = (ImageView) findViewById(R.id.download);
-		image_pager.setOnPageChangeListener(new OnPageChangeListener() {
-			
-			@Override
-			public void onPageSelected(int arg0) {
-				page_number.setText((arg0 + 1) + "/" + pictureSetBeanList.size());
-			}
-			
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+
 	}
 
 	private void initViewPager() {
-//		if (imgsUrl != null && imgsUrl.size() != 0) {
+		if (pictureSetBeanList != null && pictureSetBeanList.size()> 0) {
 			mAdapter = new ImagePagerAdapter(getApplicationContext(), pictureSetBeanList);
 			image_pager.setAdapter(mAdapter);
-//		}
+		}
+        image_pager.setOnPageChangeListener(new OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int arg0) {
+                page_number.setText((arg0 + 1) + "/" + pictureSetBeanList.size());
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 	}
 
 	@Override
@@ -212,9 +213,10 @@ public class ImageShowActivity extends BaseActivity implements ApiRequestListene
         if (pictureSetBeanList==null||pictureSetBeanList.size()==0){
             return;
         }
-        if (mAdapter!=null){
-            mAdapter.setData(pictureSetBeanList);
-        }
+    //    if (mAdapter!=null){
+            initViewPager();
+           // mAdapter.setData(pictureSetBeanList);
+    //    }
         //pageNumLayout.setVisibility(View.VISIBLE);
         page_number.setText("1" + "/" + pictureSetBeanList.size());
         //bottomPageTotalTV.setText(pictureSetBeanList.size()+"");
