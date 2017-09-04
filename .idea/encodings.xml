@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/savor/savorphone/activity/ImageShowActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/savor/savorphone/adapter/ImagePagerAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/savor/savorphone/utils/Options.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/savor/savorphone/widget/imageshow/TouchImageView.java" charset="UTF-8" />
+  </component>
+</project>

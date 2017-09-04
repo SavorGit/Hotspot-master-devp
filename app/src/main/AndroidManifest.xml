@@ -148,6 +148,12 @@
             android:screenOrientation="sensor"
             android:theme="@style/Dialog_Fullscreen" />
         <activity
+            android:name=".activity.ImageShowActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/Dialog_Fullscreen"
+            android:screenOrientation="sensor" />
+
+        <activity
             android:name=".activity.ImageCollectionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor"
