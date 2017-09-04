@@ -31,7 +31,7 @@ public class WealthLifeAdapter extends BaseAdapter{
     /**图文*/
     private final int TYPE_TEXT_IMAGE = 0;
     /**图文*/
-    private final int TYPE_TEXT_IMAGE_BIG = 4;
+    private final int TYPE_TEXT_IMAGE_BIG = 2;
     /**视频*/
     private final int TYPE_VIDEO = 1;
     public WealthLifeAdapter(Context mcontext,List<CommonListItem> listItems){
@@ -76,7 +76,7 @@ public class WealthLifeAdapter extends BaseAdapter{
             case 0:
             case 1:
                 if ("2".equals(imgStyle)) {
-                    viewType =TYPE_TEXT_IMAGE_BIG;
+                    viewType = TYPE_TEXT_IMAGE_BIG;
                 }else {
                     viewType = TYPE_TEXT_IMAGE;
                 }
