@@ -74,8 +74,9 @@ public class ImageShowViewPager extends ViewPager {
 		}
 
 		float[] difference = handleMotionEvent(event);
+		boolean sr = mCurrentView.pagerCanScroll();
 
-		if (mCurrentView.pagerCanScroll()) {
+		if (sr) {
 			return super.onInterceptTouchEvent(event);
 		} else {
 			if (difference != null && mCurrentView.onRightSide

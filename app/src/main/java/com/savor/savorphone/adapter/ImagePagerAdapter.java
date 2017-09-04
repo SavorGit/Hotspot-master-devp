@@ -53,11 +53,11 @@ public class ImagePagerAdapter extends PagerAdapter {
 		this.notifyDataSetChanged();
 	}
 
-//	@Override
-//	public void setPrimaryItem(ViewGroup container, int position, Object object) {
-//		super.setPrimaryItem(container, position, object);
-//		((ImageShowViewPager) container).mCurrentView = ((TouchImageView) ((View)object).findViewById(R.id.full_image));
-//	}
+	@Override
+	public void setPrimaryItem(ViewGroup container, int position, Object object) {
+		super.setPrimaryItem(container, position, object);
+		((ImageShowViewPager) container).mCurrentView = ((TouchImageView) ((View)object).findViewById(R.id.full_image));
+	}
 	
 	@Override
 	public int getCount() {
@@ -79,24 +79,22 @@ public class ImagePagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container,final int position) {
 
 
+		View view = inflater.from(context).inflate(R.layout.details_imageshow_item, null);
+		full_image = (TouchImageView)view.findViewById(R.id.full_image);
 		PictureSetBean pictureSet = list.get(position);
-		//PhotoView photoView = new PhotoView(container.getContext());
-		TouchImageView photoView = new TouchImageView(container.getContext());
-		//ImageView photoImg = (ImageView) view.findViewById(R.id.picture);
+//		ViewGroup parent = (ViewGroup) full_image.getParent();
+//		if (null != parent) {
+//			parent.removeAllViews();
+//		}
 		Glide.with(context)
 				.load(pictureSet.getPic_url())
 				.placeholder(R.drawable.kong_mrjz)
 				.error(R.drawable.kong_mrjz)
 				.crossFade()
-				.into(photoView);
-		container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-//		ViewGroup parent = (ViewGroup) full_image.getParent();
-//		if (null != parent) {
-//			parent.removeAllViews();
-//		}
-		//progress_text.setText(String.valueOf(position));
-		return photoView;
+				.into(full_image);
+		full_image.setBackgroundResource(R.drawable.beidishipinbg);
+		((ViewPager) container).addView(view);
+		return view;
 	}
 
 	@Override
