@@ -1,5 +1,6 @@
 package com.savor.savorphone.fragment;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
+import com.savor.savorphone.interfaces.CopyCallBack;
+import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.utils.ShareManager;
@@ -36,7 +39,7 @@ import java.util.List;
 /**
  * 专题组详情页
  */
-public class SpecialFragment extends BaseFragment implements View.OnClickListener, ProgressBarView.ProgressBarViewClickListener ,PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener {
+public class SpecialFragment extends BaseFragment implements View.OnClickListener, ProgressBarView.ProgressBarViewClickListener ,PullToRefreshBase.OnRefreshListener, SpecialDetailItemAdapter.OnSpecialItemClickListener, CopyCallBack {
     public static final float IMAGE_SCALE = 484/750f;
     private Context mContext;
     private static final String TAG = "SpecialFragment";
@@ -284,10 +287,21 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     public void share() {
         if(isAdded()) {
             if(specialDetail!=null) {
-                ShareManager.getInstance().share(getActivity(),specialDetail.getName(),specialDetail.getTitle(),specialDetail.getImg_url(),"www.baidu.com",null);
+                ShareManager.getInstance().setCategory_id("1");
+                ShareManager.getInstance().setContent_id(specialDetail.getId());
+                String title = "小热点| "+specialDetail.getTitle();
+                String text = "小热点| "+specialDetail.getTitle();
+                ShareManager.getInstance().share(getActivity(),text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
             }else {
                 ShowMessage.showToast(getActivity(),"无法获取专题组信息");
             }
         }
+    }
+
+    @Override
+    public void copyLink() {
+        ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(ConstantValues.addH5ShareParams(specialDetail.getContentUrl()));
+        ShowMessage.showToast(mContext,"复制完毕");
     }
 }

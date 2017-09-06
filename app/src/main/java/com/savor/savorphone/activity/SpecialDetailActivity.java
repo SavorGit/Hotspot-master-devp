@@ -24,6 +24,7 @@ import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.interfaces.CopyCallBack;
+import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.utils.ShareManager;
@@ -195,7 +196,11 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
         switch (v.getId()) {
             case R.id.iv_right:
                 if(specialDetail!=null) {
-                    ShareManager.getInstance().share(this,specialDetail.getName(),specialDetail.getTitle(),specialDetail.getImg_url(),"www.baidu.com",this);
+                    ShareManager.getInstance().setCategory_id("1");
+                    ShareManager.getInstance().setContent_id(specialDetail.getId());
+                    String title = "小热点| "+specialDetail.getTitle();
+                    String text = "小热点| "+specialDetail.getTitle();
+                    ShareManager.getInstance().share(this,text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
                 }
                 break;
             case R.id.iv_left:
@@ -206,8 +211,8 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void copyLink() {
-//        ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-//        cmb.setText(voditem.getContentURL());
-//        ShowMessage.showToast(mContext,"复制完毕");
+        ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(ConstantValues.addH5ShareParams(specialDetail.getContentUrl()));
+        ShowMessage.showToast(mContext,"复制完毕");
     }
 }
