@@ -23,8 +23,8 @@ import com.savor.savorphone.widget.ProgressBarView;
 import java.util.List;
 
 public class SpecialListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshListView.NetworkUnavailableOnClick, ProgressBarView.ProgressBarViewClickListener, AdapterView.OnItemClickListener {
-    private int currentRefreshState;
     public static final int REFRESH_TYPE_TOP = 1;
+    private int currentRefreshState = REFRESH_TYPE_TOP;
     public static final int REFRESH_TYPE_BOTTOM = 2;
     private static final int HEAD_REFRESH = 10101;
     private static final int BOTTOM_REFRESH = 10102;
@@ -56,7 +56,6 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         getViews();
         setViews();
         setListeners();
-
         getData("");
     }
 
@@ -124,7 +123,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
             SpecialList.SpecialListItem item = data.get(data.size()-1);
             Message message = Message.obtain();
             message.what = BOTTOM_REFRESH;
-            message.obj = item.getId();
+            message.obj = item.getUpdateTime();
             handler.sendMessage(message);
         }
     }
