@@ -20,6 +20,7 @@ import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.savor.savorphone.R;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
+import com.savor.savorphone.bean.CommonListItem;
 import com.savor.savorphone.bean.SpecialDetail;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.ResponseErrorMessage;
@@ -55,11 +56,11 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_special_detail);
-        handleIntent();
-        getViews();
-        setViews();
-        setListeners();
-        getData();
+//        handleIntent();
+//        getViews();
+//        setViews();
+//        setListeners();
+//        getData();
     }
 
     private void handleIntent() {
@@ -76,35 +77,35 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void getViews() {
-        mShareBtn = (ImageView) findViewById(R.id.iv_right);
-        mBackBtn = (ImageView) findViewById(R.id.iv_left);
-        refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
-        mScrollView = (ScrollView) findViewById(R.id.sv_content);
-        mLoadingPb = (ProgressBarView) findViewById(R.id.pbv_loading);
-        mSpeicalIv = (ImageView) findViewById(R.id.iv_special_pic);
-        mSpecialTitleTv = (TextView) findViewById(R.id.tv_special_title);
-        mSpecialDesTv = (TextView) findViewById(R.id.tv_special_desc);
-        mSpecialListView = (RecyclerView) findViewById(R.id.rlv_special_item);
+//        mShareBtn = (ImageView) findViewById(R.id.iv_right);
+//        mBackBtn = (ImageView) findViewById(R.id.iv_left);
+//        refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
+//        mScrollView = (ScrollView) findViewById(R.id.sv_content);
+//        mLoadingPb = (ProgressBarView) findViewById(R.id.pbv_loading);
+//        mSpeicalIv = (ImageView) findViewById(R.id.iv_special_pic);
+//        mSpecialTitleTv = (TextView) findViewById(R.id.tv_special_title);
+//        mSpecialDesTv = (TextView) findViewById(R.id.tv_special_desc);
+//        mSpecialListView = (RecyclerView) findViewById(R.id.rlv_special_item);
     }
 
     @Override
     public void setViews() {
-        int screenWidth = DensityUtil.getScreenWidth(mContext);
-        float height = screenWidth * IMAGE_SCALE;
-        ViewGroup.LayoutParams layoutParams = mSpeicalIv.getLayoutParams();
-        layoutParams.height = (int) height;
-
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-        mSpecialListView.setLayoutManager(manager);
-        mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
-        mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
-
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mSpecialListView.getLayoutParams();
-        params.setMargins(DensityUtil.dip2px(this,15),0,DensityUtil.dip2px(this,15),0);
-
-        mShareBtn.setVisibility(View.VISIBLE);
-        mShareBtn.setImageResource(R.drawable.fenxiang3x);
-        mShareBtn.setOnClickListener(this);
+//        int screenWidth = DensityUtil.getScreenWidth(mContext);
+//        float height = screenWidth * IMAGE_SCALE;
+//        ViewGroup.LayoutParams layoutParams = mSpeicalIv.getLayoutParams();
+//        layoutParams.height = (int) height;
+//
+//        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+//        mSpecialListView.setLayoutManager(manager);
+//        mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
+//        mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
+//
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mSpecialListView.getLayoutParams();
+//        params.setMargins(DensityUtil.dip2px(this,15),0,DensityUtil.dip2px(this,15),0);
+//
+//        mShareBtn.setVisibility(View.VISIBLE);
+//        mShareBtn.setImageResource(R.drawable.fenxiang3x);
+//        mShareBtn.setOnClickListener(this);
     }
 
     @Override
@@ -161,7 +162,18 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void onSpecialItemClick(int viewType, SpecialDetail.SpecialDetailTypeBean bean) {
-
+        if(viewType == SpecialDetailItemAdapter.TYPE_IMAGE_TEXT) {
+            CommonListItem item = new CommonListItem();
+            item.setArtid(bean.getArtid());
+            item.setTitle(bean.getTitle());
+            item.setContentURL(bean.getContentURL());
+            item.setImageURL(bean.getImageURL());
+            Intent intent = new Intent();
+            intent.putExtra("type","subject");
+            intent.putExtra("item",item);
+            intent.setClass(mContext,SubjectActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
