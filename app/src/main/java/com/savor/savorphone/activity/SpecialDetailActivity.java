@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     private ImageView mShareBtn;
     private PullToRefreshListView mRefreshListView;
     private View mHeaderView;
+    private LinearLayout mShareLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void getViews() {
+        mShareLayout = (LinearLayout) findViewById(R.id.ll_share);
         mShareBtn = (ImageView) findViewById(R.id.iv_right);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
@@ -110,12 +113,14 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
         mShareBtn.setVisibility(View.VISIBLE);
         mShareBtn.setImageResource(R.drawable.fenxiang3x);
-        mShareBtn.setOnClickListener(this);
+//        mShareBtn.setOnClickListener(this);
+        int padding = DensityUtil.dip2px(this,10);
+        mShareBtn.setPadding(padding,padding,padding,padding);
     }
 
     @Override
     public void setListeners() {
-        mShareBtn.setOnClickListener(this);
+        mShareLayout.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mLoadingPb.setProgressBarViewClickListener(this);
         mSpecialDetailItemAdapter.setOnSpecialItemClickListener(this);
@@ -143,6 +148,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
         String desc = specialDetail.getDesc();
         mSpecialDesTv.setText(desc);
+
     }
 
     @Override
@@ -206,7 +212,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_right:
+            case R.id.ll_share:
                 if(specialDetail!=null) {
                     ShareManager.getInstance().setCategory_id("1");
                     ShareManager.getInstance().setContent_id(specialDetail.getId());

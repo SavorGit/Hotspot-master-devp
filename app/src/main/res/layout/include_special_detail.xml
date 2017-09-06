@@ -22,8 +22,9 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="20dp"
+        android:textStyle="bold"
         android:textColor="@color/color_text_black"
-        android:textSize="22sp" />
+        android:textSize="21sp" />
 
     <TextView
         android:id="@+id/tv_special_desc"
@@ -35,7 +36,7 @@
         android:paddingRight="15dp"
         android:paddingTop="20dp"
         android:textColor="@color/color_575757"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <!--<android.support.v7.widget.RecyclerView-->
         <!--android:id="@+id/rlv_special_item"-->

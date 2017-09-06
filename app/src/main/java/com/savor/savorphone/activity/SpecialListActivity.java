@@ -246,7 +246,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SpecialList.SpecialListItem item = (SpecialList.SpecialListItem) parent.getItemAtPosition(position);
-        String specialId = item.getId();
+        String specialId = item.getUpdateTime();
         Intent intent = new Intent(this,SpecialDetailActivity.class);
         intent.putExtra("id",specialId);
         startActivity(intent);

@@ -60,7 +60,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:singleLine="true"
+                android:maxLines="2"
                 android:text="神仙打架：安邦 PK 财新 谁能笑到最后"
                 android:textColor="@color/white"
                 android:textSize="19sp" />

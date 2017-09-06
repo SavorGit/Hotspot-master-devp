@@ -35,9 +35,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
             <ImageView
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/iv_share"
                 android:visibility="gone"
-                android:layout_marginRight="15dp"
                 android:src="@drawable/fenxiang3x"
                 android:layout_gravity="right"
                 android:layout_width="wrap_content"
