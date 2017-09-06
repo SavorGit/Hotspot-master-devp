@@ -50,6 +50,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_marginRight="10dp"
                     android:id="@+id/content_small_source"
                     android:layout_width="wrap_content"
