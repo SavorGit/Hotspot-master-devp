@@ -165,111 +165,111 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
                     break;
             }
 
-            final SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean = (SpecialDetail.SpecialDetailTypeBean) getItem(position);
-            ViewGroup.LayoutParams layoutParams;
-            int itemCount;
-            switch (itemViewType) {
-                case TYPE_IMAGE:
-                    String img_url = specialDetailTypeBean.getImg_url();
-                    Glide.with(mContext)
-                            .load(img_url)
-                            .placeholder(R.drawable.kong_mrjz)
-                            .dontAnimate()
-                            .into(imageHolder.imageView);
+        }
 
-                    layoutParams = imageHolder.dividerView.getLayoutParams();
-                    itemCount = getCount();
-                    if(itemCount>1&&position<itemCount-1) {
-                        handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-                    }
+        final SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean = (SpecialDetail.SpecialDetailTypeBean) getItem(position);
+        ViewGroup.LayoutParams layoutParams;
+        int itemCount;
+        switch (itemViewType) {
+            case TYPE_IMAGE:
+                String img_url = specialDetailTypeBean.getImg_url();
+                Glide.with(mContext)
+                        .load(img_url)
+                        .placeholder(R.drawable.kong_mrjz)
+                        .dontAnimate()
+                        .into(imageHolder.imageView);
 
-                    imageHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(mOnItemClickListener!=null) {
-                                mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-                            }
+                layoutParams = imageHolder.dividerView.getLayoutParams();
+                itemCount = getCount();
+                if(itemCount>1&&position<itemCount-1) {
+                    handleDividerHeight(position, specialDetailTypeBean, layoutParams);
+                }
+
+                imageHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mOnItemClickListener!=null) {
+                            mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
                         }
-                    });
-                    break;
-                case TYPE_TEXT:
-                    String desc = specialDetailTypeBean.getStext();
-                    textHolder.descTv.setText(desc);
+                    }
+                });
+                break;
+            case TYPE_TEXT:
+                String desc = specialDetailTypeBean.getStext();
+                textHolder.descTv.setText(desc);
                     /*文字（简介）
                     1、图片：30px
                     2、文字：50px
                     3、文章：50px
                     4、小标题：50px*/
-                    layoutParams = textHolder.dividerView.getLayoutParams();
-                    itemCount = getCount();
-                    if(itemCount>1&&position<itemCount-1) {
-                        handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-                    }
+                layoutParams = textHolder.dividerView.getLayoutParams();
+                itemCount = getCount();
+                if(itemCount>1&&position<itemCount-1) {
+                    handleDividerHeight(position, specialDetailTypeBean, layoutParams);
+                }
 
-                    textHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(mOnItemClickListener!=null) {
-                                mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-                            }
+                textHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mOnItemClickListener!=null) {
+                            mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
                         }
-                    });
-                    break;
-                case TYPE_TITLE:
-                    String stitle = specialDetailTypeBean.getStitle();
-                    titleHolder.titleView.setText(stitle);
+                    }
+                });
+                break;
+            case TYPE_TITLE:
+                String stitle = specialDetailTypeBean.getStitle();
+                titleHolder.titleView.setText(stitle);
                     /*小标题
                     1、图片：40px
                     2、文字：40px
                     3、文章：40px
                     4、标题：50px*/
-                    layoutParams = titleHolder.divider.getLayoutParams();
-                    itemCount = getCount();
-                    if(itemCount>1&&position<itemCount-1) {
-                        handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-                    }
+                layoutParams = titleHolder.divider.getLayoutParams();
+                itemCount = getCount();
+                if(itemCount>1&&position<itemCount-1) {
+                    handleDividerHeight(position, specialDetailTypeBean, layoutParams);
+                }
 
-                    titleHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(mOnItemClickListener!=null) {
-                                mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-                            }
+                titleHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mOnItemClickListener!=null) {
+                            mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
                         }
-                    });
-                    break;
-                case TYPE_IMAGE_TEXT:
-                    String imageURL = specialDetailTypeBean.getImageURL();
-                    String title = specialDetailTypeBean.getTitle();
-                    String sourceName = specialDetailTypeBean.getSourceName();
-                    String updateTime = specialDetailTypeBean.getUpdateTime();
-                    Glide.with(mContext).load(imageURL).placeholder(R.drawable.kong_mrjz).dontAnimate().into(imageTextHolder.content_small_img);
-                    imageTextHolder.content_small_title.setText(title);
-                    imageTextHolder.content_small_source.setText(sourceName);
-                    imageTextHolder.content_small_time.setText(updateTime);
+                    }
+                });
+                break;
+            case TYPE_IMAGE_TEXT:
+                String imageURL = specialDetailTypeBean.getImageURL();
+                String title = specialDetailTypeBean.getTitle();
+                String sourceName = specialDetailTypeBean.getSourceName();
+                String updateTime = specialDetailTypeBean.getUpdateTime();
+                Glide.with(mContext).load(imageURL).placeholder(R.drawable.kong_mrjz).dontAnimate().into(imageTextHolder.content_small_img);
+                imageTextHolder.content_small_title.setText(title);
+                imageTextHolder.content_small_source.setText(sourceName);
+                imageTextHolder.content_small_time.setText(updateTime);
 
                     /*文章(图文）
                     1、图片：40px
                     2、文字：50px
                     3、文章：10px
                     4、小标题：50px*/
-                    layoutParams = imageTextHolder.dividerView.getLayoutParams();
-                    itemCount = getCount();
-                    if(itemCount>1&&position<itemCount-1) {
-                        handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-                    }
+                layoutParams = imageTextHolder.dividerView.getLayoutParams();
+                itemCount = getCount();
+                if(itemCount>1&&position<itemCount-1) {
+                    handleDividerHeight(position, specialDetailTypeBean, layoutParams);
+                }
 
-                    imageTextHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(mOnItemClickListener!=null) {
-                                mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-                            }
+                imageTextHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mOnItemClickListener!=null) {
+                            mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
                         }
-                    });
-                    break;
-            }
-
+                    }
+                });
+                break;
         }
         return convertView;
     }

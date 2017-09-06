@@ -35,12 +35,12 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void handleMessage(Message msg) {
             int what = msg.what;
-            String id = (String) msg.obj;
+            String update_time = (String) msg.obj;
             switch (what){
                 case HEAD_REFRESH:
                     // listItems.clear();
                 case BOTTOM_REFRESH:
-                    getData(id);
+                    getData(update_time);
                     break;
             }
         }
@@ -59,11 +59,11 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         getData("");
     }
 
-    private void getData(String id) {
+    private void getData(String update_time) {
         if(mSpecialListAdapter.getCount()==0) {
             mLoadingLayout.startLoading();
         }
-        AppApi.getSpecialList(this,id,this);
+        AppApi.getSpecialList(this,update_time,this);
     }
 
     @Override

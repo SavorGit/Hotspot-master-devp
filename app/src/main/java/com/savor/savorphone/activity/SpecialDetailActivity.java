@@ -171,14 +171,33 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
         if(viewType == SpecialDetailItemAdapter.TYPE_IMAGE_TEXT) {
             CommonListItem item = new CommonListItem();
             item.setArtid(bean.getArtid());
-            item.setTitle(bean.getTitle());
-            item.setContentURL(bean.getContentURL());
             item.setImageURL(bean.getImageURL());
-            Intent intent = new Intent();
-            intent.putExtra("type","subject");
-            intent.putExtra("item",item);
-            intent.setClass(mContext,SubjectActivity.class);
-            startActivity(intent);
+            item.setContentURL(bean.getContentURL());
+            item.setAcreateTime(bean.getCreateTime());
+            item.setId(bean.getArtid());
+            if(item!=null) {
+                int type = Integer.valueOf(item.getType());
+                switch (type){
+                    case 0:
+                    case 1:
+                        item.setCategoryId(item.getCategoryId());
+                        Intent intent = new Intent(mContext, ImageTextActivity.class);
+                        intent.putExtra("item",item);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(mContext, PictureSetActivity.class);
+                        intent.putExtra("voditem",item);
+                        intent.putExtra("content_id",item.getArtid());
+                        intent.putExtra("category_id",item.getCategoryId());
+                        startActivity(intent);
+                        break;
+                    case 3:
+                    case 4:
+                        VideoPlayVODNotHotelActivity.startVODVideoActivity(this,item);
+                        break;
+                }
+            }
         }
     }
 
