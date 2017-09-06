@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.common.api.utils.DensityUtil;
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.savorphone.R;
 import com.savor.savorphone.adapter.SpecialDetailItemAdapter;
 import com.savor.savorphone.bean.CommonListItem;
@@ -44,23 +45,24 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     private ImageView mSpeicalIv;
     private TextView mSpecialTitleTv;
     private TextView mSpecialDesTv;
-    private RecyclerView mSpecialListView;
     private SpecialDetailItemAdapter mSpecialDetailItemAdapter;
     private Handler handler = new Handler();
     private SpecialDetail specialDetail;
     private String mSpecialId;
     private ImageView mBackBtn;
     private ImageView mShareBtn;
+    private PullToRefreshListView mRefreshListView;
+    private View mHeaderView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_special_detail);
-//        handleIntent();
-//        getViews();
-//        setViews();
-//        setListeners();
-//        getData();
+        handleIntent();
+        getViews();
+        setViews();
+        setListeners();
+        getData();
     }
 
     private void handleIntent() {
@@ -69,7 +71,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     }
 
     private void getData() {
-        if (mSpecialListView.getChildCount() == 0) {
+        if (mSpecialDetailItemAdapter.getCount() == 0) {
             mLoadingPb.startLoading();
         }
         AppApi.getSpecialDetail(mContext, this, mSpecialId);
@@ -77,35 +79,38 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void getViews() {
-//        mShareBtn = (ImageView) findViewById(R.id.iv_right);
-//        mBackBtn = (ImageView) findViewById(R.id.iv_left);
-//        refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
-//        mScrollView = (ScrollView) findViewById(R.id.sv_content);
-//        mLoadingPb = (ProgressBarView) findViewById(R.id.pbv_loading);
-//        mSpeicalIv = (ImageView) findViewById(R.id.iv_special_pic);
-//        mSpecialTitleTv = (TextView) findViewById(R.id.tv_special_title);
-//        mSpecialDesTv = (TextView) findViewById(R.id.tv_special_desc);
-//        mSpecialListView = (RecyclerView) findViewById(R.id.rlv_special_item);
+        mShareBtn = (ImageView) findViewById(R.id.iv_right);
+        mBackBtn = (ImageView) findViewById(R.id.iv_left);
+        refreshDataHintTV = (TextView) findViewById(R.id.tv_refresh_data_hint);
+        mRefreshListView = (PullToRefreshListView) findViewById(R.id.pts_special_detail);
+        mLoadingPb = (ProgressBarView) findViewById(R.id.pbv_loading);
+
+        initHeaderView();
+    }
+
+    private void initHeaderView() {
+        mHeaderView = View.inflate(mContext, R.layout.include_special_detail,null);
+        mSpeicalIv = (ImageView) mHeaderView.findViewById(R.id.iv_special_pic);
+        mSpecialTitleTv = (TextView) mHeaderView.findViewById(R.id.tv_special_title);
+        mSpecialDesTv = (TextView) mHeaderView.findViewById(R.id.tv_special_desc);
+
     }
 
     @Override
     public void setViews() {
-//        int screenWidth = DensityUtil.getScreenWidth(mContext);
-//        float height = screenWidth * IMAGE_SCALE;
-//        ViewGroup.LayoutParams layoutParams = mSpeicalIv.getLayoutParams();
-//        layoutParams.height = (int) height;
-//
-//        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-//        mSpecialListView.setLayoutManager(manager);
-//        mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
-//        mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
-//
-//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mSpecialListView.getLayoutParams();
-//        params.setMargins(DensityUtil.dip2px(this,15),0,DensityUtil.dip2px(this,15),0);
-//
-//        mShareBtn.setVisibility(View.VISIBLE);
-//        mShareBtn.setImageResource(R.drawable.fenxiang3x);
-//        mShareBtn.setOnClickListener(this);
+        int screenWidth = DensityUtil.getScreenWidth(mContext);
+        float height = screenWidth * IMAGE_SCALE;
+        ViewGroup.LayoutParams layoutParams = mSpeicalIv.getLayoutParams();
+        layoutParams.height = (int) height;
+
+        mRefreshListView.setMode(PullToRefreshBase.Mode.DISABLED);
+        mSpecialDetailItemAdapter = new SpecialDetailItemAdapter(mContext);
+        mRefreshListView.setAdapter(mSpecialDetailItemAdapter);
+        mRefreshListView.getRefreshableView().addHeaderView(mHeaderView);
+
+        mShareBtn.setVisibility(View.VISIBLE);
+        mShareBtn.setImageResource(R.drawable.fenxiang3x);
+        mShareBtn.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +123,16 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     private void initSpecialDetailViews(SpecialDetail specialDetail) {
         String img_url = specialDetail.getImg_url();
+        initHeaderView(specialDetail, img_url);
+
+        List<SpecialDetail.SpecialDetailTypeBean> list = specialDetail.getList();
+        if (list != null && list.size() > 0) {
+            mSpecialDetailItemAdapter.setData(list);
+        }
+
+    }
+
+    private void initHeaderView(SpecialDetail specialDetail, String img_url) {
         Glide.with(mContext)
                 .load(img_url)
                 .placeholder(R.drawable.kong_mrjz)
@@ -128,21 +143,6 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
         String desc = specialDetail.getDesc();
         mSpecialDesTv.setText(desc);
-
-        List<SpecialDetail.SpecialDetailTypeBean> list = specialDetail.getList();
-        if (list != null && list.size() > 0) {
-            mSpecialDetailItemAdapter.setData(list);
-        }
-        mSpecialListView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSpecialListView.setFocusable(false);
-                mSpecialListView.setFocusableInTouchMode(false);
-                mScrollView.requestFocus();
-                mScrollView.setFocusable(true);
-                mScrollView.scrollTo(0, 0);
-            }
-        }, 50);
     }
 
     @Override
@@ -157,7 +157,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void loadFailure() {
-
+        getData();
     }
 
     @Override

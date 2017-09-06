@@ -14,23 +14,12 @@
 
         <include layout="@layout/layout_head_title" />
 
-        <ScrollView
-            android:id="@+id/sv_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <include layout="@layout/include_special_detail" />
-            </LinearLayout>
-        </ScrollView>
-
-
+        <include
+            layout="@layout/fragment_special"
+            />
     </LinearLayout>
+
+
 
     <com.savor.savorphone.widget.ProgressBarView
         android:id="@+id/pbv_loading"
