@@ -267,7 +267,8 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 
 	@Override
 	public void initBindcodeResult() {
-
+		String ssid = mSession.getSsid();
+		ShowMessage.showToast(getContext(),ssid+"连接成功，可以投屏");
 	}
 
 	@Override

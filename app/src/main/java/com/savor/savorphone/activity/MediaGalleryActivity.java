@@ -1026,6 +1026,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initBindcodeResult() {
+        super.initBindcodeResult();
         if(mCurrentProType == TYPE_PRO_SLIDES) {
             small = 1;
             force = 0;

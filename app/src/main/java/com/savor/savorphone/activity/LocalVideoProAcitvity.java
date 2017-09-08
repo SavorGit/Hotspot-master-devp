@@ -836,7 +836,7 @@ public class LocalVideoProAcitvity extends BaseProActivity implements
 
     @Override
     public void initBindcodeResult() {
-        ShowMessage.showToast(this,"连接电视成功");
+        super.initBindcodeResult();
         ProjectionManager.getInstance().setVideoLocalProjection(LocalVideoProAcitvity.class,mModelVideo,isPlaying);
         bind_type_layout.setVisibility(View.GONE);
         force = 0;

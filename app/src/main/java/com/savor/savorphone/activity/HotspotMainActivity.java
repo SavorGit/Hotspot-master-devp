@@ -1,6 +1,5 @@
 package com.savor.savorphone.activity;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.PersistableBundle;
 import android.os.Process;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -54,7 +52,6 @@ import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.core.Session;
 import com.savor.savorphone.fragment.ProjectionFragment;
 import com.savor.savorphone.fragment.SpecialFragment;
-import com.savor.savorphone.fragment.SubjectFragment;
 import com.savor.savorphone.fragment.WealthLifeFragment;
 import com.savor.savorphone.interfaces.IHotspotSenseView;
 import com.savor.savorphone.presenter.BindTvPresenter;
@@ -73,7 +70,6 @@ import com.savor.savorphone.utils.ImageCacheUtils;
 import com.savor.savorphone.utils.IntentUtil;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.STIDUtil;
-import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.utils.WifiUtil;
 import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
@@ -724,6 +720,8 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void initBindcodeResult() {
+        String ssid = mSession.getSsid();
+        ShowMessage.showToast(this,ssid+"连接成功，可以投屏");
         if(AppUtils.isFastDoubleClick(1)) {
             showToast("连接电视成功");
         }

@@ -728,6 +728,7 @@ public class SlidesActivity extends BaseProActivity implements
 
     @Override
     public void initBindcodeResult() {
+        super.initBindcodeResult();
         force = 0;
         small = 1;
         ProjectionManager.getInstance().setSlideProjection(SlidesActivity.class,currentPager, mSlideList,isPlaying,seriesId);

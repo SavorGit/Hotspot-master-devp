@@ -225,6 +225,8 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
 
     @Override
     public void initBindcodeResult() {
+        String ssid = mSession.getSsid();
+        ShowMessage.showToast(this,ssid+"连接成功，可以投屏");
     }
 
     @Override

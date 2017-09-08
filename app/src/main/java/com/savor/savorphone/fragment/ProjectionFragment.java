@@ -509,6 +509,7 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void initBindcodeResult() {
+        super.initBindcodeResult();
         startDemandItemPro();
     }
 
