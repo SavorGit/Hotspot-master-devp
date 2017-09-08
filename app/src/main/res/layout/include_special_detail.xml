@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/color_text_list_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,8 +22,9 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="20dp"
+        android:textStyle="bold"
         android:textColor="@color/color_text_black"
-        android:textSize="22sp" />
+        android:textSize="21sp" />
 
     <TextView
         android:id="@+id/tv_special_desc"
@@ -33,13 +36,13 @@
         android:paddingRight="15dp"
         android:paddingTop="20dp"
         android:textColor="@color/color_575757"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlv_special_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
-</merge>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rlv_special_item"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="25dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp" />-->
+</LinearLayout>

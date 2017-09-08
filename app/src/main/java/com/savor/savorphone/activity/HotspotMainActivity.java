@@ -1,6 +1,5 @@
 package com.savor.savorphone.activity;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.PersistableBundle;
 import android.os.Process;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -54,7 +52,6 @@ import com.savor.savorphone.core.ResponseErrorMessage;
 import com.savor.savorphone.core.Session;
 import com.savor.savorphone.fragment.ProjectionFragment;
 import com.savor.savorphone.fragment.SpecialFragment;
-import com.savor.savorphone.fragment.SubjectFragment;
 import com.savor.savorphone.fragment.WealthLifeFragment;
 import com.savor.savorphone.interfaces.IHotspotSenseView;
 import com.savor.savorphone.presenter.BindTvPresenter;
@@ -251,6 +248,8 @@ public class HotspotMainActivity extends AppCompatActivity
     private CategoryPagerAdapter mShadePagerAdapter;
     private RelativeLayout mContentLayout;
     private View mShadeLayer;
+    private ImageView mShareBtn;
+    private SpecialFragment mSpecialFragment;
 
     /**
      * 退出背景投屏更新提示语
@@ -348,6 +347,7 @@ public class HotspotMainActivity extends AppCompatActivity
         mShadeLayer = findViewById(R.id.shade_layer);
         mContentLayout = (RelativeLayout) findViewById(R.id.include);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mShareBtn = (ImageView) mToolBar.findViewById(R.id.iv_share);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -394,6 +394,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     private void initIndicator() {
         mProjectionFragment = ProjectionFragment.newInstance();
+        mSpecialFragment = SpecialFragment.newInstance();
         mTitleList.add("投屏");
         mTitleList.add("创富");
         mTitleList.add("生活");
@@ -401,7 +402,7 @@ public class HotspotMainActivity extends AppCompatActivity
         mFragmentList.add(mProjectionFragment);
         mFragmentList.add(WealthLifeFragment.getInstance(101));
         mFragmentList.add(WealthLifeFragment.getInstance(102));
-        mFragmentList.add(SpecialFragment.newInstance());
+        mFragmentList.add(mSpecialFragment);
 
         Bundle bundle = new Bundle();
         bundle.putString("title", "专题");
@@ -429,6 +430,7 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void setListeners() {
 //        mShadeLayer.setOnClickListener(this);
+        mShareBtn.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);
         mFeedbackLayout.setOnClickListener(this);
@@ -472,6 +474,13 @@ public class HotspotMainActivity extends AppCompatActivity
                     HashMap<String,String> hashMap = new HashMap<>();
                     hashMap.put(getString(R.string.home_sliding_category),cname);
                     RecordUtils.onEvent(HotspotMainActivity.this,getString(R.string.home_sliding_category),hashMap);
+                }
+
+                Fragment fragment = mFragmentList.get(position);
+                if(fragment instanceof SpecialFragment) {
+                    mShareBtn.setVisibility(View.VISIBLE);
+                }else {
+                    mShareBtn.setVisibility(View.GONE);
                 }
             }
 
@@ -569,6 +578,9 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_share:
+                mSpecialFragment.share();
+                break;
             case R.id.iv_menu:
                 closeDrawerLayout();
                 break;
@@ -708,6 +720,8 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void initBindcodeResult() {
+        String ssid = mSession.getSsid();
+        ShowMessage.showToast(this,ssid+"连接成功，可以投屏");
         if(AppUtils.isFastDoubleClick(1)) {
             showToast("连接电视成功");
         }

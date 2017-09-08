@@ -284,8 +284,8 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         }
         //暂停，记录播放位置
 
-        String stitle = "小热点| "+ title;
-        String text = "小热点| "+title;
+        String stitle = "小热点- "+ title;
+        String text = "小热点- "+title;
        // ShareManager shareManager = ShareManager.getInstance();
         mShareManager.setCategory_id("1");
         mShareManager.setContent_id(artid);

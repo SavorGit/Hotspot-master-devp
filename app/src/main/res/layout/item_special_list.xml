@@ -5,10 +5,13 @@
     android:background="@color/base_main_bg_color"
     android:layout_width="match_parent"
     app:cardCornerRadius="5dp"
+    app:cardElevation="0px"
+    app:cardMaxElevation="2px"
+    app:cardUseCompatPadding="false"
     app:cardBackgroundColor="#f6f2ed"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -30,13 +33,13 @@
                 android:background="@color/color_main" />
 
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/tv_special_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="安邦事件"
                 android:textColor="@color/color_main"
-                android:textSize="19sp" />
+                android:textSize="19sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <RelativeLayout
@@ -56,14 +59,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/color_3e000000"
+                android:background="@color/color_72000000"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
+                android:maxLines="2"
                 android:padding="15dp"
-                android:singleLine="true"
                 android:text="神仙打架：安邦 PK 财新 谁能笑到最后"
                 android:textColor="@color/white"
-                android:textSize="19sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <TextView
@@ -75,7 +78,7 @@
             android:maxLines="3"
             android:text="朋友圈大家都在猜，财经新的报道，是不是意味着安邦要接受检查了？这场国内最权威的财经媒体与总资产1970亿的全球化公司的较量，简称这场国内最权威的财经媒体与总资产1970"
             android:textColor="@color/color_575757"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

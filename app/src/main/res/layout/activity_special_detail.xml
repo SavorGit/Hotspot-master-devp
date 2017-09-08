@@ -1,41 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@color/color_text_list_item"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
 
     <LinearLayout
+        android:id="@+id/ll_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_text_list_item"
-        android:orientation="vertical"
-        android:paddingBottom="10dp">
+        android:layout_height="wrap_content"
+        android:background="@color/color_main"
+        android:orientation="vertical">
 
-        <include layout="@layout/layout_head_title" />
-
-        <ScrollView
-            android:id="@+id/sv_content"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="44dp">
+
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:src="@drawable/back3x"
+                android:visibility="visible" />
+
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/ll_share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                >
 
-                <include layout="@layout/include_special_detail" />
+                <ImageView
+                    android:id="@+id/iv_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/fenxiang3x" />
             </LinearLayout>
-        </ScrollView>
 
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#f5f5f5"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-    <com.savor.savorphone.widget.ProgressBarView
-        android:id="@+id/pbv_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-</FrameLayout>
+    <include layout="@layout/fragment_special" />
+</LinearLayout>

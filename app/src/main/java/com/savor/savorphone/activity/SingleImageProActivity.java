@@ -569,9 +569,7 @@ public class SingleImageProActivity extends BaseProActivity implements View.OnCl
 
     @Override
     public void initBindcodeResult() {
-        if(!AppUtils.isFastDoubleClick(1)) {
-            ShowMessage.showToast(this,"连接电视成功");
-        }
+        super.initBindcodeResult();
         isProjecting = true;
 //        ProjectionManager.getInstance().setImageProjection(SingleImageProActivity.class,mCurrentMediaInfo,projectId);
         small = 1;

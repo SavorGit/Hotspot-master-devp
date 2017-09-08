@@ -623,7 +623,7 @@ public class PdfPreviewActivity extends BaseProActivity implements OnPageScrollL
 
     @Override
     public void initBindcodeResult() {
-        ShowMessage.showToast(this,"连接电视成功");
+        super.initBindcodeResult();
         isProjecting = true;
         mExitBtn.setText("退出投屏");
         small = 1;

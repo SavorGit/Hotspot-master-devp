@@ -2,42 +2,53 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#ece6de"
     android:layout_height="match_parent">
-
-    <com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView
+    <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pts_special_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fastScrollEnabled="false"
+        android:divider="@null"
         android:scrollbars="none"
+        ptr:ptrMode="pullFromStart"
         ptr:ptrAnimationStyle="scale"
-        ptr:ptrDrawableStart="@drawable/progress_loading_small">
+        ptr:ptrDrawableStart="@drawable/progress_loading_small"/>
+    <!--<com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView-->
+        <!--xmlns:ptr="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/pts_special_detail"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:fastScrollEnabled="false"-->
+        <!--android:scrollbars="none"-->
+        <!--ptr:ptrAnimationStyle="scale"-->
+        <!--ptr:ptrDrawableStart="@drawable/progress_loading_small">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_list_item"
-            android:orientation="vertical"
-            android:paddingBottom="30dp">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/color_text_list_item"-->
+            <!--android:orientation="vertical"-->
+            <!--android:paddingBottom="30dp">-->
 
-            <include
-                layout="@layout/include_special_detail"
-                />
+            <!--<include-->
+                <!--layout="@layout/include_special_detail"-->
+                <!--/>-->
 
-            <TextView
-                android:id="@+id/tv_look_special_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="25dp"
-                android:background="@drawable/bg_special_history"
-                android:text="查看历史专题"
-                android:textColor="@color/color_main"
-                android:textSize="15sp" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_look_special_list"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginBottom="25dp"-->
+                <!--android:background="@drawable/bg_special_history"-->
+                <!--android:text="查看历史专题"-->
+                <!--android:textColor="@color/color_main"-->
+                <!--android:textSize="15sp" />-->
+        <!--</LinearLayout>-->
 
-    </com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView>
+    <!--</com.common.api.widget.pulltorefresh.library.PullToRefreshScrollView>-->
     <com.savor.savorphone.widget.ProgressBarView
         android:id="@+id/pbv_loading"
         android:layout_width="match_parent"

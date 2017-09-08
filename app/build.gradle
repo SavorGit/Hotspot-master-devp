@@ -12,8 +12,8 @@ android {
         applicationId "com.savor.savorphone"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 2017082201
-        versionName "3.0.1"
+        versionCode 2017090601
+        versionName "3.0.2"
 
         multiDexEnabled true
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ll_parent_layout"
-    android:background="@color/color_eee8e0">
+    android:background="@color/color_text_list_item">
     <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +38,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingRight="10dp"
-                android:text="美元对多数主要货币汇率20日上涨"
+                tools:text="美元对多数主要货币汇率20日上涨"
                 android:textColor="@color/color_text_black"
                 android:textSize="15sp" />
 
@@ -47,6 +50,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_marginRight="10dp"
                     android:id="@+id/content_small_source"
                     android:layout_width="wrap_content"
@@ -59,7 +63,7 @@
                     android:id="@+id/content_small_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2017-5-28"
+                    tools:text="2017-5-28"
                     android:textSize="10sp" />
             </LinearLayout>
         </RelativeLayout>

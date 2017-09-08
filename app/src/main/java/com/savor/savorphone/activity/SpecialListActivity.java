@@ -23,8 +23,8 @@ import com.savor.savorphone.widget.ProgressBarView;
 import java.util.List;
 
 public class SpecialListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshListView.NetworkUnavailableOnClick, ProgressBarView.ProgressBarViewClickListener, AdapterView.OnItemClickListener {
-    private int currentRefreshState;
     public static final int REFRESH_TYPE_TOP = 1;
+    private int currentRefreshState = REFRESH_TYPE_TOP;
     public static final int REFRESH_TYPE_BOTTOM = 2;
     private static final int HEAD_REFRESH = 10101;
     private static final int BOTTOM_REFRESH = 10102;
@@ -35,12 +35,12 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void handleMessage(Message msg) {
             int what = msg.what;
-            String id = (String) msg.obj;
+            String update_time = (String) msg.obj;
             switch (what){
                 case HEAD_REFRESH:
                     // listItems.clear();
                 case BOTTOM_REFRESH:
-                    getData(id);
+                    getData(update_time);
                     break;
             }
         }
@@ -56,15 +56,14 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
         getViews();
         setViews();
         setListeners();
-
         getData("");
     }
 
-    private void getData(String id) {
+    private void getData(String update_time) {
         if(mSpecialListAdapter.getCount()==0) {
             mLoadingLayout.startLoading();
         }
-        AppApi.getSpecialList(this,id,this);
+        AppApi.getSpecialList(this,update_time,this);
     }
 
     @Override
@@ -124,7 +123,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
             SpecialList.SpecialListItem item = data.get(data.size()-1);
             Message message = Message.obtain();
             message.what = BOTTOM_REFRESH;
-            message.obj = item.getId();
+            message.obj = item.getUpdateTime();
             handler.sendMessage(message);
         }
     }
@@ -246,7 +245,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SpecialList.SpecialListItem item = (SpecialList.SpecialListItem) parent.getItemAtPosition(position);
-        String specialId = item.getId();
+        String specialId = item.getUpdateTime();
         Intent intent = new Intent(this,SpecialDetailActivity.class);
         intent.putExtra("id",specialId);
         startActivity(intent);

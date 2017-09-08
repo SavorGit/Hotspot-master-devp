@@ -5,17 +5,17 @@
     <padding
         android:top="5dp"
         android:bottom="5dp"
-        android:left="5dp"
-        android:right="5dp"
+        android:left="15dp"
+        android:right="15dp"
         />
 
     <corners
-        android:radius="4dp"
+        android:radius="2dp"
         />
 
     <stroke
         android:color="@color/color_main"
-        android:width="1dp"
+        android:width="0.5dp"
         />
 
     <solid

@@ -276,8 +276,8 @@ public class PicRecommendActivity extends BaseActivity implements View.OnClickLi
         }
         //暂停，记录播放位置
 
-        String stitle = "小热点| "+ voditem.getTitle();
-        String text = "小热点| "+voditem.getTitle();
+        String stitle = "小热点- "+ voditem.getTitle();
+        String text = "小热点- "+voditem.getTitle();
         // ShareManager shareManager = ShareManager.getInstance();
         mShareManager.setCategory_id("1");
         mShareManager.setContent_id(voditem.getArtid());

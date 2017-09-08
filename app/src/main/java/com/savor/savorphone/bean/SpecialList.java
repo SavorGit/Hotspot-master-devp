@@ -70,6 +70,7 @@ public class SpecialList implements Serializable {
          * title : 12312123123
          * img_url : http://devp.oss.littlehotspot.com/media/resource/5XCAwwP8Ba.jpg
          * desc : 55555555555555555
+         * updateTime:
          */
 
         private String id;
@@ -77,6 +78,47 @@ public class SpecialList implements Serializable {
         private String title;
         private String img_url;
         private String desc;
+        private String updateTime;
+
+        @Override
+        public String toString() {
+            return "SpecialListItem{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", title='" + title + '\'' +
+                    ", img_url='" + img_url + '\'' +
+                    ", desc='" + desc + '\'' +
+                    ", updateTime='" + updateTime + '\'' +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            SpecialListItem that = (SpecialListItem) o;
+
+            if (id != null ? !id.equals(that.id) : that.id != null) return false;
+            if (name != null ? !name.equals(that.name) : that.name != null) return false;
+            if (title != null ? !title.equals(that.title) : that.title != null) return false;
+            if (img_url != null ? !img_url.equals(that.img_url) : that.img_url != null)
+                return false;
+            if (desc != null ? !desc.equals(that.desc) : that.desc != null) return false;
+            return updateTime != null ? updateTime.equals(that.updateTime) : that.updateTime == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = id != null ? id.hashCode() : 0;
+            result = 31 * result + (name != null ? name.hashCode() : 0);
+            result = 31 * result + (title != null ? title.hashCode() : 0);
+            result = 31 * result + (img_url != null ? img_url.hashCode() : 0);
+            result = 31 * result + (desc != null ? desc.hashCode() : 0);
+            result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+            return result;
+        }
 
         public String getId() {
             return id;
@@ -118,41 +160,12 @@ public class SpecialList implements Serializable {
             this.desc = desc;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            SpecialListItem that = (SpecialListItem) o;
-
-            if (id != null ? !id.equals(that.id) : that.id != null) return false;
-            if (name != null ? !name.equals(that.name) : that.name != null) return false;
-            if (title != null ? !title.equals(that.title) : that.title != null) return false;
-            if (img_url != null ? !img_url.equals(that.img_url) : that.img_url != null)
-                return false;
-            return desc != null ? desc.equals(that.desc) : that.desc == null;
-
+        public String getUpdateTime() {
+            return updateTime;
         }
 
-        @Override
-        public int hashCode() {
-            int result = id != null ? id.hashCode() : 0;
-            result = 31 * result + (name != null ? name.hashCode() : 0);
-            result = 31 * result + (title != null ? title.hashCode() : 0);
-            result = 31 * result + (img_url != null ? img_url.hashCode() : 0);
-            result = 31 * result + (desc != null ? desc.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "SpecialListItem{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    ", title='" + title + '\'' +
-                    ", img_url='" + img_url + '\'' +
-                    ", desc='" + desc + '\'' +
-                    '}';
+        public void setUpdateTime(String updateTime) {
+            this.updateTime = updateTime;
         }
     }
 }
