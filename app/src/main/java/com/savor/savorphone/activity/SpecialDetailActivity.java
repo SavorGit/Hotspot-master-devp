@@ -55,6 +55,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     private PullToRefreshListView mRefreshListView;
     private View mHeaderView;
     private LinearLayout mShareLayout;
+    private ShareManager mShareManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
 
     @Override
     public void getViews() {
+        mShareManager = ShareManager.getInstance();
         mShareLayout = (LinearLayout) findViewById(R.id.ll_share);
         mShareBtn = (ImageView) findViewById(R.id.iv_right);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
@@ -230,15 +232,23 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (mShareManager != null) {
+            mShareManager.CloseDialog ();
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_share:
                 if(specialDetail!=null) {
-                    ShareManager.getInstance().setCategory_id("1");
-                    ShareManager.getInstance().setContent_id(specialDetail.getId());
-                    String title = "小热点| "+specialDetail.getTitle();
-                    String text = "小热点| "+specialDetail.getTitle();
-                    ShareManager.getInstance().share(this,text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
+                    mShareManager.setCategory_id("1");
+                    mShareManager.setContent_id(specialDetail.getId());
+                    String title = "小热点- "+specialDetail.getTitle();
+                    String text = "小热点- "+specialDetail.getTitle();
+                    mShareManager.share(this,text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
                 }
                 break;
             case R.id.iv_left:

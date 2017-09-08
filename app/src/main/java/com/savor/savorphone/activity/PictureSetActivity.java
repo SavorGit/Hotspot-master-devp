@@ -334,8 +334,8 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
             ShowMessage.showToastSavor(this, getString(R.string.bad_wifi));
             return;
         }
-        String title = "小热点| "+voditem.getTitle();
-        String text = "小热点| "+voditem.getTitle();
+        String title = "小热点- "+voditem.getTitle();
+        String text = "小热点- "+voditem.getTitle();
         String imageURL = voditem.getImageURL();
         String contentURL = voditem.getContentURL();
         shareManager.setCategory_id("0");

@@ -59,6 +59,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     private SpecialDetail specialDetail;
     private View mHeaderView;
     private View mFooterView;
+    private ShareManager mShareManager;
 
     public SpecialFragment() {
     }
@@ -108,6 +109,8 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
 
         initHeaderView();
         initFooterView();
+
+        mShareManager = ShareManager.getInstance();
 //        mSpecialListView = (RecyclerView) view.findViewById(R.id.rlv_special_item);
     }
 
@@ -313,14 +316,22 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mShareManager != null) {
+            mShareManager.CloseDialog ();
+        }
+    }
+
     public void share() {
         if(isAdded()) {
             if(specialDetail!=null) {
-                ShareManager.getInstance().setCategory_id("1");
-                ShareManager.getInstance().setContent_id(specialDetail.getId());
-                String title = "小热点| "+specialDetail.getTitle();
-                String text = "小热点| "+specialDetail.getTitle();
-                ShareManager.getInstance().share(getActivity(),text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
+                mShareManager.setCategory_id("1");
+                mShareManager.setContent_id(specialDetail.getId());
+                String title = "小热点- "+specialDetail.getTitle();
+                String text = "小热点-"+specialDetail.getTitle();
+                mShareManager.share(getActivity(),text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
             }else {
                 ShowMessage.showToast(getActivity(),"无法获取专题组信息");
             }
