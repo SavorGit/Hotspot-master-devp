@@ -42,8 +42,10 @@
         android:layout_height="fill_parent">
         <TextView
             android:id="@+id/recommend_title"
-            android:text="美元对多数主要货币汇率20日上涨"
+            android:text=""
             android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/color_text_black"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
