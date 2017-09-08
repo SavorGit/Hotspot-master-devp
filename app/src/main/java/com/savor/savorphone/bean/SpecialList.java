@@ -63,7 +63,7 @@ public class SpecialList implements Serializable {
     /**
      * 专题组列表item
      */
-    public static class SpecialListItem implements Serializable{
+    public class SpecialListItem implements Serializable{
         /**
          * id : 5
          * name : 1231
@@ -78,7 +78,7 @@ public class SpecialList implements Serializable {
         private String title;
         private String img_url;
         private String desc;
-        private String updateTime;
+        private String update_time;
 
         @Override
         public String toString() {
@@ -88,7 +88,7 @@ public class SpecialList implements Serializable {
                     ", title='" + title + '\'' +
                     ", img_url='" + img_url + '\'' +
                     ", desc='" + desc + '\'' +
-                    ", updateTime='" + updateTime + '\'' +
+                    ", update_time='" + update_time + '\'' +
                     '}';
         }
 
@@ -105,7 +105,7 @@ public class SpecialList implements Serializable {
             if (img_url != null ? !img_url.equals(that.img_url) : that.img_url != null)
                 return false;
             if (desc != null ? !desc.equals(that.desc) : that.desc != null) return false;
-            return updateTime != null ? updateTime.equals(that.updateTime) : that.updateTime == null;
+            return update_time != null ? update_time.equals(that.update_time) : that.update_time == null;
 
         }
 
@@ -116,7 +116,7 @@ public class SpecialList implements Serializable {
             result = 31 * result + (title != null ? title.hashCode() : 0);
             result = 31 * result + (img_url != null ? img_url.hashCode() : 0);
             result = 31 * result + (desc != null ? desc.hashCode() : 0);
-            result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+            result = 31 * result + (update_time != null ? update_time.hashCode() : 0);
             return result;
         }
 
@@ -160,12 +160,12 @@ public class SpecialList implements Serializable {
             this.desc = desc;
         }
 
-        public String getUpdateTime() {
-            return updateTime;
+        public String getUpdate_time() {
+            return update_time;
         }
 
-        public void setUpdateTime(String updateTime) {
-            this.updateTime = updateTime;
+        public void setUpdate_time(String update_time) {
+            this.update_time = update_time;
         }
     }
 }
