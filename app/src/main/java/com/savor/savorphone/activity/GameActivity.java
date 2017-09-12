@@ -120,7 +120,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                 case WifiManager.WIFI_STATE_ENABLED:
                     break;
                 case WifiManager.WIFI_STATE_DISABLED:
-                    mNetWorkSettingsDialog = new CommonDialog(GameActivity.this,"请链接包间wifi","连接后可查看当前酒楼是否有优惠活动"
+                    mNetWorkSettingsDialog = new CommonDialog(GameActivity.this,"请连接包间wifi","连接后可查看当前酒楼是否有优惠活动"
                             , new CommonDialog.OnConfirmListener() {
                         @Override
                         public void onConfirm() {
@@ -479,9 +479,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         int lottoryNum = LotteryFileUtil.getInstance().getLottoryNum();
         mLottoryNumTv.setText("您还有"+lottoryNum+"次机会");
-        if(mSession.getHotelid()<=0|| !WifiUtil.checkWifiState(this)) {
+        if(mSession.getHotelid()<=0|| !WifiUtil.checkWifiState(this)||!mSession.isBindTv()) {
             if(mNetWorkSettingsDialog==null) {
-                mNetWorkSettingsDialog = new CommonDialog(GameActivity.this,"请链接包间wifi","连接后可查看当前酒楼是否有优惠活动"
+                mNetWorkSettingsDialog = new CommonDialog(GameActivity.this,"请连接包间wifi","连接后可查看当前酒楼是否有优惠活动"
                         , new CommonDialog.OnConfirmListener() {
                     @Override
                     public void onConfirm() {
@@ -596,10 +596,10 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
             case R.id.iv_egg_first:
             case R.id.iv_egg_second:
             case R.id.iv_egg_third:
-                if(!AppUtils.isWifiNetwork(this)) {
-                    showChangeWifiDialog();
-                    return;
-                }
+//                if(!AppUtils.isWifiNetwork(this)) {
+//                    showChangeWifiDialog();
+//                    return;
+//                }
                 if(AppUtils.isFastDoubleClick(1)) {
                     return;
                 }
