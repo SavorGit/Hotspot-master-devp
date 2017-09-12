@@ -105,7 +105,7 @@ public class ShareManager {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         if(share_media == SHARE_MEDIA.SINA) {
-                            UMImage umImage = new UMImage(activity,R.drawable.ic_launcher);
+                            UMImage umImage = new UMImage(activity,R.drawable.ic_share);
                             umImage.compressFormat = Bitmap.CompressFormat.PNG;
                             new ShareAction(activity)
                                     .withText(text+targeturl)
@@ -119,7 +119,7 @@ public class ShareManager {
                                 cb.copyLink();
                             }else {
                                 UMWeb umWeb = new UMWeb(targeturl);
-                                UMImage umImage = new UMImage(activity,R.drawable.ic_launcher);
+                                UMImage umImage = new UMImage(activity,R.drawable.ic_share);
                                 umImage.compressFormat = Bitmap.CompressFormat.PNG;
                                 umWeb.setThumb(umImage);
                                 umWeb.setTitle(title);
@@ -162,7 +162,7 @@ public class ShareManager {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         if(share_media == SHARE_MEDIA.SINA) {
                             shareBoardlistener.onclick(snsPlatform,share_media);
-                            UMImage umImage = new UMImage(activity,R.drawable.ic_launcher);
+                            UMImage umImage = new UMImage(activity,R.drawable.ic_share);
                             umImage.compressFormat = Bitmap.CompressFormat.PNG;
                             new ShareAction(activity)
                                     .withText(text+targeturl)
@@ -176,7 +176,7 @@ public class ShareManager {
                                 cb.copyLink();
                             }else {
                                 UMWeb umWeb = new UMWeb(targeturl);
-                                UMImage umImage = new UMImage(activity, R.drawable.ic_launcher);
+                                UMImage umImage = new UMImage(activity, R.drawable.ic_share);
                                 umImage.compressFormat = Bitmap.CompressFormat.PNG;
                                 umWeb.setThumb(umImage);
                                 umWeb.setTitle(title);
