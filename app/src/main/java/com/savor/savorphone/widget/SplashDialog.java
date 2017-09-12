@@ -95,6 +95,9 @@ public class SplashDialog extends Dialog implements View.OnClickListener{
 
             }
         });
+
+        surfaceView.setZOrderOnTop(true);
+//        surfaceView.getHolder().setFormat(SurfaceView.);
 //        btn_start = (Button) findViewById(R.id.btn_start);
 //        btn_start.setOnClickListener(this);
 //

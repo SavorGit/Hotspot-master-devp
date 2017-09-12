@@ -175,6 +175,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
             item.setArtid(bean.getArtid());
             item.setImageURL(bean.getImageURL());
             item.setContentURL(bean.getContentURL());
+            item.setVideoURL(bean.getVideoURL());
             item.setAcreateTime(bean.getCreateTime());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
@@ -247,7 +248,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
                     mShareManager.setCategory_id("1");
                     mShareManager.setContent_id(specialDetail.getId());
                     String title = "小热点- "+specialDetail.getTitle();
-                    String text = "小热点- "+specialDetail.getTitle();
+                    String text = specialDetail.getDesc();
                     mShareManager.share(this,text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
                 }
                 break;

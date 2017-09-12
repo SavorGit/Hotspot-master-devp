@@ -47,6 +47,7 @@ import com.savor.savorphone.utils.LotteryFileUtil;
 import com.savor.savorphone.projection.ProjectionManager;
 import com.savor.savorphone.utils.RecordUtils;
 import com.savor.savorphone.utils.SavorAnimUtil;
+import com.savor.savorphone.utils.WifiUtil;
 import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
 
@@ -478,6 +479,28 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         int lottoryNum = LotteryFileUtil.getInstance().getLottoryNum();
         mLottoryNumTv.setText("您还有"+lottoryNum+"次机会");
+        if(mSession.getHotelid()<=0|| !WifiUtil.checkWifiState(this)) {
+            if(mNetWorkSettingsDialog==null) {
+                mNetWorkSettingsDialog = new CommonDialog(GameActivity.this,"请链接包间wifi","连接后可查看当前酒楼是否有优惠活动"
+                        , new CommonDialog.OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        Intent intent = new Intent();
+                        intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
+                        startActivity(intent);
+                        finish();
+                    }
+                }, new CommonDialog.OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+                        finish();
+                    }
+                },"去连接");
+            }
+            if(!mNetWorkSettingsDialog.isShowing()) {
+                mNetWorkSettingsDialog.show();
+            }
+        }
     }
 
     @Override
@@ -575,6 +598,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
             case R.id.iv_egg_third:
                 if(!AppUtils.isWifiNetwork(this)) {
                     showChangeWifiDialog();
+                    return;
+                }
+                if(AppUtils.isFastDoubleClick(1)) {
                     return;
                 }
                 force = 0;

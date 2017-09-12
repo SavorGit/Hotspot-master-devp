@@ -713,7 +713,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         shareManager.setCategory_id("0");
         shareManager.setContent_id(mVodItem.getArtid()+"");
         String title = "小热点- "+mVodItem.getTitle() ;
-        String text = "小热点- "+mVodItem.getTitle();
+        String text = "热点聚焦，投你所好";
         mShareManager.share(this,text,title,mVodItem.getImageURL(),ConstantValues.addH5ShareParams(mVodItem.getContentURL()),this);
     }
 
@@ -762,11 +762,6 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         int duration = (int) (System.currentTimeMillis() - mStartTime) / 1000;
         RecordUtils.onPageEndAndPause(this,this);
         writeAppLog("end");
-//        MobclickAgent.onEventValue(this, UmengContact.PLAY_CAST, hashMap, duration);
-//        MobclickAgent.onPause(this);
-//        mHandler.removeMessages(QUERY_SEEK);
-//        if(projectionService!=null)
-//            projectionService.stopQuerySeek();
     }
 
     @Override
@@ -796,6 +791,9 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         UMShareAPI.get(this).release();
         mWebView.onDestroy();
         mWebView.destroyDrawingCache();
+        if(mProjectionService!=null) {
+            mProjectionService.stopQuerySeek();
+        }
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }

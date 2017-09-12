@@ -140,7 +140,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         mRefreshListView.getRefreshableView().addFooterView(mFooterView);
 //        mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
 
-        SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
+        specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
         if(specialDetail!=null) {
             initSpecialDetailViews(specialDetail);
             isHasCache = true;
@@ -288,6 +288,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
             item.setImageURL(bean.getImageURL());
             item.setContentURL(bean.getContentURL());
             item.setAcreateTime(bean.getCreateTime());
+            item.setVideoURL(bean.getVideoURL());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
             if(item!=null) {
@@ -330,7 +331,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
                 mShareManager.setCategory_id("1");
                 mShareManager.setContent_id(specialDetail.getId());
                 String title = "小热点- "+specialDetail.getTitle();
-                String text = "小热点-"+specialDetail.getTitle();
+                String text = specialDetail.getDesc();
                 mShareManager.share(getActivity(),text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
             }else {
                 ShowMessage.showToast(getActivity(),"无法获取专题组信息");

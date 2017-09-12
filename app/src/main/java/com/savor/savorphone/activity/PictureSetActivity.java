@@ -335,7 +335,7 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
             return;
         }
         String title = "小热点- "+voditem.getTitle();
-        String text = "小热点- "+voditem.getTitle();
+        String text = "热点聚焦，投你所好";
         String imageURL = voditem.getImageURL();
         String contentURL = voditem.getContentURL();
         shareManager.setCategory_id("0");

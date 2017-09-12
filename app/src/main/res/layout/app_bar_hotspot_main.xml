@@ -36,7 +36,7 @@
                 android:textStyle="bold" />
             <ImageView
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingRight="20dp"
                 android:id="@+id/iv_share"
                 android:visibility="gone"
                 android:src="@drawable/fenxiang3x"

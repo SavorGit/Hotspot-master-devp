@@ -123,7 +123,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
             SpecialList.SpecialListItem item = data.get(data.size()-1);
             Message message = Message.obtain();
             message.what = BOTTOM_REFRESH;
-            message.obj = item.getUpdateTime();
+            message.obj = item.getUpdate_time();
             handler.sendMessage(message);
         }
     }
@@ -245,7 +245,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SpecialList.SpecialListItem item = (SpecialList.SpecialListItem) parent.getItemAtPosition(position);
-        String specialId = item.getUpdateTime();
+        String specialId = item.getId();
         Intent intent = new Intent(this,SpecialDetailActivity.class);
         intent.putExtra("id",specialId);
         startActivity(intent);
