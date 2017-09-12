@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.common.api.utils.DateUtil;
 import com.common.api.utils.DensityUtil;
 import com.savor.savorphone.R;
 import com.savor.savorphone.bean.SpecialDetail;
@@ -144,6 +145,7 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
                     imageTextHolder.content_small_title = (TextView) convertView.findViewById(R.id.content_small_title);
                     imageTextHolder.content_small_source = (TextView) convertView.findViewById(R.id.content_small_source);
                     imageTextHolder.content_small_time = (TextView) convertView.findViewById(R.id.content_small_time);
+                    imageTextHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
                     imageTextHolder.dividerView = convertView.findViewById(R.id.divider_line);
                     imageTextHolder.parentLayout = (LinearLayout) convertView.findViewById(R.id.ll_parent_layout);
                     convertView.setTag(imageTextHolder);
@@ -269,133 +271,21 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
                         }
                     }
                 });
+
+                int type = specialDetailTypeBean.getType();
+                if(type==3||type==4) {
+                    imageTextHolder.tv_time.setVisibility(View.VISIBLE);
+                    String duration = specialDetailTypeBean.getDuration();
+                    String time = DateUtil.formatSecondsCh(duration);
+                    imageTextHolder.tv_time.setText(time);
+                }else {
+                    imageTextHolder.tv_time.setVisibility(View.GONE);
+                }
+
                 break;
         }
         return convertView;
     }
-
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
-//        if(viewType == TYPE_IMAGE) {
-//            ImageHolder imageHolder = new ImageHolder(View.inflate(mContext, R.layout.item_special_image,null));
-//            return imageHolder;
-//        }else if(viewType == TYPE_TEXT) {
-//            return new TextHolder(View.inflate(mContext,R.layout.item_special_text,null));
-//        }else if(viewType == TYPE_IMAGE_TEXT) {
-//            return new ImageTextHolder(View.inflate(mContext,R.layout.item_special_image_text,null));
-//        }else if(viewType == TYPE_TITLE) {
-//            return new TitleHolder(View.inflate(mContext,R.layout.item_special_title,null));
-//        }
-//        return null;
-//    }
-
-//    @Override
-//    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-//        // 在这里进行初始化
-//        final SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean = data.get(position);
-//        if(holder instanceof ImageHolder){// 图片
-//            ImageHolder imageHolder = (ImageHolder) holder;
-//            String img_url = specialDetailTypeBean.getImg_url();
-//            Glide.with(mContext)
-//                    .load(img_url)
-//                    .placeholder(R.drawable.kong_mrjz)
-//                    .dontAnimate()
-//                    .into(imageHolder.imageView);
-//
-//            ViewGroup.LayoutParams layoutParams = imageHolder.dividerView.getLayoutParams();
-//            int itemCount = getItemCount();
-//            if(itemCount>1&&position<itemCount-1) {
-//                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-//            }
-//
-//            imageHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(mOnItemClickListener!=null) {
-//                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-//                    }
-//                }
-//            });
-//        }else if(holder instanceof TextHolder) {// 简介
-//            TextHolder textHolder = (TextHolder) holder;
-//            String desc = specialDetailTypeBean.getStext();
-//            textHolder.descTv.setText(desc);
-//            /*文字（简介）
-//            1、图片：30px
-//            2、文字：50px
-//            3、文章：50px
-//            4、小标题：50px*/
-//            ViewGroup.LayoutParams layoutParams = textHolder.dividerView.getLayoutParams();
-//            int itemCount = getItemCount();
-//            if(itemCount>1&&position<itemCount-1) {
-//                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-//            }
-//
-//            textHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(mOnItemClickListener!=null) {
-//                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-//                    }
-//                }
-//            });
-//
-//        }else if(holder instanceof TitleHolder) {// 标题
-//            TitleHolder titleHolder = (TitleHolder) holder;
-//            String stitle = specialDetailTypeBean.getStitle();
-//            titleHolder.titleView.setText(stitle);
-//            /*小标题
-//            1、图片：40px
-//            2、文字：40px
-//            3、文章：40px
-//            4、标题：50px*/
-//            ViewGroup.LayoutParams layoutParams = titleHolder.divider.getLayoutParams();
-//            int itemCount = getItemCount();
-//            if(itemCount>1&&position<itemCount-1) {
-//                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-//            }
-//
-//            titleHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(mOnItemClickListener!=null) {
-//                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-//                    }
-//                }
-//            });
-//
-//        }else if(holder instanceof ImageTextHolder) {// 文章
-//            ImageTextHolder imageTextHolder = (ImageTextHolder) holder;
-//            String imageURL = specialDetailTypeBean.getImageURL();
-//            String title = specialDetailTypeBean.getTitle();
-//            String sourceName = specialDetailTypeBean.getSourceName();
-//            String updateTime = specialDetailTypeBean.getUpdateTime();
-//            Glide.with(mContext).load(imageURL).placeholder(R.drawable.kong_mrjz).dontAnimate().into(imageTextHolder.content_small_img);
-//            imageTextHolder.content_small_title.setText(title);
-//            imageTextHolder.content_small_source.setText(sourceName);
-//            imageTextHolder.content_small_time.setText(updateTime);
-//
-//            /*文章(图文）
-//            1、图片：40px
-//            2、文字：50px
-//            3、文章：10px
-//            4、小标题：50px*/
-//            ViewGroup.LayoutParams layoutParams = imageTextHolder.dividerView.getLayoutParams();
-//            int itemCount = getItemCount();
-//            if(itemCount>1&&position<itemCount-1) {
-//                handleDividerHeight(position, specialDetailTypeBean, layoutParams);
-//            }
-//
-//            imageTextHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(mOnItemClickListener!=null) {
-//                        mOnItemClickListener.onSpecialItemClick(getItemViewType(position),specialDetailTypeBean);
-//                    }
-//                }
-//            });
-//        }
-//    }
 
     private void handleDividerHeight(int position, SpecialDetail.SpecialDetailTypeBean specialDetailTypeBean, ViewGroup.LayoutParams layoutParams) {
         int currentType = specialDetailTypeBean.getSgtype();
@@ -521,6 +411,7 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
         public TextView content_small_title;
         public TextView content_small_source;
         public TextView content_small_time;
+        public TextView tv_time;
         public View dividerView;
         public LinearLayout parentLayout;
 //        public ImageTextHolder(View itemView) {
