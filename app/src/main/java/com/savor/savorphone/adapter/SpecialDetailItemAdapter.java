@@ -145,7 +145,6 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
                     imageTextHolder.content_small_title = (TextView) convertView.findViewById(R.id.content_small_title);
                     imageTextHolder.content_small_source = (TextView) convertView.findViewById(R.id.content_small_source);
                     imageTextHolder.content_small_time = (TextView) convertView.findViewById(R.id.content_small_time);
-                    imageTextHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
                     imageTextHolder.dividerView = convertView.findViewById(R.id.divider_line);
                     imageTextHolder.parentLayout = (LinearLayout) convertView.findViewById(R.id.ll_parent_layout);
                     convertView.setTag(imageTextHolder);
@@ -272,15 +271,15 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
                     }
                 });
 
-                int type = specialDetailTypeBean.getType();
-                if(type==3||type==4) {
-                    imageTextHolder.tv_time.setVisibility(View.VISIBLE);
-                    String duration = specialDetailTypeBean.getDuration();
-                    String time = DateUtil.formatSecondsCh(duration);
-                    imageTextHolder.tv_time.setText(time);
-                }else {
-                    imageTextHolder.tv_time.setVisibility(View.GONE);
-                }
+//                int type = specialDetailTypeBean.getType();
+//                if(type==3||type==4) {
+//                    imageTextHolder.tv_time.setVisibility(View.VISIBLE);
+//                    String duration = specialDetailTypeBean.getDuration();
+//                    String time = DateUtil.formatSecondsCh(duration);
+//                    imageTextHolder.tv_time.setText(time);
+//                }else {
+//                    imageTextHolder.tv_time.setVisibility(View.GONE);
+//                }
 
                 break;
         }
@@ -411,7 +410,6 @@ public class SpecialDetailItemAdapter extends BaseAdapter {
         public TextView content_small_title;
         public TextView content_small_source;
         public TextView content_small_time;
-        public TextView tv_time;
         public View dividerView;
         public LinearLayout parentLayout;
 //        public ImageTextHolder(View itemView) {

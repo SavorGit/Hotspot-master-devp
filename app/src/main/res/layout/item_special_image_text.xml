@@ -16,39 +16,15 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:background="@color/color_eee8e0">
-        <RelativeLayout
+        <ImageView
             android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
-            android:layout_width="130dp"
-            android:layout_height="84dp">
-            <ImageView
-                android:id="@+id/content_small_img"
-                android:src="@drawable/kong_mrjz"
-                android:scaleType="fitXY"
-                android:layout_gravity="center_vertical"
-                android:layout_width="130sp"
-                android:layout_height="84sp" />
-            <TextView
-                android:visibility="gone"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/round_corner_time"
-                android:text="2'32"
-                android:gravity="center"
-                android:textColor="@color/color_text_list_item"
-                android:textSize="11sp" />
-        </RelativeLayout>
-
+            android:id="@+id/content_small_img"
+            android:src="@drawable/kong_mrjz"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_vertical"
+            android:layout_width="130sp"
+            android:layout_height="84sp" />
 
         <RelativeLayout
             android:paddingTop="10dp"

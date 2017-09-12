@@ -620,12 +620,8 @@ public class HotspotMainActivity extends AppCompatActivity
 
             case R.id.rl_favourable:
                 RecordUtils.onEvent(this,getString(R.string.menu_game));
-                if (mSession.getHotelid()>0) {
-                    Intent favourableIntent = new Intent(this,GameActivity.class);
-                    startActivity(favourableIntent);
-                }else {
-                    ShowMessage.showToast(HotspotMainActivity.this,"请在酒店中使用此功能");
-                }
+                Intent favourableIntent = new Intent(this,GameActivity.class);
+                startActivity(favourableIntent);
                 break;
 
 

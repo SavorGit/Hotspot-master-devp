@@ -140,7 +140,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
         mRefreshListView.getRefreshableView().addFooterView(mFooterView);
 //        mSpecialListView.setAdapter(mSpecialDetailItemAdapter);
 
-        SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
+        specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
         if(specialDetail!=null) {
             initSpecialDetailViews(specialDetail);
             isHasCache = true;
