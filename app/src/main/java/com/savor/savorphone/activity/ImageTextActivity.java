@@ -113,7 +113,6 @@ public class ImageTextActivity extends BaseActivity implements View.OnClickListe
         setListeners();
         contentIsOnline();
         setShareView();
-
     }
 
 
