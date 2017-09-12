@@ -868,7 +868,7 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         mShareManager.setShortcutShare();
         UMWeb umWeb = new UMWeb(ConstantValues.addH5ShareParams(videoItem.getContentURL()));
         umWeb.setThumb(new UMImage(mContext,R.drawable.ic_launcher));
-        umWeb.setTitle(videoItem.getTitle());
+        umWeb.setTitle("小热点- "+videoItem.getTitle());
         umWeb.setDescription("投屏神器，进入饭局的才是热点");
         new ShareAction(mContext)
                 .withText("投屏神器，进入饭局的才是热点"+ConstantValues.addH5ShareParams(videoItem.getContentURL()))
@@ -939,10 +939,9 @@ public class VideoPlayVODNotHotelActivity extends BasePlayActivity implements Vi
         }
         //暂停，记录播放位置
         currentSeconds = mSuperVideoPlayer.getCurrentSeconds();
-        String title = "小热点| "+videoItem.getTitle();
-        String text = "小热点| "+videoItem.getTitle();
+        String title = "小热点- "+videoItem.getTitle();
+        String text = "热点聚焦，投你所好";
         String imageURL = videoItem.getImageURL();
-        String contentURL = videoItem.getContentURL();
         ShareManager shareManager = ShareManager.getInstance();
         shareManager.setCategory_id(category_id);
         shareManager.setContent_id(videoItem.getArtid());

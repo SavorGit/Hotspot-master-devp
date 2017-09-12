@@ -713,7 +713,7 @@ public class VideoPlayVODInHotelActivity extends BasePlayActivity implements
         shareManager.setCategory_id("0");
         shareManager.setContent_id(mVodItem.getArtid()+"");
         String title = "小热点- "+mVodItem.getTitle() ;
-        String text = "小热点- "+mVodItem.getTitle();
+        String text = "热点聚焦，投你所好";
         mShareManager.share(this,text,title,mVodItem.getImageURL(),ConstantValues.addH5ShareParams(mVodItem.getContentURL()),this);
     }
 

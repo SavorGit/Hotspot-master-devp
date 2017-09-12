@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -104,7 +105,8 @@ public class ShareManager {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         if(share_media == SHARE_MEDIA.SINA) {
-                            UMImage umImage = new UMImage(activity,image);
+                            UMImage umImage = new UMImage(activity,R.drawable.ic_launcher);
+                            umImage.compressFormat = Bitmap.CompressFormat.PNG;
                             new ShareAction(activity)
                                     .withText(text+targeturl)
                                     .withMedia(umImage)
@@ -117,9 +119,11 @@ public class ShareManager {
                                 cb.copyLink();
                             }else {
                                 UMWeb umWeb = new UMWeb(targeturl);
-                                umWeb.setThumb(new UMImage(activity,image));
+                                UMImage umImage = new UMImage(activity,R.drawable.ic_launcher);
+                                umImage.compressFormat = Bitmap.CompressFormat.PNG;
+                                umWeb.setThumb(umImage);
                                 umWeb.setTitle(title);
-                                umWeb.setDescription("热点聚焦，投你所好");
+                                umWeb.setDescription(text);
                                 new ShareAction(activity)
                                         .withText(text+targeturl)
                                         .withMedia(umWeb)
@@ -158,7 +162,8 @@ public class ShareManager {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         if(share_media == SHARE_MEDIA.SINA) {
                             shareBoardlistener.onclick(snsPlatform,share_media);
-                            UMImage umImage = new UMImage(activity,image);
+                            UMImage umImage = new UMImage(activity,R.drawable.ic_launcher);
+                            umImage.compressFormat = Bitmap.CompressFormat.PNG;
                             new ShareAction(activity)
                                     .withText(text+targeturl)
                                     .withMedia(umImage)
@@ -171,9 +176,11 @@ public class ShareManager {
                                 cb.copyLink();
                             }else {
                                 UMWeb umWeb = new UMWeb(targeturl);
-                                umWeb.setThumb(new UMImage(activity,image));
+                                UMImage umImage = new UMImage(activity, R.drawable.ic_launcher);
+                                umImage.compressFormat = Bitmap.CompressFormat.PNG;
+                                umWeb.setThumb(umImage);
                                 umWeb.setTitle(title);
-                                umWeb.setDescription("热点聚焦，投你所好");
+                                umWeb.setDescription(text);
                                 new ShareAction(activity)
                                         .withText(text+targeturl)
                                         .withMedia(umWeb)

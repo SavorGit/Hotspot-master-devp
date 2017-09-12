@@ -330,7 +330,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
                 mShareManager.setCategory_id("1");
                 mShareManager.setContent_id(specialDetail.getId());
                 String title = "小热点- "+specialDetail.getTitle();
-                String text = "小热点-"+specialDetail.getTitle();
+                String text = specialDetail.getDesc();
                 mShareManager.share(getActivity(),text,title,specialDetail.getImg_url(),ConstantValues.addH5ShareParams(specialDetail.getContentUrl()),this);
             }else {
                 ShowMessage.showToast(getActivity(),"无法获取专题组信息");
