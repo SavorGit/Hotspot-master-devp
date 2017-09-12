@@ -175,6 +175,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
             item.setArtid(bean.getArtid());
             item.setImageURL(bean.getImageURL());
             item.setContentURL(bean.getContentURL());
+            item.setVideoURL(bean.getVideoURL());
             item.setAcreateTime(bean.getCreateTime());
             item.setId(bean.getArtid());
             item.setType(bean.getType());

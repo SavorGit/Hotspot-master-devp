@@ -385,6 +385,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void showVideo(final String cacheFilepath) {
+        LogUtils.d("savor:splash 开始播放广告视频");
         mSurfaceView.setVisibility(View.VISIBLE);
         mp = new MediaPlayer();
         mSurfaceView.setOnTouchListener(new View.OnTouchListener() {

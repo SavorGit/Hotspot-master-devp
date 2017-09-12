@@ -288,6 +288,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
             item.setImageURL(bean.getImageURL());
             item.setContentURL(bean.getContentURL());
             item.setAcreateTime(bean.getCreateTime());
+            item.setVideoURL(bean.getVideoURL());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
             if(item!=null) {
