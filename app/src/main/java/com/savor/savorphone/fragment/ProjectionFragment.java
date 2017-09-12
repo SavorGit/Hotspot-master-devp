@@ -492,7 +492,7 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
             mDemandList = (List<CommonListItem>) obj;
             CoverFlowAdapter coverFlowAdapter = new CoverFlowAdapter(getActivity(), mDemandList);
             mCoverflowView.setAdapter(coverFlowAdapter);
-            mCoverflowView.post(new Runnable() {
+            mCoverflowView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mCoverflowView.gotoPreviousNoAnimator();
@@ -503,7 +503,7 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
                         }
                     },500);
                 }
-            });
+            },50);
         }
     }
 

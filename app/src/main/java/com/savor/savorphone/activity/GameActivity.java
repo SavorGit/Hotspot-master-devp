@@ -577,6 +577,9 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
                     showChangeWifiDialog();
                     return;
                 }
+                if(AppUtils.isFastDoubleClick(1)) {
+                    return;
+                }
                 force = 0;
                 RecordUtils.onEvent(GameActivity.this,getString(R.string.game_page_choose));
                 checkBind();
