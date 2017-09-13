@@ -145,6 +145,7 @@ public class CustomWebView extends FrameLayout implements MyWebView.OnScrollBott
 
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            LogUtils.d("savor:webview "+error.getDescription());
             isLoadError = true;
             if (updateProgressListener!=null){
                 updateProgressListener.loadHttpError();
