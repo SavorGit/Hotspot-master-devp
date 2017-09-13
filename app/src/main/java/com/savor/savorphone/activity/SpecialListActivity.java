@@ -123,7 +123,7 @@ public class SpecialListActivity extends BaseActivity implements View.OnClickLis
             SpecialList.SpecialListItem item = data.get(data.size()-1);
             Message message = Message.obtain();
             message.what = BOTTOM_REFRESH;
-            message.obj = item.getUpdate_time();
+            message.obj = item.getUpdateTime();
             handler.sendMessage(message);
         }
     }

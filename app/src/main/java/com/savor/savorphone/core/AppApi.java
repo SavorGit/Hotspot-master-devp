@@ -889,7 +889,7 @@ public class AppApi {
     /**获取专题列表*/
     public static void getSpecialList(Context context,String update_time,ApiRequestListener listener) {
         final HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("update_time", update_time);
+        params.put("updateTime", update_time);
         new AppServiceOk(context,Action.POST_SPECIAL_LIST_JSON,listener,params).post();
     }
 
