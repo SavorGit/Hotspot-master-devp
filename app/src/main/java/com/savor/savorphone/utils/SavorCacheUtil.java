@@ -19,7 +19,6 @@ import java.util.List;
 
 public class SavorCacheUtil {
     private static volatile SavorCacheUtil instance;
-
     private SavorCacheUtil() {
     }
 
