@@ -530,7 +530,10 @@ public class HotspotMainActivity extends AppCompatActivity
         mViewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mSensePresenter.checkSense();
+                if (mSensePresenter != null) {
+                    mSensePresenter.checkSense();
+                }
+
             }
         },500);
     }
