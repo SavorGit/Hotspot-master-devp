@@ -534,11 +534,14 @@ public class BindTvPresenter extends BasePresenter implements ApiRequestListener
         mSession.setLocalIp(localIp);
         mSession.setWifiSsid(sid);
 //        // 如果判断不在一个网段或者wifi不是同一个提示切换wifi
-        if (TextUtils.isEmpty(ipStr)||!localIp.substring(0,localIp.lastIndexOf(".")).equals(ipStr.substring(0, ipStr.lastIndexOf(".")))
+        if (TextUtils.isEmpty(ipStr)
                 ||TextUtils.isEmpty(wifiName)
                 ||!wifiName.equals(sid)) {
             mBindTvView.showChangeWifiDialog();
 //            mBindTvView.showToast(mContext.getResources().getString(R.string.connect_fail_tip));
+            return;
+        }else if(!localIp.substring(0,localIp.lastIndexOf(".")).equals(ipStr.substring(0, ipStr.lastIndexOf(".")))) {
+            mBindTvView.bindError();
             return;
         }
 

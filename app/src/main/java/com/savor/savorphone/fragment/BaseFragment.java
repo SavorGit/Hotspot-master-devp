@@ -321,4 +321,8 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 
 	}
 
+	@Override
+	public void bindError() {
+
+	}
 }

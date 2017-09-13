@@ -32,6 +32,7 @@ import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.widget.ProgressBarView;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.List;
 
@@ -179,6 +180,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
             item.setAcreateTime(bean.getCreateTime());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
+            item.setTitle(bean.getTitle());
             if(item!=null) {
                 int type = Integer.valueOf(item.getType());
                 switch (type){
@@ -263,5 +265,11 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
         ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(ConstantValues.addH5ShareParams(specialDetail.getContentUrl()));
         ShowMessage.showToast(mContext,"复制完毕");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

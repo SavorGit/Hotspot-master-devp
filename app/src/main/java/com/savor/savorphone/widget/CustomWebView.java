@@ -58,7 +58,7 @@ public class CustomWebView extends FrameLayout implements MyWebView.OnScrollBott
         }
         webSettings.setBlockNetworkImage(true);
         mWebView.setOnScrollBottomListener(this);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
     }
 
     /**

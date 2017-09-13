@@ -34,6 +34,7 @@ import com.savor.savorphone.utils.SavorAnimUtil;
 import com.savor.savorphone.utils.SavorCacheUtil;
 import com.savor.savorphone.utils.ShareManager;
 import com.savor.savorphone.widget.ProgressBarView;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.List;
 
@@ -93,6 +94,12 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getData();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(getContext()).onActivityResult(requestCode, resultCode, data);
     }
 
     private void getData() {
@@ -293,6 +300,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
             item.setVideoURL(bean.getVideoURL());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
+            item.setTitle(bean.getTitle());
             if(item!=null) {
                 int type = Integer.valueOf(item.getType());
                 switch (type){

@@ -75,6 +75,7 @@ import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
 import com.savor.savorphone.widget.ProgressBarView;
 import com.savor.savorphone.widget.UpgradeDialog;
+import com.umeng.socialize.UMShareAPI;
 
 import org.apache.commons.io.FileUtils;
 
@@ -270,6 +271,11 @@ public class HotspotMainActivity extends AppCompatActivity
         message.obj = checkcount;
         message.what = CHECK_PLATFORM_URL;
         mHandler.sendMessageDelayed(message,2000);
+    }
+
+    @Override
+    public void bindError() {
+
     }
 
     @Override
@@ -770,6 +776,7 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         if(resultCode == EXTRA_FROM_RECOMMEND) {
             mBackFromInternal = true;
         }else if(resultCode == EXTRA_TV_INFO){

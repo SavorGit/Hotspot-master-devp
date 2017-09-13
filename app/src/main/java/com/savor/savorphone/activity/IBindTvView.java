@@ -41,4 +41,6 @@ public interface IBindTvView extends IBaseView{
     void rotate(RotateProResponse rotateResponse);
 
     void reCheckPlatform();
+    /**绑定失败*/
+    void bindError();
 }

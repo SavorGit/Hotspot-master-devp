@@ -7,6 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -285,7 +287,11 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
         String localSSid = WifiUtil.getWifiName(this);
         if(!TextUtils.isEmpty(ssid)) {
             LogUtils.d(ConstantValues.LOG_CHECKWIFI_PREFIX+" 当前wifi"+localSSid+"，需要连接wifi"+ssid);
-            if(ssid.endsWith(localSSid)) {
+            WifiManager wifiManger = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManger.getConnectionInfo();
+            String localIp = intToIp(wifiInfo.getIpAddress());
+            String ipStr = tvBoxInfo.getBox_ip();
+            if(ssid.endsWith(localSSid)&&!TextUtils.isEmpty(localSSid)&&!localIp.substring(0,localIp.lastIndexOf(".")).equals(ipStr.substring(0, ipStr.lastIndexOf(".")))) {
                 LogUtils.d(ConstantValues.LOG_CHECKWIFI_PREFIX+" 连接到指定wifi，绑定成功取消检测");
                 mSession.setWifiSsid(ssid);
                 mSession.setTvBoxUrl(tvBoxInfo);
@@ -302,6 +308,16 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
         }
     }
 
+    /**
+     * 格式化ip
+     *
+     * @param i
+     * @return
+     */
+    public String intToIp(int i) {
+        return (i & 0xFF) + "." + ((i >> 8) & 0xFF) + "." + ((i >> 16) & 0xFF) + "." + (i >> 24 & 0xFF);
+    }
+
     /**开启检查是否是同一wifi定时器每隔一秒检查一次*/
     private void startCheckWifiLinkedTimer() {
         mHandler.removeMessages(CHECK_WIFI_LINKED);
@@ -311,5 +327,11 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
     @Override
     public void showChangeWifiDialog() {
 
+    }
+
+    @Override
+    public void bindError() {
+        mHandler.removeMessages(CHECK_WIFI_LINKED);
+        mHandler.sendEmptyMessage(CANCEL_CHECK_WIFI);
     }
 }
