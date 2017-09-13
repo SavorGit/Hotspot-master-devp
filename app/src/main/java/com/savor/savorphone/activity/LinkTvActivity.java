@@ -378,7 +378,6 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.relink_la:
             case R.id.relink:
-                isVerify = false;
                 link();
                 break;
             case R.id.num_one:
@@ -423,6 +422,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
 
 
     private void link(){
+        isVerify = false;
         String firstNum = t1.getText().toString();
         String seconNum = t2.getText().toString();
         String thirdNum = t3.getText().toString();
