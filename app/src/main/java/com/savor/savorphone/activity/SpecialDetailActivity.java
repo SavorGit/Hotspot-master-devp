@@ -179,6 +179,7 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
             item.setAcreateTime(bean.getCreateTime());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
+            item.setTitle(bean.getTitle());
             if(item!=null) {
                 int type = Integer.valueOf(item.getType());
                 switch (type){

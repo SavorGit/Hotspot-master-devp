@@ -293,6 +293,7 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
             item.setVideoURL(bean.getVideoURL());
             item.setId(bean.getArtid());
             item.setType(bean.getType());
+            item.setTitle(bean.getTitle());
             if(item!=null) {
                 int type = Integer.valueOf(item.getType());
                 switch (type){
