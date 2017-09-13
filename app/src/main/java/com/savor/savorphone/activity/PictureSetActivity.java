@@ -355,7 +355,6 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
     OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         }
 
         @Override
