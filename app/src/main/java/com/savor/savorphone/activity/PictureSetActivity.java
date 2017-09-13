@@ -281,9 +281,11 @@ public class PictureSetActivity extends BaseActivity implements ApiRequestListen
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
         { // 竖屏
             screenState = 0;
+            headLayout.setBackgroundColor(getResources().getColor(R.color.color_main));
         } else {
             // 横屏
             screenState = 1;
+            headLayout.setBackgroundResource(R.drawable.quanpingmc);
         }
 
         shareManager = ShareManager.getInstance();
