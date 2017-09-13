@@ -122,6 +122,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.HotspotMainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
@@ -194,7 +195,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.HotelMapListActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
