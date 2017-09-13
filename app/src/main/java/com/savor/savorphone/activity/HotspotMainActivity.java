@@ -273,6 +273,11 @@ public class HotspotMainActivity extends AppCompatActivity
     }
 
     @Override
+    public void bindError() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.d(ConstantValues.LOG_PREFIX+"打开首页...");

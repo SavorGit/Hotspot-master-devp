@@ -117,7 +117,6 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onPause() {
         super.onPause();
-        isVerify = false;
         RecordUtils.onPageEndAndPause(this, this);
     }
 
@@ -379,6 +378,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.relink_la:
             case R.id.relink:
+                isVerify = false;
                 link();
                 break;
             case R.id.num_one:
@@ -565,6 +565,14 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
             Intent intent = new Intent();
             setResult(EXTRA_TV_INFO,intent);
             finish();
+    }
+
+    @Override
+    public void bindError() {
+        super.bindError();
+        relink_la.setVisibility(View.VISIBLE);
+        relink.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
+        link_status.setVisibility(View.INVISIBLE);
     }
 
     /**显示修改wifi设置弹窗
