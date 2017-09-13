@@ -35,6 +35,7 @@ import com.savor.savorphone.widget.CommonDialog;
 import com.savor.savorphone.widget.LinkDialog;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -203,6 +204,18 @@ public class SingleImageProActivity extends BaseProActivity implements View.OnCl
         tv_exit = (TextView) findViewById(R.id.tv_right);
         tv_exit.setVisibility(View.VISIBLE);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("list",(ArrayList)picList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        picList = (ArrayList<MediaInfo>) savedInstanceState.getSerializable("list");
     }
 
     @Override

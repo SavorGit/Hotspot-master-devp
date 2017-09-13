@@ -221,16 +221,18 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
 
     private void initHeaderView(SpecialDetail specialDetail) {
         String img_url = specialDetail.getImg_url();
-        Glide.with(mContext)
-                .load(img_url)
-                .placeholder(R.drawable.kong_mrjz)
-                .dontAnimate().into(mSpeicalIv);
+        if(isAdded()) {
+            Glide.with(mContext)
+                    .load(img_url)
+                    .placeholder(R.drawable.kong_mrjz)
+                    .dontAnimate().into(mSpeicalIv);
 
-        String title = specialDetail.getTitle();
-        mSpecialTitleTv.setText(title);
+            String title = specialDetail.getTitle();
+            mSpecialTitleTv.setText(title);
 
-        String desc = specialDetail.getDesc();
-        mSpecialDesTv.setText(desc);
+            String desc = specialDetail.getDesc();
+            mSpecialDesTv.setText(desc);
+        }
     }
 
     private Runnable ptrRunnable = new Runnable() {
