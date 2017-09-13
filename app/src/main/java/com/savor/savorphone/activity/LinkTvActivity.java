@@ -117,6 +117,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onPause() {
         super.onPause();
+        isVerify = false;
         RecordUtils.onPageEndAndPause(this, this);
     }
 
