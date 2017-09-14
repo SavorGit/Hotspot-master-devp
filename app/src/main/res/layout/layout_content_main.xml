@@ -44,7 +44,7 @@
             android:id="@+id/shade_layer"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="30dp"/>
+            android:layout_height="50dp"/>
         <com.gxz.PagerSlidingTabStrip
             android:id="@+id/tabs"
             android:layout_width="wrap_content"

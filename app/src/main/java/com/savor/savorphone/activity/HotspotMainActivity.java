@@ -435,7 +435,7 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void setListeners() {
-//        mShadeLayer.setOnClickListener(this);
+        mShadeLayer.setOnClickListener(this);
         mShareBtn.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);
