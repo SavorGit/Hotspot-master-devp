@@ -77,11 +77,11 @@
             android:src="@drawable/shoucang3x"/>
     </RelativeLayout>
 
-    <View
-        android:id="@+id/line"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:visibility="gone"
-        android:background="#f5f5f5" />
+    <!--<View-->
+        <!--android:id="@+id/line"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="#f5f5f5" />-->
 
 </LinearLayout>
