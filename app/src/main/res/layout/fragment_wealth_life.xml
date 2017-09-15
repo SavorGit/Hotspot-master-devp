@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/tv_refresh_data_hint"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="-37dp"
+        android:layout_marginTop="-38dp"
         android:gravity="center"
         android:textSize="15sp"
         android:text="本次更新29条内容"

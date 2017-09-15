@@ -231,7 +231,15 @@ public class SpecialDetailActivity extends BaseActivity implements ProgressBarVi
     public void onError(AppApi.Action method, Object statusCode) {
         switch (method) {
             case POST_SPECIAL_DETAIL_JSON:
-                mLoadingPb.loadFailure();
+                if (statusCode instanceof ResponseErrorMessage) {
+                    ResponseErrorMessage errorMessage = (ResponseErrorMessage) statusCode;
+                    if (errorMessage.getCode() == 19101) {
+                        mLoadingPb.loadFailure("该内容找不到了~", "", R.drawable.kong_wenzhang);
+                    } else {
+                        mLoadingPb.loadFailure();
+                    }
+                }
+
                 break;
         }
     }

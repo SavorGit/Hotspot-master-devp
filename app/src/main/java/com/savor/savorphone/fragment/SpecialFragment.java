@@ -263,20 +263,29 @@ public class SpecialFragment extends BaseFragment implements View.OnClickListene
             case POST_SPECIAL_DETAIL_JSON:
                 mRefreshListView.onRefreshComplete();
                 SpecialDetail specialDetail = SavorCacheUtil.getInstance().getSpecialDetail(mContext);
-                if(specialDetail == null) {
-                    mLoadingPb.loadFailure();
-                }
+
                 if(isAdded()){
-                    if (statusCode instanceof ResponseErrorMessage){
-                        ResponseErrorMessage errorMessage = (ResponseErrorMessage)statusCode;
-                        String code = String.valueOf(errorMessage.getCode());
-                        if (AppApi.ERROR_TIMEOUT.equals(code)){
-                            showRefreshHintAnimation("数据加载超时");
-                        }else if (AppApi.ERROR_NETWORK_FAILED.equals(code)){
-                            showRefreshHintAnimation("无法连接到网络,请检查网络设置");
+                    if (statusCode instanceof ResponseErrorMessage) {
+                        if (specialDetail == null) {
+                            ResponseErrorMessage errorMessage = (ResponseErrorMessage) statusCode;
+                            if (errorMessage.getCode() == 19101) {
+                                mLoadingPb.loadFailure("该内容找不到了~", "", R.drawable.kong_wenzhang);
+                            } else {
+                                mLoadingPb.loadFailure();
+                            }
+                        }
+
+
+                        if (statusCode instanceof ResponseErrorMessage) {
+                            ResponseErrorMessage errorMessage = (ResponseErrorMessage) statusCode;
+                            String code = String.valueOf(errorMessage.getCode());
+                            if (AppApi.ERROR_TIMEOUT.equals(code)) {
+                                showRefreshHintAnimation("数据加载超时");
+                            } else if (AppApi.ERROR_NETWORK_FAILED.equals(code)) {
+                                showRefreshHintAnimation("无法连接到网络,请检查网络设置");
+                            }
                         }
                     }
-
                 }
                 break;
         }

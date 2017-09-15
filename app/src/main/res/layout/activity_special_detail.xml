@@ -51,13 +51,6 @@
 
         </RelativeLayout>
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="#f5f5f5"
-            android:visibility="gone" />
-
     </LinearLayout>
 
     <include layout="@layout/fragment_special" />

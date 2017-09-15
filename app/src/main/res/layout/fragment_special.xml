@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="-37dp"
+        android:layout_marginTop="-38dp"
         android:background="@color/color_text_refresh_list_hint"
         android:gravity="center"
         android:text="本次更新29条内容"
