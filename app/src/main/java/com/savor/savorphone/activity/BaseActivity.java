@@ -291,7 +291,7 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
             WifiInfo wifiInfo = wifiManger.getConnectionInfo();
             String localIp = intToIp(wifiInfo.getIpAddress());
             String ipStr = tvBoxInfo.getBox_ip();
-            if(ssid.endsWith(localSSid)&&!TextUtils.isEmpty(localSSid)&&!localIp.substring(0,localIp.lastIndexOf(".")).equals(ipStr.substring(0, ipStr.lastIndexOf(".")))) {
+            if(ssid.endsWith(localSSid)&&!TextUtils.isEmpty(localSSid)&&localIp.substring(0,localIp.lastIndexOf(".")).equals(ipStr.substring(0, ipStr.lastIndexOf(".")))) {
                 LogUtils.d(ConstantValues.LOG_CHECKWIFI_PREFIX+" 连接到指定wifi，绑定成功取消检测");
                 mSession.setWifiSsid(ssid);
                 mSession.setTvBoxUrl(tvBoxInfo);
