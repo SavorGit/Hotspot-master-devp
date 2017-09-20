@@ -55,6 +55,7 @@
             android:layout_gravity="center_horizontal"
             android:textColor="#737373"
             android:textSize="15sp"
+            app:pstsTextAllCaps="false"
             app:customTabLayout="@layout/layout_custom_tab"
             app:pstsDividerColor="@android:color/transparent"
             app:pstsDividerPaddingTopBottom="0dp"
