@@ -156,8 +156,19 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
                 mCurrentState = STATE_UNLINK_TV;
             }
         }else {
+            updateHint();
+        }
+    }
+
+    public void updateHint() {
+        if(mSession.getHotelid()>0) {
             mHintTv.setText("您已进入酒楼，快来体验用电视看手机");
+            mLinkTv.setVisibility(View.VISIBLE);
             mLinkTv.setText("连接电视");
+            mCurrentState = STATE_LINK_TV;
+        }else {
+            mHintTv.setText("请连接酒楼包间wifi，即可体验大屏看手机");
+            mLinkTv.setVisibility(View.INVISIBLE);
             mCurrentState = STATE_LINK_TV;
         }
     }

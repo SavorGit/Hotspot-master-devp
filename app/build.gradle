@@ -16,6 +16,7 @@ android {
         versionName "3.0.2"
 
         multiDexEnabled true
+        flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]
         ndk {
             abiFilters 'armeabi', 'x86', 'mips'
@@ -109,7 +110,7 @@ android {
         jumboMode = false
 //        javaMaxHeapSize "4g"
     }
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     sourceSets {
         main {

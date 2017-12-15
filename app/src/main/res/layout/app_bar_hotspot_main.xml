@@ -53,12 +53,12 @@
         <!---->
     <!--</RelativeLayout>-->
 
+    <!--<include-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/shade"-->
+        <!--layout="@layout/layout_content_shade" />-->
     <include
         android:visibility="visible"
-        android:id="@+id/shade"
-        layout="@layout/layout_content_shade" />
-    <include
-        android:visibility="invisible"
         android:id="@+id/include"
         layout="@layout/layout_content_main" />
 

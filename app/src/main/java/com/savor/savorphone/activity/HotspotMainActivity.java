@@ -245,12 +245,12 @@ public class HotspotMainActivity extends AppCompatActivity
     private int prePosition;
     private ViewPager mShadeViewPager;
     private PagerSlidingTabStrip mShadeTabContainer;
-    private RelativeLayout mShadeLayout;
-    private CategoryPagerAdapter mShadePagerAdapter;
-    private RelativeLayout mContentLayout;
-    private View mShadeLayer;
-    private ImageView mShareBtn;
-    private SpecialFragment mSpecialFragment;
+//    private RelativeLayout mShadeLayout;
+//    private CategoryPagerAdapter mShadePagerAdapter;
+//    private RelativeLayout mContentLayout;
+//    private View mShadeLayer;
+//    private ImageView mShareBtn;
+//    private SpecialFragment mSpecialFragment;
 
     /**
      * 退出背景投屏更新提示语
@@ -350,10 +350,10 @@ public class HotspotMainActivity extends AppCompatActivity
 
     @Override
     public void getViews() {
-        mShadeLayer = findViewById(R.id.shade_layer);
-        mContentLayout = (RelativeLayout) findViewById(R.id.include);
+//        mShadeLayer = findViewById(R.id.shade_layer);
+//        mContentLayout = (RelativeLayout) findViewById(R.id.include);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mShareBtn = (ImageView) mToolBar.findViewById(R.id.iv_share);
+//        mShareBtn = (ImageView) mToolBar.findViewById(R.id.iv_share);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -374,7 +374,7 @@ public class HotspotMainActivity extends AppCompatActivity
         mParentLayout = (CoordinatorLayout) findViewById(R.id.parent_layout);
         mCategoryNameLabel = (TextView) findViewById(R.id.tv_category_name);
 
-        mShadeLayout = (RelativeLayout) findViewById(R.id.shade);
+//        mShadeLayout = (RelativeLayout) findViewById(R.id.shade);
         mShadeViewPager = (ViewPager) findViewById(R.id.pager_shade);
         mShadeTabContainer = (PagerSlidingTabStrip) findViewById(R.id.tabs_shade);
     }
@@ -395,48 +395,51 @@ public class HotspotMainActivity extends AppCompatActivity
         mFragmentList = new ArrayList<>();
         mTitleList = new ArrayList<>();
 
+//        mShadeLayout.setVisibility(View.GONE);
+//        mShadeLayout.removeAllViews();
+
         initIndicator();
     }
 
     private void initIndicator() {
         mProjectionFragment = ProjectionFragment.newInstance();
-        mSpecialFragment = SpecialFragment.newInstance();
+//        mSpecialFragment = SpecialFragment.newInstance();
         mTitleList.add("投屏");
-        mTitleList.add("创富");
         mTitleList.add("生活");
-        mTitleList.add("专题");
+        mTitleList.add("创富");
+//        mTitleList.add("专题");
         mFragmentList.add(mProjectionFragment);
-        mFragmentList.add(WealthLifeFragment.getInstance(101));
         mFragmentList.add(WealthLifeFragment.getInstance(102));
-        mFragmentList.add(mSpecialFragment);
+        mFragmentList.add(WealthLifeFragment.getInstance(101));
+//        mFragmentList.add(mSpecialFragment);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("title", "专题");
+//        Bundle bundle = new Bundle();
+//        bundle.putString("title", "专题");
         mPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
         mPagerAdapter.setData(mFragmentList,mTitleList);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(3);
 
-        List<Fragment> fragmentList = new ArrayList<>();
-        List<String> titleList = new ArrayList<>();
-        titleList.add("创富");
-        titleList.add("生活");
-        titleList.add("专题");
-        fragmentList.add(WealthLifeFragment.getInstance(101));
-        fragmentList.add(WealthLifeFragment.getInstance(102));
-        fragmentList.add(SpecialFragment.newInstance());
-        mShadePagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
-        mShadePagerAdapter.setData(fragmentList,titleList);
-        mShadeViewPager.setAdapter(mShadePagerAdapter);
-        mShadeTabContainer.setViewPager(mShadeViewPager);
-        mShadeViewPager.setOffscreenPageLimit(0);
+//        List<Fragment> fragmentList = new ArrayList<>();
+//        List<String> titleList = new ArrayList<>();
+//        titleList.add("投屏");
+//        titleList.add("生活");
+//        titleList.add("创富");
+//        fragmentList.add(mProjectionFragment);
+//        fragmentList.add(WealthLifeFragment.getInstance(102));
+//        fragmentList.add(WealthLifeFragment.getInstance(101));
+//        mShadePagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
+//        mShadePagerAdapter.setData(fragmentList,titleList);
+//        mShadeViewPager.setAdapter(mShadePagerAdapter);
+//        mShadeTabContainer.setViewPager(mShadeViewPager);
+//        mShadeViewPager.setOffscreenPageLimit(0);
     }
 
     @Override
     public void setListeners() {
-        mShadeLayer.setOnClickListener(this);
-        mShareBtn.setOnClickListener(this);
+//        mShadeLayer.setOnClickListener(this);
+//        mShareBtn.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
         mCollectionLayout.setOnClickListener(this);
         mFeedbackLayout.setOnClickListener(this);
@@ -483,11 +486,11 @@ public class HotspotMainActivity extends AppCompatActivity
                 }
 
                 Fragment fragment = mFragmentList.get(position);
-                if(fragment instanceof SpecialFragment) {
-                    mShareBtn.setVisibility(View.VISIBLE);
-                }else {
-                    mShareBtn.setVisibility(View.GONE);
-                }
+//                if(fragment instanceof SpecialFragment) {
+//                    mShareBtn.setVisibility(View.VISIBLE);
+//                }else {
+//                    mShareBtn.setVisibility(View.GONE);
+//                }
             }
 
             @Override
@@ -588,7 +591,7 @@ public class HotspotMainActivity extends AppCompatActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_share:
-                mSpecialFragment.share();
+//                mSpecialFragment.share();
                 break;
             case R.id.iv_menu:
                 closeDrawerLayout();
@@ -650,38 +653,44 @@ public class HotspotMainActivity extends AppCompatActivity
     @Override
     public void showProjection(boolean isLinked) {
         LogUtils.d("savor:hotel 当前为酒店环境");
-        mContentLayout.setVisibility(View.VISIBLE);
-        mShadeLayout.setVisibility(View.GONE);
-        mShadeLayout.removeAllViews();
-        if(!mTitleList.contains("投屏")) {
-            RecordUtils.onEvent(getApplicationContext(),R.string.home_find_tv);
-            mPagerAdapter.addPager(mProjectionFragment,"投屏",0);
-            mViewPager.setCurrentItem(0);
-            mViewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mTabLayout.refresh();
-                }
-            },100);
+        if(mProjectionFragment!=null) {
+            mProjectionFragment.updateHint();
         }
+//        mContentLayout.setVisibility(View.VISIBLE);
+//        mShadeLayout.setVisibility(View.GONE);
+//        mShadeLayout.removeAllViews();
+//        if(!mTitleList.contains("投屏")) {
+//            RecordUtils.onEvent(getApplicationContext(),R.string.home_find_tv);
+//            mPagerAdapter.addPager(mProjectionFragment,"投屏",0);
+//            mViewPager.setCurrentItem(0);
+//            mViewPager.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mTabLayout.refresh();
+//                }
+//            },100);
+//        }
     }
 
     @Override
     public void hideProjection() {
         // 切换到非酒店环境 1.隐藏绑定按钮 2.隐藏点播列表
         LogUtils.d("savor:hotel 切换为非酒店环境");
-        mContentLayout.setVisibility(View.VISIBLE);
-        mShadeLayout.setVisibility(View.GONE);
-        mShadeLayout.removeAllViews();
-        if(mTitleList.contains("投屏")) {
-            mPagerAdapter.removePager(mProjectionFragment,"投屏");
-            mTabLayout.refresh();
-            if(prePosition>0) {
-                mViewPager.setCurrentItem(prePosition-1);
-            }else{
-                mViewPager.setCurrentItem(0);
-            }
+        if(mProjectionFragment!=null) {
+            mProjectionFragment.updateHint();
         }
+//        mContentLayout.setVisibility(View.VISIBLE);
+//        mShadeLayout.setVisibility(View.GONE);
+//        mShadeLayout.removeAllViews();
+//        if(mTitleList.contains("投屏")) {
+//            mPagerAdapter.removePager(mProjectionFragment,"投屏");
+//            mTabLayout.refresh();
+//            if(prePosition>0) {
+//                mViewPager.setCurrentItem(prePosition-1);
+//            }else{
+//                mViewPager.setCurrentItem(0);
+//            }
+//        }
     }
 
     @Override

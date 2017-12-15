@@ -36,6 +36,7 @@ public class BaseProActivity extends BaseActivity {
         }
     };
     private LocalJettyService jettyService;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,14 @@ public class BaseProActivity extends BaseActivity {
     }
 
     private void bindJettyService() {
-        Intent intent = new Intent(this, LocalJettyService.class);
+        intent = new Intent(this, LocalJettyService.class);
         bindService(intent,connection, Context.BIND_AUTO_CREATE);
     }
 
     private void unbindJettyService() {
         if(connection!=null) {
             unbindService(connection);
+            stopService(intent);
         }
     }
 
@@ -68,6 +70,8 @@ public class BaseProActivity extends BaseActivity {
     public void setListeners() {
 
     }
+
+
 
     @Override
     protected void onDestroy() {
