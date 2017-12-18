@@ -332,7 +332,7 @@ public class HotspotMainActivity extends AppCompatActivity
     }
 
     private void getData() {
-        AppApi.getSpecialName(this,this);
+//        AppApi.getSpecialName(this,this);
 //        boolean hasCacheData = isHasCacheData();
 //        if(hasCacheData) {
 //            initCategoryCache();
