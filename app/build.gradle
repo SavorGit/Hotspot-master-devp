@@ -12,7 +12,7 @@ android {
         applicationId "com.savor.savorphone"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 2017091501
+        versionCode 2017121801
         versionName "3.0.3"
 
         multiDexEnabled true
