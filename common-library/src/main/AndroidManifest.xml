@@ -8,14 +8,14 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="15" />
     
-         <activity android:name="com.common.api.widget.shareWidget.ShareToSina"/>
-         <activity android:name="com.common.api.widget.shareWidget.ShareToTenXunWeibo"/>
-         <activity android:name="com.common.api.widget.shareWidget.ShareToWeiXin"/>
-         <activity android:name="com.common.api.widget.shareWidget.ShareEditActivity"/>
-         <activity android:name="com.common.api.widget.shareWidget.ShareConfigActivity"/>
-         
-         <activity android:name="com.tencent.weibo.sdk.android.component.Authorize" 
-             	   android:theme="@android:style/Theme.NoTitleBar"/>
+         <!--<activity android:name="com.common.api.widget.shareWidget.ShareToSina"/>-->
+         <!--<activity android:name="com.common.api.widget.shareWidget.ShareToTenXunWeibo"/>-->
+         <!--<activity android:name="com.common.api.widget.shareWidget.ShareToWeiXin"/>-->
+         <!--<activity android:name="com.common.api.widget.shareWidget.ShareEditActivity"/>-->
+         <!--<activity android:name="com.common.api.widget.shareWidget.ShareConfigActivity"/>-->
+         <!---->
+         <!--<activity android:name="com.tencent.weibo.sdk.android.component.Authorize" -->
+             	   <!--android:theme="@android:style/Theme.NoTitleBar"/>-->
 
 </manifest>
  

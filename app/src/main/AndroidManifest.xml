@@ -63,7 +63,7 @@
 
         <meta-data
             android:name="app_debug"
-            android:value="0" />
+            android:value="1" />
         <!-- 百度定位开始 -->
         <service
             android:name="com.baidu.location.f"
@@ -346,7 +346,14 @@
             android:name=".activity.SpecialListActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.SpecialDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+
+        <receiver android:name=".receiver.JettyServiceDestroyReceiver">
+            <intent-filter>
+                <action android:name="com.savor.savorphone.jetty"/>
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>

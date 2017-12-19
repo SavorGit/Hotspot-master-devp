@@ -12,10 +12,11 @@ android {
         applicationId "com.savor.savorphone"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 2017091501
-        versionName "3.0.2"
+        versionCode 2017121801
+        versionName "3.0.3"
 
         multiDexEnabled true
+        flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]
         ndk {
             abiFilters 'armeabi', 'x86', 'mips'
@@ -109,7 +110,7 @@ android {
         jumboMode = false
 //        javaMaxHeapSize "4g"
     }
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     sourceSets {
         main {

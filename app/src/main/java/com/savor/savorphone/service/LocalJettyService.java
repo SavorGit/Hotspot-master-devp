@@ -47,6 +47,7 @@ public class LocalJettyService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		LogUtils.d("LocalJettyService：onStartCommand()");
+		flags = START_STICKY;
 		startJetty();
 		return super.onStartCommand(intent, flags, startId);
 	}
