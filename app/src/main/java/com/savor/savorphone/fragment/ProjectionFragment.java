@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.LogUtils;
 import com.savor.savorphone.R;
 import com.savor.savorphone.activity.HotspotMainActivity;
 import com.savor.savorphone.activity.LinkTvActivity;
@@ -126,8 +127,54 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
     }
 
     public void initLinkStatus() {
+        LogUtils.d("savor:hotel initLinkStatus");
         if(mSession == null)
             return;
+        boolean bindTv = mSession.isBindTv();
+        if(bindTv) {
+            LogUtils.d("savor:hotel 已绑定");
+            Class projectionActivity = ProjectionManager.getInstance().getProjectionActivity();
+            if(projectionActivity!=null) {
+                String hint = "";
+                if(projectionActivity == LocalVideoProAcitvity.class) {
+                    hint = "本地视频";
+                    mHintTv.setText("正在投屏"+hint+"，点击进入>>");
+                }else if(projectionActivity == SlidesActivity.class
+                        || projectionActivity == SingleImageProActivity.class) {
+                    hint = "图片";
+                    mHintTv.setText("正在投屏"+hint+"，点击进入>>");
+                }else if(projectionActivity == PdfPreviewActivity.class) {
+                    hint = "文件";
+                    mHintTv.setText("正在投屏"+hint+"，点击进入>>");
+                }else if(projectionActivity == VideoPlayVODInHotelActivity.class) {
+                    hint = "视频";
+                    mHintTv.setText("正在点播"+hint+"，点击进入>>");
+                }
+
+                mLinkTv.setText("退出投屏");
+                mCurrentState = STATE_EXIT_PRO;
+            }else {
+                mHintTv.setText("已连接--"+mSession.getSsid()+"的电视");
+                mLinkTv.setText("断开连接");
+                mCurrentState = STATE_UNLINK_TV;
+            }
+        }else {
+            LogUtils.d("savor:hotel 未绑定");
+            if(mSession.getHotelid()>0) {
+                mHintTv.setText("您已进入酒楼，快来体验用电视看手机");
+                mLinkTv.setVisibility(View.VISIBLE);
+                mLinkTv.setText("连接电视");
+                mCurrentState = STATE_LINK_TV;
+            }else {
+                mHintTv.setText("请连接酒楼包间wifi，即可体验大屏看手机");
+                mLinkTv.setVisibility(View.INVISIBLE);
+                mCurrentState = STATE_LINK_TV;
+            }
+        }
+    }
+
+    public void updateHint() {
+        LogUtils.d("savor:hotel updateHint hotelid = "+mSession.getHotelid());
         boolean bindTv = mSession.isBindTv();
         if(bindTv) {
             Class projectionActivity = ProjectionManager.getInstance().getProjectionActivity();
@@ -156,21 +203,18 @@ public class ProjectionFragment extends BaseFragment implements View.OnClickList
                 mCurrentState = STATE_UNLINK_TV;
             }
         }else {
-            updateHint();
+            if(mSession.getHotelid()>0) {
+                mHintTv.setText("您已进入酒楼，快来体验用电视看手机");
+                mLinkTv.setVisibility(View.VISIBLE);
+                mLinkTv.setText("连接电视");
+                mCurrentState = STATE_LINK_TV;
+            }else {
+                mHintTv.setText("请连接酒楼包间wifi，即可体验大屏看手机");
+                mLinkTv.setVisibility(View.INVISIBLE);
+                mCurrentState = STATE_LINK_TV;
+            }
         }
-    }
 
-    public void updateHint() {
-        if(mSession.getHotelid()>0) {
-            mHintTv.setText("您已进入酒楼，快来体验用电视看手机");
-            mLinkTv.setVisibility(View.VISIBLE);
-            mLinkTv.setText("连接电视");
-            mCurrentState = STATE_LINK_TV;
-        }else {
-            mHintTv.setText("请连接酒楼包间wifi，即可体验大屏看手机");
-            mLinkTv.setVisibility(View.INVISIBLE);
-            mCurrentState = STATE_LINK_TV;
-        }
     }
 
     /**

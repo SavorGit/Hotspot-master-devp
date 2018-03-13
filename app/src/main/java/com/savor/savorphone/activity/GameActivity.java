@@ -91,7 +91,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
     private Context context;
     private TextView tv_center;
     private ImageView iv_left;
-    private View line;
+//    private View line;
     private RelativeLayout shake_la;//摇一摇浮层
     private ImageView hammer;//锤子
     private ImageView close_shake_la;
@@ -456,7 +456,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
         mThirdEggIv = (ImageView) findViewById(R.id.iv_egg_third);
         time_la = (RelativeLayout) findViewById(R.id.time_la);
         time = (TextView) findViewById(R.id.time);
-        line = (View) findViewById(R.id.line);
+//        line = (View) findViewById(R.id.line);
         shake_la = (RelativeLayout) findViewById(R.id.shake_la);
         hammer = (ImageView) findViewById(R.id.hammer);
         close_shake_la = (ImageView) findViewById(R.id.close_shake_la);
@@ -474,7 +474,7 @@ public class GameActivity extends BaseActivity implements View.OnClickListener,A
     @Override
     public void setViews() {
         tv_center.setText("砸蛋游戏");
-        line.setVisibility(View.GONE);
+//        line.setVisibility(View.GONE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         int lottoryNum = LotteryFileUtil.getInstance().getLottoryNum();

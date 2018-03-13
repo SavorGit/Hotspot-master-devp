@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -94,6 +95,8 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
         }
     };
     private CommonDialog mChangeWifiDiallog;
+    /**是否有三位数字校验时请求成功但ssid为空情况*/
+    private boolean isHasSSidEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,6 +269,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
+
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
@@ -278,19 +282,38 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                 hashMap.put(getString(R.string.link_tv_input_num),"success");
                 RecordUtils.onEvent(this,getString(R.string.link_tv_input_num),hashMap);
 
-                if(obj instanceof TvBoxInfo) {
-                    if(!isVerify) {
-                        dismissLinkDialog();
-                        isVerify = true;
-                        link_status.setVisibility(View.INVISIBLE);
-                        relink_la.setVisibility(View.INVISIBLE);
-                        TvBoxInfo info = (TvBoxInfo) obj;
-                        mBindTvPresenter.handleBindCodeResult(info);
-                    }
-                }
-
+                handleCodeVerify(obj);
+                break;
             case GET_CALL_CODE_BY_BOXIP_JSON:
                 break;
+        }
+    }
+
+    private void handleCodeVerify(Object obj) {
+        if(obj instanceof TvBoxInfo) {
+            if(!isVerify) {
+                TvBoxInfo info = (TvBoxInfo) obj;
+                String ssid = info.getSsid();
+                if(TextUtils.isEmpty(ssid)) {
+                    isHasSSidEmpty = true;
+                    verifyCodeErrorCount++;
+                    if(verifyCodeErrorCount==errorMax) {
+                        link_status.setVisibility(View.VISIBLE);
+                        link_status.setText(erroMsg);
+                        relink_la.setVisibility(View.INVISIBLE);
+                        showChangeWifiDialog();
+                    }
+                    return;
+                }
+
+
+                dismissLinkDialog();
+                isVerify = true;
+                link_status.setVisibility(View.INVISIBLE);
+                relink_la.setVisibility(View.INVISIBLE);
+
+                mBindTvPresenter.handleBindCodeResult(info);
+            }
         }
     }
 
@@ -343,17 +366,20 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
                 }
                 verifyCodeErrorCount++;
                 if(verifyCodeErrorCount==errorMax) {
-
-                    if ("绑定失败".equals(erroMsg)) {
-                        relink_la.setVisibility(View.VISIBLE);
-                        link_status.setVisibility(View.INVISIBLE);
-                        relink.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
+                    if(isHasSSidEmpty) {
+                        showChangeWifiDialog();
                     }else {
-                        link_status.setVisibility(View.VISIBLE);
-                        link_status.setText(erroMsg);
-                        relink_la.setVisibility(View.INVISIBLE);
+                        if ("绑定失败".equals(erroMsg)) {
+                            relink_la.setVisibility(View.VISIBLE);
+                            link_status.setVisibility(View.INVISIBLE);
+                            relink.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
+                        }else {
+                            link_status.setVisibility(View.VISIBLE);
+                            link_status.setText(erroMsg);
+                            relink_la.setVisibility(View.INVISIBLE);
+                        }
+                        ShowMessage.showToast(LinkTvActivity.this,erroMsg);
                     }
-                    ShowMessage.showToast(LinkTvActivity.this,erroMsg);
 
                 }
                 break;
@@ -422,6 +448,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
 
 
     private void link(){
+        isHasSSidEmpty = false;
         isVerify = false;
         String firstNum = t1.getText().toString();
         String seconNum = t2.getText().toString();
@@ -593,6 +620,7 @@ public class LinkTvActivity extends BaseActivity implements View.OnClickListener
         }, new CommonDialog.OnCancelListener() {
             @Override
             public void onCancel() {
+                dismissLinkDialog();
                 isVerify = false;
             }
         },"去设置");
