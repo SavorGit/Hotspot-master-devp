@@ -248,7 +248,10 @@ public class SSDPService extends IntentService {
             closeSocketReceive();
         }
 
-        multicastLock.release();
+        try {
+            multicastLock.release();
+        }catch (Exception e){}
+
     }
 
     private void closeSocketReceive() {
@@ -296,6 +299,9 @@ public class SSDPService extends IntentService {
     @Override
     public void onDestroy() {
         LogUtils.d("savor:ssdp onDestroy关闭ssdp服务");
+        try {
+            multicastLock.release();
+        }catch (Exception e){}
 //        isLooping = false;
 //        if(multicastLock!=null) {
 //            multicastLock.release();

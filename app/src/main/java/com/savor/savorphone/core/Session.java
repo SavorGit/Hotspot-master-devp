@@ -369,6 +369,7 @@ public class Session implements Serializable{
         this.isApkDownloading = isApkDownloading;
     }
     public void resetPlatform() {
+        LogUtils.d("savor:hotel resetPlatform");
         mTVBoxUrl = null;
     }
     public void setTVBoxUrl(String tvBoxUrl) {

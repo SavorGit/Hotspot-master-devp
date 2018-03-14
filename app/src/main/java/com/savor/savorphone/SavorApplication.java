@@ -8,7 +8,6 @@ import android.text.TextUtils;
 
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
-import com.fm.openinstall.OpenInstall;
 import com.google.gson.Gson;
 import com.savor.savorphone.activity.HotspotMainActivity;
 import com.savor.savorphone.activity.ImageTextActivity;
@@ -27,7 +26,6 @@ import com.umeng.message.PushAgent;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
-import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
@@ -82,9 +80,9 @@ public class SavorApplication extends MultiDexApplication {
 //        Config.DEBUG = true;
         UMShareAPI.get(this);
         initCacheFile(this);
-        OpenInstall.init(this);
-        //打开调试，便于看到Log
-        OpenInstall.setDebug(false);
+//        OpenInstall.init(this);
+//        //打开调试，便于看到Log
+//        OpenInstall.setDebug(false);
 
         initUmengPush();
     }

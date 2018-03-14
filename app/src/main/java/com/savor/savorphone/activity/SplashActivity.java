@@ -25,10 +25,6 @@ import com.common.api.bitmap.BitmapCommonUtils;
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.FileUtils;
 import com.common.api.utils.LogUtils;
-import com.fm.openinstall.OpenInstall;
-import com.fm.openinstall.listener.AppInstallListener;
-import com.fm.openinstall.model.AppData;
-import com.fm.openinstall.model.Error;
 import com.savor.savorphone.R;
 import com.savor.savorphone.SavorApplication;
 import com.savor.savorphone.bean.AliLogBean;
@@ -39,11 +35,11 @@ import com.savor.savorphone.bean.TvBoxSSDPInfo;
 import com.savor.savorphone.core.AppApi;
 import com.savor.savorphone.core.Session;
 import com.savor.savorphone.location.LocationService;
+import com.savor.savorphone.log.AliLogFileUtil;
 import com.savor.savorphone.service.LocalJettyService;
 import com.savor.savorphone.service.SSDPService;
 import com.savor.savorphone.service.UpLoadLogService;
 import com.savor.savorphone.service.UploadFirstUseService;
-import com.savor.savorphone.log.AliLogFileUtil;
 import com.savor.savorphone.utils.ConstantValues;
 import com.savor.savorphone.utils.ImageCacheUtils;
 import com.savor.savorphone.utils.RecordUtils;
@@ -144,21 +140,21 @@ public class SplashActivity extends BaseActivity {
         getSmallPlatformUrl();
 		uploadLogFile();
         reUploadWaiterData();
-        OpenInstall.getInstall(new AppInstallListener() {
-            @Override
-            public void onInstallFinish(AppData appData, Error error) {
-                if (error == null) {
-                    //获取渠道数据
-                    Log.d("SplashActivity", "channel = " + appData.getChannel());
-                    //获取个性化安装数据
-                    Log.d("SplashActivity", "install = " + appData.getData());
-                    waiterData = appData.getData();
-                    postWaiterToServer(waiterData);
-                } else {
-                    Log.d("SplashActivity", "error : "+error.toString());
-                }
-            }
-        });
+//        OpenInstall.getInstall(new AppInstallListener() {
+//            @Override
+//            public void onInstallFinish(AppData appData, Error error) {
+//                if (error == null) {
+//                    //获取渠道数据
+//                    Log.d("SplashActivity", "channel = " + appData.getChannel());
+//                    //获取个性化安装数据
+//                    Log.d("SplashActivity", "install = " + appData.getData());
+//                    waiterData = appData.getData();
+//                    postWaiterToServer(waiterData);
+//                } else {
+//                    Log.d("SplashActivity", "error : "+error.toString());
+//                }
+//            }
+//        });
 
         startLocation();
         stopFirstUserServiceDelayed();
