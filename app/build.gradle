@@ -135,25 +135,25 @@ android {
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':common-library')
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':common-library')
     //    compile 'com.android.support:multidex:1.0.0'
     //    compile 'com.bugtags.library:bugtags-lib:latest.integration'
-    compile project(':wkvideoplayer')
-    compile project(':video-compress-library')
-    compile project(':umeng-share-lib')
-    compile project(':pager-indicator-lib')
-    compile project(':Pushlib')
-    compile project(':sector-menu-lib')
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    compile 'com.android.support:multidex:1.0.0'
-    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
-    compile 'jp.wasabeef:glide-transformations:2.0.2'
-    compile 'com.github.barteksc:android-pdf-viewer:2.7.0-beta.1'
+    api project(':wkvideoplayer')
+    api project(':video-compress-library')
+    api project(':umeng-share-lib')
+    api project(':pager-indicator-lib')
+    api project(':Pushlib')
+    api project(':sector-menu-lib')
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    implementation 'com.android.support:support-v4:24.2.1'
+    implementation 'com.android.support:design:24.2.1'
+    implementation 'com.android.support:appcompat-v7:25.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    implementation 'com.android.support:multidex:1.0.0'
+    implementation 'com.android.support:cardview-v7:26.0.0-alpha1'
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.7.0-beta.1'
 }
